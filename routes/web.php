@@ -15,25 +15,32 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
+
 Route::get('/product', function () {
     return view('product');
-});
+})->name('product');
+
 Route::get('/cart', function () {
     return view('cart');
-});
+})->name('cart');
+
 Route::get('/checkout', function () {
     return view('checkout');
-});
+})->name('checkout');
+
 Route::get('/contact', function () {
     return view('contact');
-});
+})->name('contact');
+
 Route::get('/catalogue', function () {
     return view('catalogue');
-});
+})->name('catalogue');
+
 Route::get('/blog-details', function () {
     return view('blog-details');
-});
+})->name('blog-details');
+
 Route::get('/blog', function () {
     return view('blog');
-});
+})->name('blog');
