@@ -16,7 +16,6 @@
                         @foreach($recCategories as $recCategory)
                             <li data-filter=".{{ $recCategory->getCode() }}">{{ $recCategory->getName() }}</li>
                         @endforeach
-
                     </ul>
                 </div>
             </div>

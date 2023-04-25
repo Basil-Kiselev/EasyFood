@@ -2,7 +2,6 @@
 /** @var \App\Models\Category[] $categories */
 $categories = !empty($categories) ? $categories : [];
 @endphp
-
 <!-- Hero Section Begin -->
 <section class="hero">
     <div class="container">
@@ -15,7 +14,7 @@ $categories = !empty($categories) ? $categories : [];
                     </div>
                     <ul>
                         @foreach($categories as $category)
-                            <li><a href="{{ route('catalogue', ['category' => $category->getCode()]) }}">{{ $category->getName() }}</li>
+                            <li><a href="{{ route('catalogue', ['category' => $category->getCode()]) }}">{{ $category->getName() }}</a></li>
                         @endforeach
                     </ul>
                 </div>
@@ -23,13 +22,9 @@ $categories = !empty($categories) ? $categories : [];
             <div class="col-lg-9">
                 <div class="hero__search">
                     <div class="hero__search__form">
-                        <form action="#">
-                            <div class="hero__search__categories">
-                                All Categories
-                                <span class="arrow_carrot-down"></span>
-                            </div>
-                            <input type="text" placeholder="What do yo u need?">
-                            <button type="submit" class="site-btn">SEARCH</button>
+                        <form method="GET" action="{{ route('search') }}">
+                            <input type="text" placeholder="Что хотите найти?" name="q">
+                            <button type="submit" class="site-btn">Поиск</button>
                         </form>
                     </div>
                     <div class="hero__search__phone">
@@ -40,14 +35,6 @@ $categories = !empty($categories) ? $categories : [];
                             <h5>+65 11.188.888</h5>
                             <span>support 24/7 time</span>
                         </div>
-                    </div>
-                </div>
-                <div class="hero__item set-bg" data-setbg="img/hero/banner.jpg">
-                    <div class="hero__text">
-                        <span>FRUIT FRESH</span>
-                        <h2>Vegetable <br />100% Organic</h2>
-                        <p>Free Pickup and Delivery Available</p>
-                        <a href="#" class="primary-btn">SHOP NOW</a>
                     </div>
                 </div>
             </div>
