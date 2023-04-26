@@ -2,7 +2,7 @@
 <footer class="footer spad">
     <div class="container">
         <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="footer__about">
                     <div class="footer__about__logo">
                         <a href="./index.html"><img src="img/logo2.png" alt=""></a>
@@ -11,6 +11,20 @@
                         <li>Адрес: {{ $address }}</li>
                         <li>Телефон: {{ $phone }}</li>
                         <li>Почта: {{ $email }}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+                <div class="footer__widget">
+                    <h6>Полезные ссылки</h6>
+                    <ul>
+                        <li><a href="{{ route ('home') }}">Главная</a></li>
+                        <li><a href="{{ route ('catalogue') }}">Каталог</a></li>
+                        <li><a href="{{ route('contact') }}">Контакты</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="{{ route('cart') }}">Корзина</a></li>
+                        <li><a href="{{ route('blog') }}">Блог</a></li>
                     </ul>
                 </div>
             </div>
