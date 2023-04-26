@@ -3,18 +3,18 @@
 namespace App\View\Composers;
 
 use App\Models\Setting;
+use App\Services\CategoryService;
 use App\Services\SettingService;
-use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
-class ContactsComposer
+class HeroComposer
 {
     public function compose(View $view): void
     {
+        $categoryService = new CategoryService();
         $settingService = new SettingService();
         $view
             ->with('phone', $settingService->getSettingByCode(Setting::CODE_PHONE))
-            ->with('address', $settingService->getSettingByCode(Setting::CODE_ADDRESS))
-            ->with('email', $settingService->getSettingByCode(Setting::CODE_EMAIL));
+            ->with('categories', $categoryService->getCategories());
     }
 }

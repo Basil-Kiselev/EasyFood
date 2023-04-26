@@ -32,8 +32,8 @@ $categories = !empty($categories) ? $categories : [];
                             <i class="fa fa-phone"></i>
                         </div>
                         <div class="hero__search__phone__text">
-                            <h5>+65 11.188.888</h5>
-                            <span>support 24/7 time</span>
+                            <h5>{{ $phone }}</h5>
+                            <span>Звонок оператору</span>
                         </div>
                     </div>
                 </div>
