@@ -1,9 +1,6 @@
 @extends('index')
 @section('content')
     @include('blocks.hero')
-    @include('blocks.categories')
     @include('blocks.featured')
-    @include('blocks.banner')
-    @include('blocks.latest-product')
     @include('blocks.blog')
 @endsection

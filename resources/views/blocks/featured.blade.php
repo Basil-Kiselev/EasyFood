@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">
-                    <h2>Рекомендуемые товары</h2>
+                    <h3>Рекомендуемые товары</h3>
                 </div>
                 <div class="featured__controls">
                     <ul>
