@@ -56,7 +56,14 @@ class SettingSeeder extends Seeder
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
-
+            [
+                'type' => 'system',
+                'code' => 'free_delivery_value',
+                'value' => '8000',
+                'name' => 'сумма бесплатной доставки',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
         ];
 
         DB::table('settings')->insert($contactsData);

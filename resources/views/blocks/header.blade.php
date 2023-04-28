@@ -2,7 +2,7 @@
 <div class="humberger__menu__overlay"></div>
 <div class="humberger__menu__wrapper">
     <div class="humberger__menu__logo">
-        <a href="#"><img src="img/logo2.png" alt=""></a>
+        <a href="{{ route('home') }}"><img src="img/logo2.png" alt=""></a>
     </div>
     <div class="humberger__menu__cart">
         @include('blocks.header.cart')
@@ -42,7 +42,7 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="header__logo">
-                    <a href="./index.html"><img src="img/logo2.png" alt=""></a>
+                    <a href="{{ route('home') }}"><img src="img/logo2.png" alt=""></a>
                 </div>
             </div>
             <div class="col-lg-6">
