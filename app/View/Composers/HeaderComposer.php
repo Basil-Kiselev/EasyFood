@@ -11,6 +11,8 @@ class HeaderComposer
     public function compose(View $view): void
     {
         $settingService = new SettingService();
-        $view->with('email', $settingService->getSettingByCode(Setting::CODE_EMAIL));
+        $view
+            ->with('freeDelivery', $settingService->getSettingByCode(Setting::CODE_FREE_DELIVERY))
+            ->with('email', $settingService->getSettingByCode(Setting::CODE_EMAIL));
     }
 }

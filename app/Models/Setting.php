@@ -19,6 +19,7 @@ class Setting extends Model
     public const CODE_PHONE = 'phone';
     public const CODE_ADDRESS = 'address';
     public const CODE_EMAIL = 'email';
+    public const CODE_FREE_DELIVERY = 'free_delivery_value';
 
     protected $guarded = ['id'];
 
