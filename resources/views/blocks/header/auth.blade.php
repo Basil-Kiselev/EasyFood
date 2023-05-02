@@ -1,3 +1,9 @@
-<div class="header__top__right__auth">
-    <a href="#"><i class="fa fa-user"></i> Вход</a>
-</div>
+@if(\Illuminate\Support\Facades\Auth::check())
+    <div class="header__top__right__auth">
+        <a href="{{ route('login') }}"><i class="fa fa-user"></i> {{ \Illuminate\Support\Facades\Auth::user()->email }}</a>
+    </div>
+@else
+    <div class="header__top__right__auth">
+        <a href="{{ route('login') }}"><i class="fa fa-user"></i> Вход</a>
+    </div>
+@endif
