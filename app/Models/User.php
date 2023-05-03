@@ -15,6 +15,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $email
  * @property string $address
  * @property string $status
+ * @property string $password
  */
 class User extends Authenticatable
 {
@@ -146,6 +147,24 @@ class User extends Authenticatable
     public function setStatus(string $status): User
     {
         $this->status = $status;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param string $password
+     * @return User
+     */
+    public function setPassword(string $password): User
+    {
+        $this->password = $password;
         return $this;
     }
 }

@@ -2,21 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegistrationRequest;
 use App\Services\AuthService;
-use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
     public function createUser(RegistrationRequest $request, AuthService $service): string
     {
-        $newUser = $service->createUser(
+        $service->createUser(
             $request->getName(),
             $request->getEmail(),
             $request->getPhone(),
             $request->getPassword(),
         );
 
-        return $newUser;
+        return redirect(route('home'));
+    }
+
+    public function login(LoginRequest $request, AuthService $service)
+    {
+        if($service->login($request->getEmail(),$request->getPassword())) {
+            return redirect(route('home'));
+        } else {
+            return back()
+                ->withInput()
+                ->withErrors(['password' => 'Неверное имя пользователя или пароль']);
+        }
     }
 }

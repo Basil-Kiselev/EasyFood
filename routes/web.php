@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MainPageController;
 use App\Http\Controllers\SearchProductController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +30,13 @@ Route::post('/registration', [AuthController::class, 'createUser']);
 Route::get('/login', function () {
     return view('login');
 })->name('login');
+
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::get('/logout', function () {
+    Auth::logout();
+    return redirect('/');
+})->name('logout');
 
 Route::get('/product', function () {
     return view('product');
