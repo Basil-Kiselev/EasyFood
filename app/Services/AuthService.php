@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthService
 {
-    public function createUser(string $name, string $email, string $phone, string $password): string
+    public function createUser(string $name, string $email, string $phone, string $password): bool
     {
         $newUser = User::query()->create([
             'name' => $name,
@@ -19,6 +19,20 @@ class AuthService
 
         Auth::login($newUser);
 
-        return redirect(route('home'));
+        return true;
+    }
+
+    public function login(string $email, string $password): bool
+    {
+        $credential = [
+          'email' => $email,
+          'password' => $password,
+        ];
+
+        if(Auth::attempt($credential)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
