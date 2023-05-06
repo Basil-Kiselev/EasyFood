@@ -39,4 +39,16 @@ class ProductService
         }
         return $result;
     }
+
+    public function getProductsList(string $category = null): Collection
+    {
+        $query = Product::query();
+
+        if ($category) {
+            $categoryId = Category::query()->where('code', $category)->get('id')->pluck('id');
+            $query = $query->where('category_id', $categoryId);
+        }
+
+        return $query->get();
+    }
 }

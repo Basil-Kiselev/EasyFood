@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CatalogueController;
 use App\Http\Controllers\MainPageController;
 use App\Http\Controllers\SearchProductController;
 use Illuminate\Support\Facades\Auth;
@@ -54,9 +55,7 @@ Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
-Route::get('/catalogue', function () {
-    return view('catalogue');
-})->name('catalogue');
+Route::get('/catalogue', [CatalogueController::class, 'index'])->name('catalogue');
 
 Route::get('/blog-details', function () {
     return view('blog-details');
