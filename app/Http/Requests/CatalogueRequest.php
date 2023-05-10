@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property string $category
  * @property int $price_min
  * @property int $price_max
- * @property int $is_vegan
+ * @property bool $is_vegan
  */
 class CatalogueRequest extends FormRequest
 {
@@ -29,8 +29,15 @@ class CatalogueRequest extends FormRequest
         return [
             'category' => 'nullable|string',
             'price_min' => 'nullable|int',
-            'price_max' => 'nullable|int',
-            'is_vegan' => 'nullable|int',
+            'price_max' => 'nullable|int|gte:price_min',
+            'is_vegan' => 'nullable|bool',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'price_max.gte' => 'Неккоректный диапазон',
         ];
     }
 
@@ -55,7 +62,7 @@ class CatalogueRequest extends FormRequest
     /**
      * @return int
      */
-    public function getPriceMin(): int
+    public function getPriceMin(): int|null
     {
         return $this->price_min;
     }
@@ -73,7 +80,7 @@ class CatalogueRequest extends FormRequest
     /**
      * @return int
      */
-    public function getPriceMax(): int
+    public function getPriceMax(): int|null
     {
         return $this->price_max;
     }
@@ -91,7 +98,7 @@ class CatalogueRequest extends FormRequest
     /**
      * @return int
      */
-    public function getIsVegan(): int
+    public function getIsVegan(): bool|null
     {
         return $this->is_vegan;
     }
