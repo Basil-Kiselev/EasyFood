@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Services\Dto\CatalogueDto;
 use App\Services\Dto\CategoryDto;
 use App\Services\Dto\ProductDto;
 use Illuminate\Database\Eloquent\Collection;
@@ -40,13 +41,25 @@ class ProductService
         return $result;
     }
 
-    public function getProductsList(string $category = null): Collection
+    public function getProductsList(CatalogueDto $dto): Collection
     {
         $query = Product::query();
 
-        if ($category) {
-            $categoryId = Category::query()->where('code', $category)->get('id')->pluck('id');
+        if (!empty($dto->getCategory()) && $dto->getCategory() !== 'all') {
+            $categoryId = Category::query()->where('code', $dto->getCategory())->get('id')->pluck('id');
             $query = $query->where('category_id', $categoryId);
+        }
+
+        if (!empty($dto->getMinPrice())) {
+            $query = $query->where('price', '>=', $dto->getMinPrice());
+        }
+
+        if (!empty($dto->getMaxPrice())) {
+            $query = $query->where('price', '<=', $dto->getMaxPrice());
+        }
+
+        if (!empty($dto->getIsVegan())) {
+            $query = $query->where('is_vegan', $dto->getIsVegan());
         }
 
         return $query->get();

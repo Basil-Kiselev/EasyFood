@@ -14,68 +14,35 @@ $products = !empty($products) ? $products : [];
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-5">
-                <div class="sidebar">
-                    <div class="sidebar__item">
-                        <h4><a href="{{ route('catalogue') }}">Категории</a></h4>
-                        <ul>
+                <h5>Категория</h5>
+                <form>
+                    <div class="mb-3">
+                        <select class="form-select" aria-label="Default select example" name="category">
+                            <option selected value="all">Все категории</option>
                             @foreach($categories as $category)
-                                <li><a href="{{ route('catalogue', ['category' => $category->getCode()]) }}">{{ $category->getName() }}</a></li>
+                                <option value="{{ $category->getCode() }}">{{ $category->getName() }}</option>
                             @endforeach
-                        </ul>
+                        </select>
                     </div>
-                    <div class="sidebar__item">
-                        <h5>Цена</h5>
-                        <div class="price-range-wrap">
-                            <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                                 data-min="0" data-max="3000">
-                                <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
-                                <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
-                                <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
-                            </div>
-                            <div class="range-slider">
-                                <div class="price-input">
-                                    <input type="text" id="minamount">
-                                    <input type="text" id="maxamount">
-                                </div>
-                            </div>
-                        </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Минимальная цена</label>
+                        <input type="number" class="form-control" id="exampleFormControlInput1" name="price_min">
                     </div>
-                    <div class="sidebar__item">
-                        <h5>Вегатерианский товар</h5>
-                        <div class="sidebar__item__size">
-                            <label for="vegan">
-                                Да
-                                <input type="radio" id="medium">
-                            </label>
-                        </div>
-                        <div class="sidebar__item__size">
-                            <label for="no_vegan">
-                                Нет
-                                <input type="radio" id="no_vegan">
-                            </label>
-                        </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label @error('price_max') is-invalid @else is-valid @enderror">Максимальная цена</label>
+                        <input type="number" class="form-control" id="exampleFormControlInput1" name="price_max">
+                        @error('price_max')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                     </div>
-                </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="is_vegan" value="1">
+                        <label class="form-check-label" for="exampleCheck1">Вегетерианская еда</label>
+                    </div>
+                    <button type="submit" class="btn btn-success">Применить</button>
+                </form>
             </div>
             <div class="col-lg-9 col-md-7">
-                <div class="filter__item">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-5">
-                            <div class="filter__sort">
-                                <span>Сортировка</span>
-                                <select>
-                                    <option value="0">Цена</option>
-                                    <option value="0">Ккал</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4">
-                            <div class="filter__found">
-                                <h6><span>16</span> Товаров</h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="row">
                     @foreach($products as $product)
                         <div class="col-lg-4 col-md-6 col-sm-6">
