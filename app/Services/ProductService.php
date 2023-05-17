@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Services\Dto\CatalogueDto;
 use App\Services\Dto\CategoryDto;
 use App\Services\Dto\ProductDto;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
 class ProductService
@@ -41,7 +42,7 @@ class ProductService
         return $result;
     }
 
-    public function getProductsList(CatalogueDto $dto): Collection
+    public function getProductsList(CatalogueDto $dto): LengthAwarePaginator
     {
         $query = Product::query();
 
@@ -62,6 +63,6 @@ class ProductService
             $query = $query->where('is_vegan', $dto->getIsVegan());
         }
 
-        return $query->get();
+        return $query->paginate(3)->withQueryString();
     }
 }
