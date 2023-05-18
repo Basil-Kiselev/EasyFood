@@ -128,7 +128,7 @@ class Product extends Model
     /**
      * @return float
      */
-    public function getVolume(): float
+    public function getVolume(): float|null
     {
         return $this->volume;
     }
@@ -146,7 +146,7 @@ class Product extends Model
     /**
      * @return float
      */
-    public function getWeight(): float
+    public function getWeight(): float|null
     {
         return $this->weight;
     }
@@ -236,7 +236,7 @@ class Product extends Model
     /**
      * @return bool
      */
-    public function isIsVegan(): bool
+    public function isVegan(): bool
     {
         return $this->is_vegan;
     }

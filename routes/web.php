@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CatalogueController;
 use App\Http\Controllers\MainPageController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SearchProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -39,9 +40,7 @@ Route::get('/logout', function () {
     return redirect('/');
 })->name('logout');
 
-Route::get('/product', function () {
-    return view('product');
-})->name('product');
+Route::get('/product/{article}', [ProductController::class, 'index'])->name('product');
 
 Route::get('/cart', function () {
     return view('cart');
