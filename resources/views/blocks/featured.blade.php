@@ -25,7 +25,7 @@
                     @foreach($recCategory->getProducts() as $product)
                         <div class="col-lg-3 col-md-4 col-sm-6 mix {{ $recCategory->getCode() }}">
                             <div class="featured__item">
-                                <div class="featured__item__pic set-bg" data-setbg="{{ $product->getImg() }}">
+                                <div class="featured__item__pic set-bg" data-setbg="{{ asset($product->getImg()) }}">
                                     <ul class="featured__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                         <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -33,7 +33,7 @@
                                     </ul>
                                 </div>
                                 <div class="featured__item__text">
-                                    <h6><a href="#">{{ $product->getName() }}</a></h6>
+                                    <h6><a href="{{ route('product', $product->getArticle()) }}">{{ $product->getName() }}</a></h6>
                                     <h5>{{ $product->getPrice() }} ₸</h5>
                                 </div>
                             </div>
