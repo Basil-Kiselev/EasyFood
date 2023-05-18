@@ -12,7 +12,7 @@ class CategoryDto
         private string $name,
     ){}
 
-    public function addProduct(ProductDto $dto)
+    public function addProduct(RecommendedProductDto $dto)
     {
         $this->products[] = $dto;
     }
