@@ -107,4 +107,11 @@ class ProductService
             $measureByHundred,
         );
     }
+
+    public function searchProducts(string $dataInput): Collection
+    {
+        return Product::query()
+            ->where('name', 'LIKE', "%$dataInput%")
+            ->get();
+    }
 }

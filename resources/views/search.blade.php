@@ -23,7 +23,7 @@
                                         </ul>
                                     </div>
                                     <div class="product__item__text">
-                                        <h6><a href="#">{{ $product->getName() }}</a></h6>
+                                        <h6><a href="{{ route('product', $product->getArticle()) }}">{{ $product->getName() }}</a></h6>
                                         <h5>{{ $product->getPrice() }} ₸</h5>
                                     </div>
                                 </div>
