@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SearchProductRequest;
-use App\Services\SearchProductService;
+use App\Services\ProductService;
 
 class SearchProductController extends Controller
 {
-    public function index(SearchProductRequest $request, SearchProductService $service)
+    public function index(SearchProductRequest $request, ProductService $service)
     {
-        return view('search')->with('foundProducts', $service->getData($request->getDataInput()));
+        return view('search')->with('foundProducts', $service->searchProducts($request->getDataInput()));
     }
 }
