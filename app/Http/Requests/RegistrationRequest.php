@@ -8,7 +8,6 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property string $name
  * @property string $phone
  * @property string $email
- * @property string $address
  * @property string $password
  */
 class RegistrationRequest extends FormRequest
@@ -32,7 +31,6 @@ class RegistrationRequest extends FormRequest
             'name' => 'required|string',
             'phone' => 'required|numeric',
             'email' => 'required|email|unique:App\Models\User,email',
-            'address' => 'string',
             'password' => 'required|string|min:6',
         ];
     }
@@ -47,7 +45,6 @@ class RegistrationRequest extends FormRequest
             'email.required' => 'Email обязателен',
             'email.email' => 'Email не корректен',
             'email.unique' => 'Email занят',
-            'address.string' => 'Адрес должен быть строкой',
             'password.required' => 'Введите пароль',
             'password.string' => 'Пароль должен быть строкой',
             'password.min' => 'Пароль не короче 6 символов',
@@ -63,31 +60,11 @@ class RegistrationRequest extends FormRequest
     }
 
     /**
-     * @param string $name
-     * @return RegistrationRequest
-     */
-    public function setName(string $name): RegistrationRequest
-    {
-        $this->name = $name;
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getPhone(): string
     {
         return $this->phone;
-    }
-
-    /**
-     * @param string $phone
-     * @return RegistrationRequest
-     */
-    public function setPhone(string $phone): RegistrationRequest
-    {
-        $this->phone = $phone;
-        return $this;
     }
 
     /**
@@ -99,50 +76,10 @@ class RegistrationRequest extends FormRequest
     }
 
     /**
-     * @param string $email
-     * @return RegistrationRequest
-     */
-    public function setEmail(string $email): RegistrationRequest
-    {
-        $this->email = $email;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAddress(): string
-    {
-        return $this->address;
-    }
-
-    /**
-     * @param string $address
-     * @return RegistrationRequest
-     */
-    public function setAddress(string $address): RegistrationRequest
-    {
-        $this->address = $address;
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getPassword(): string
     {
         return $this->password;
     }
-
-    /**
-     * @param string $password
-     * @return RegistrationRequest
-     */
-    public function setPassword(string $password): RegistrationRequest
-    {
-        $this->password = $password;
-        return $this;
-    }
-
-
 }
