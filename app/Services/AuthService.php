@@ -29,10 +29,6 @@ class AuthService
           'password' => $password,
         ];
 
-        if(Auth::attempt($credential)) {
-            return true;
-        } else {
-            return false;
-        }
+        return Auth::attempt($credential);
     }
 }
