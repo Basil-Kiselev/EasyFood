@@ -52,30 +52,10 @@ class LoginRequest extends FormRequest
     }
 
     /**
-     * @param string $email
-     * @return LoginRequest
-     */
-    public function setEmail(string $email): LoginRequest
-    {
-        $this->email = $email;
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getPassword(): string
     {
         return $this->password;
-    }
-
-    /**
-     * @param string $password
-     * @return LoginRequest
-     */
-    public function setPassword(string $password): LoginRequest
-    {
-        $this->password = $password;
-        return $this;
     }
 }
