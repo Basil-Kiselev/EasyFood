@@ -3,18 +3,19 @@
 namespace App\Services;
 
 use App\Models\User;
+use App\Services\Dto\RegistrationNewUserDto;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthService
 {
-    public function createUser(string $name, string $email, string $phone, string $password): bool
+    public function createUser(RegistrationNewUserDto $dto): bool
     {
         $newUser = User::query()->create([
-            'name' => $name,
-            'phone' => $phone,
-            'email' => $email,
-            'password' => Hash::make($password),
+            'name' => $dto->getName(),
+            'phone' => $dto->getPhone(),
+            'email' => $dto->getEmail(),
+            'password' => Hash::make($dto->getPassword()),
         ]);
 
         Auth::login($newUser);

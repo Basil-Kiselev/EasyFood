@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Services\Dto\RegistrationNewUserDto;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
@@ -81,5 +82,15 @@ class RegistrationRequest extends FormRequest
     public function getPassword(): string
     {
         return $this->password;
+    }
+
+    public function createRegistrationNewUserDto(): RegistrationNewUserDto
+    {
+        return new RegistrationNewUserDto(
+            $this->input('name'),
+            $this->input('email'),
+            $this->input('phone'),
+            $this->input('password'),
+        );
     }
 }
