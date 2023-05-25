@@ -9,7 +9,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property int $price_max
  * @property bool $is_vegan
  */
-class CatalogueRequest extends FormRequest
+class FilterForCatalogueRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

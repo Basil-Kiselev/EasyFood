@@ -2,7 +2,7 @@
 
 namespace App\Services\Dto;
 
-class CatalogueDto
+class FilterForCatalogueDto
 {
     public function __construct
     (
@@ -22,9 +22,9 @@ class CatalogueDto
 
     /**
      * @param string $category
-     * @return CatalogueDto
+     * @return FilterForCatalogueDto
      */
-    public function setCategory(string $category): CatalogueDto
+    public function setCategory(string $category): FilterForCatalogueDto
     {
         $this->category = $category;
         return $this;
@@ -40,9 +40,9 @@ class CatalogueDto
 
     /**
      * @param int $minPrice
-     * @return CatalogueDto
+     * @return FilterForCatalogueDto
      */
-    public function setMinPrice(int $minPrice): CatalogueDto
+    public function setMinPrice(int $minPrice): FilterForCatalogueDto
     {
         $this->minPrice = $minPrice;
         return $this;
@@ -58,9 +58,9 @@ class CatalogueDto
 
     /**
      * @param int $maxPrice
-     * @return CatalogueDto
+     * @return FilterForCatalogueDto
      */
-    public function setMaxPrice(int $maxPrice): CatalogueDto
+    public function setMaxPrice(int $maxPrice): FilterForCatalogueDto
     {
         $this->maxPrice = $maxPrice;
         return $this;
@@ -76,9 +76,9 @@ class CatalogueDto
 
     /**
      * @param int $isVegan
-     * @return CatalogueDto
+     * @return FilterForCatalogueDto
      */
-    public function setIsVegan(int $isVegan): CatalogueDto
+    public function setIsVegan(int $isVegan): FilterForCatalogueDto
     {
         $this->isVegan = $isVegan;
         return $this;
