@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\Category;
 use App\Models\Product;
-use App\Services\Dto\CatalogueDto;
+use App\Services\Dto\FilterForCatalogueDto;
 use App\Services\Dto\CategoryDto;
 use App\Services\Dto\ProductDto;
 use App\Services\Dto\RecommendedProductDto;
@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Collection;
 
 class ProductService
 {
+    public const COUNT_PAGINATE_PAGES = 3;
+
     public function getRecommendedProduct(): array
     {
         /** @var Collection $products */
@@ -43,20 +45,20 @@ class ProductService
         return $result;
     }
 
-    public function getProductsList(CatalogueDto $dto): LengthAwarePaginator
+    public function getProductsList(FilterForCatalogueDto $dto): LengthAwarePaginator
     {
         $query = Product::query();
 
         if (!empty($dto->getCategory()) && $dto->getCategory() !== 'all') {
-            $categoryId = Category::query()->where('code', $dto->getCategory())->get('id')->pluck('id');
+            $categoryId = Category::query()->where('code', $dto->getCategory())->value('id');
             $query = $query->where('category_id', $categoryId);
         }
 
-        if (!empty($dto->getMinPrice())) {
+        if (is_numeric($dto->getMinPrice())) {
             $query = $query->where('price', '>=', $dto->getMinPrice());
         }
 
-        if (!empty($dto->getMaxPrice())) {
+        if (is_numeric($dto->getMaxPrice())) {
             $query = $query->where('price', '<=', $dto->getMaxPrice());
         }
 
@@ -64,7 +66,7 @@ class ProductService
             $query = $query->where('is_vegan', $dto->getIsVegan());
         }
 
-        return $query->paginate(3)->withQueryString();
+        return $query->paginate(ProductService::COUNT_PAGINATE_PAGES)->withQueryString();
     }
 
     public function getProduct($article): ProductDto
