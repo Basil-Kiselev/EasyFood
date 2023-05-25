@@ -10,12 +10,7 @@ class AuthController extends Controller
 {
     public function createUser(RegistrationRequest $request, AuthService $service): string
     {
-        $service->createUser(
-            $request->getName(),
-            $request->getEmail(),
-            $request->getPhone(),
-            $request->getPassword(),
-        );
+        $service->createUser($request->createRegistrationNewUserDto());
 
         return redirect(route('home'));
     }
