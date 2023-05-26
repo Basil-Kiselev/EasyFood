@@ -9,6 +9,6 @@ class CategoryService
 {
     public function getCategories(): Collection
     {
-        return Category::all();
+        return Category::has('products')->get();
     }
 }
