@@ -18,21 +18,11 @@ class CategoryDto
     }
 
     /**
-     * @return array
+     * @return RecommendedProductDto[]
      */
     public function getProducts(): array
     {
         return $this->products;
-    }
-
-    /**
-     * @param array $productDto
-     * @return CategoryDto
-     */
-    public function setProductDto(array $productDto): CategoryDto
-    {
-        $this->productDto = $productDto;
-        return $this;
     }
 
     /**
