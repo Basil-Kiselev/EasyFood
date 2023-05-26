@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductRelation;
 use App\Services\Dto\FilterForCatalogueDto;
 use App\Services\Dto\CategoryDto;
 use App\Services\Dto\ProductDto;
@@ -128,26 +129,24 @@ class ProductService
     {
         /**
          * @var Product $currentProduct
-         * @var Product $product
+         * @var ProductRelation $relatedProductForCurrentProduct
+         * @var Product $relatedProduct
          */
         $currentProduct = Product::query()->where('article', $article)->firstOrFail();
-
-        $currentCategoryId = $currentProduct->getCategoryId();
         $currentProductId = $currentProduct->getId();
+        $relatedProductsId = ProductRelation::query()->where('product_id', $currentProductId)->pluck('related_product_id');
+        $relatedProducts = Product::query()->whereIn('id', $relatedProductsId)->get();
 
-        $relatedProducts = Product::query()
-            ->where('category_id', $currentCategoryId)
-            ->where('id', '!=', $currentProductId)->get();
         $results = [];
 
-        foreach ($relatedProducts as $product) {
-            $relatedProduct = new RelatedProductDto(
-                $product->getArticle(),
-                $product->getName(),
-                $product->getImg(),
-                $product->getPrice(),
+        foreach ($relatedProducts as $relatedProduct) {
+            $relatedProductDto = new RelatedProductDto(
+                $relatedProduct->getArticle(),
+                $relatedProduct->getName(),
+                $relatedProduct->getImg(),
+                $relatedProduct->getPrice(),
             );
-            $results[] = $relatedProduct;
+            $results[] = $relatedProductDto;
         }
 
         return $results;

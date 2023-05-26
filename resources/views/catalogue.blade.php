@@ -26,7 +26,7 @@ $products = !empty($products) ? $products : [];
                     </div>
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Минимальная цена</label>
-                        <input type="number" class="form-control" id="exampleFormControlInput1" name="price_min">
+                        <input type="number" class="form-control" id="exampleFormControlInput1" name="price_min" value="0">
                     </div>
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label @error('price_max') is-invalid @else is-valid @enderror">Максимальная цена</label>
