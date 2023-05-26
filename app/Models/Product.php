@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $description
  * @property int $price
+ * @property string $uom
  * @property float $volume
  * @property float $weight
  * @property int $kcal
@@ -122,6 +123,24 @@ class Product extends Model
     public function setPrice(int $price): Product
     {
         $this->price = $price;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUom(): string
+    {
+        return $this->uom;
+    }
+
+    /**
+     * @param string $uom
+     * @return Product
+     */
+    public function setUom(string $uom): Product
+    {
+        $this->uom = $uom;
         return $this;
     }
 

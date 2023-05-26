@@ -74,23 +74,23 @@ class ProductService
         return $query->paginate(ProductService::COUNT_PAGINATE_PAGES)->withQueryString();
     }
 
-    public function getProduct($article): ProductDto
+    public function getProduct(string $article): ProductDto
     {
         /** @var Product $product */
-        $product = Product::query()->where('article', $article)->first();
+        $product = Product::query()->where('article', $article)->firstOrFail();
         $vegan = !empty($product->isVegan()) ? 'Да' : 'Нет';
 
-        if ($product->getVolume() && !$product->getWeight()) {
+        if ($product->getUom() === 'volume') {
             $measureName = 'Объем';
             $measureType = 'мл';
             $measureValue = $product->getVolume();
             $measureByHundred = 'мл';
-        } elseif (!$product->getVolume() && !$product->getWeight()) {
+        } elseif ($product->getUom() === 'thing') {
             $measureName = 'Кол-во';
             $measureValue = '1';
             $measureType = 'шт';
             $measureByHundred = 'г';
-        } else {
+        } elseif ($product->getUom() === 'weight') {
             $measureName = 'Вес';
             $measureType = 'г';
             $measureValue = $product->getWeight();
@@ -98,20 +98,20 @@ class ProductService
         }
 
         return new ProductDto(
-            $product->getArticle(),
-            $product->getName(),
-            $product->getDescription(),
-            $product->getImg(),
-            $product->getPrice(),
-            $measureName,
-            $measureValue,
-            $measureType,
-            $product->getKcal(),
-            $product->getProtein(),
-            $product->getFat(),
-            $product->getCarbohydrate(),
-            $vegan,
-            $measureByHundred,
+            article: $product->getArticle(),
+            name : $product->getName(),
+            description : $product->getDescription(),
+            img : $product->getImg(),
+            price : $product->getPrice(),
+            measureName: $measureName,
+            measureValue: $measureValue,
+            measureType: $measureType,
+            kcal: $product->getKcal(),
+            protein: $product->getProtein(),
+            fat: $product->getFat(),
+            carbohydrate: $product->getCarbohydrate(),
+            vegan: $vegan,
+            measureByHundred: $measureByHundred,
         );
     }
 
