@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->integer('price');
+            $table->string('uom');
             $table->float('volume')->nullable();
             $table->float('weight')->nullable();
             $table->integer('kcal');
