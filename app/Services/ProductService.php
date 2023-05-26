@@ -8,6 +8,7 @@ use App\Services\Dto\FilterForCatalogueDto;
 use App\Services\Dto\CategoryDto;
 use App\Services\Dto\ProductDto;
 use App\Services\Dto\RecommendedProductDto;
+use App\Services\Dto\RelatedProductDto;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -120,5 +121,35 @@ class ProductService
         return Product::query()
             ->where('name', 'LIKE', "%$dataInput%")
             ->get();
+    }
+
+    /** @return RelatedProductDto[] */
+    public function getRelatedProducts(string $article): array
+    {
+        /**
+         * @var Product $currentProduct
+         * @var Product $product
+         */
+        $currentProduct = Product::query()->where('article', $article)->firstOrFail();
+
+        $currentCategoryId = $currentProduct->getCategoryId();
+        $currentProductId = $currentProduct->getId();
+
+        $relatedProducts = Product::query()
+            ->where('category_id', $currentCategoryId)
+            ->where('id', '!=', $currentProductId)->get();
+        $results = [];
+
+        foreach ($relatedProducts as $product) {
+            $relatedProduct = new RelatedProductDto(
+                $product->getArticle(),
+                $product->getName(),
+                $product->getImg(),
+                $product->getPrice(),
+            );
+            $results[] = $relatedProduct;
+        }
+
+        return $results;
     }
 }
