@@ -1,7 +1,6 @@
 @if(!empty($recCategories))
     @php
         /** @var \App\Services\Dto\CategoryDto $recCategory */
-        /** @var \App\Services\Dto\RecommendedProductDto $product */
     @endphp<!-- Featured Section Begin -->
     <section class="featured spad">
         <div class="container">

@@ -15,11 +15,16 @@ class ProductService
 {
     public const COUNT_PAGINATE_PAGES = 3;
 
+    /**
+     * @return CategoryDto[]
+     */
     public function getRecommendedProduct(): array
     {
-        /** @var Collection $products */
-        /** @var Category $category */
-        /** @var Product $product */
+        /**
+         * @var Collection $products
+         * @var Category $category
+         * @var Product $product
+         */
         $products = Product::query()->where('is_recommend', 1)->get();
         $categoryIds = $products->unique('category_id')->pluck('category_id');
         $recommendedCategories = Category::query()->whereIn('id', $categoryIds)->get();
