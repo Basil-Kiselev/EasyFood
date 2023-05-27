@@ -5,6 +5,7 @@ use App\Http\Controllers\CatalogueController;
 use App\Http\Controllers\MainPageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SearchProductController;
+use App\Http\Controllers\UserFavoriteProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +42,8 @@ Route::get('/logout', function () {
 })->name('logout');
 
 Route::get('/product/{article}', [ProductController::class, 'index'])->name('product');
+
+Route::get('/add-favorite/{productArticle}', [UserFavoriteProductController::class, 'addToFavorite'])->name('add-favorite')->middleware('auth');
 
 Route::get('/cart', function () {
     return view('cart');
