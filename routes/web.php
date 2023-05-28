@@ -43,7 +43,17 @@ Route::get('/logout', function () {
 
 Route::get('/product/{article}', [ProductController::class, 'index'])->name('product');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/add-favorite/{productArticle}', [UserFavoriteProductController::class, 'addToFavorite'])->name('add-favorite');
+    Route::post('/delete-favorite/{productArticle}', [UserFavoriteProductController::class, 'removeFromFavorite'])->name('delete-favorite');
+    Route::get('/favorites', [UserFavoriteProductController::class, 'index'])->name('favorites');
+});
+
 Route::get('/add-favorite/{productArticle}', [UserFavoriteProductController::class, 'addToFavorite'])->name('add-favorite')->middleware('auth');
+
+Route::post('/delete-favorite/{productArticle}', [UserFavoriteProductController::class, 'removeFromFavorite'])->name('delete-favorite')->middleware('auth');
+
+Route::get('/favorites', [UserFavoriteProductController::class, 'index'])->name('favorites')->middleware('auth');
 
 Route::get('/cart', function () {
     return view('cart');
