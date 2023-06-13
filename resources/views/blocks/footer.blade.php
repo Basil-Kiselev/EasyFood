@@ -30,11 +30,12 @@
             </div>
             <div class="col-lg-4 col-md-12">
                 <div class="footer__widget">
-                    <h6>Join Our Newsletter Now</h6>
-                    <p>Get E-mail updates about our latest shop and special offers.</p>
-                    <form action="#">
-                        <input type="text" placeholder="Enter your mail">
-                        <button type="submit" class="site-btn">Subscribe</button>
+                    <h6>Подпишитесь на рассылку новостей</h6>
+                    <p>Получайте письма об акциях и выгодных предложениях.</p>
+                    <form action="#" class="js-subscribe-form">
+                        @csrf
+                        <input type="text" class="js-subscribe-email-input" name="subscribeEmail" placeholder="Введите email">
+                        <button type="submit" class="site-btn js-subscribe-btn">Подписаться</button>
                     </form>
                 </div>
             </div>
