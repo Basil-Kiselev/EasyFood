@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CatalogueController;
 use App\Http\Controllers\MainPageController;
 use App\Http\Controllers\ProductController;
@@ -49,15 +50,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/favorites', [UserFavoriteProductController::class, 'index'])->name('favorites');
 });
 
-Route::get('/add-favorite/{productArticle}', [UserFavoriteProductController::class, 'addToFavorite'])->name('add-favorite')->middleware('auth');
+Route::get('/cart', [CartController::class, 'index'])->name('cart');
 
-Route::post('/delete-favorite/{productArticle}', [UserFavoriteProductController::class, 'removeFromFavorite'])->name('delete-favorite')->middleware('auth');
+Route::get('/cart/{article}', [CartController::class, 'addToCart'])->name('addToCart');
 
-Route::get('/favorites', [UserFavoriteProductController::class, 'index'])->name('favorites')->middleware('auth');
+Route::post('/delete-cartProduct/{article}', [CartController::class, 'deleteCartProduct'])->name('deleteCartProduct');
 
-Route::get('/cart', function () {
-    return view('cart');
-})->name('cart');
+Route::post('/cart', [CartController::class, 'applyCoupon'])->name('applyCoupon');
 
 Route::get('/checkout', function () {
     return view('checkout');
