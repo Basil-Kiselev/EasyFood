@@ -1,8 +1,13 @@
 @php
-$countFavoriteProducts = !empty($countFavoriteProducts) ? $countFavoriteProducts : '';
+/** @var \App\Services\Dto\CartHeaderInfoDto $cartInfo */
+$countFavoriteProducts = !empty($countFavoriteProducts) ? $countFavoriteProducts : 0;
 @endphp
 <ul>
     <li><a href="{{ route('favorites') }}"><i class="fa fa-heart"></i> <span>{{ $countFavoriteProducts }}</span></a></li>
-    <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+    <li><a href="{{ route('cart') }}"><i class="fa fa-shopping-bag"></i> <span>{{ $cartInfo->getCountProducts() }}</span></a></li>
 </ul>
-<div class="header__cart__price">Сумма: <span>150.00 ₸</span></div>
+@if($cartInfo->getFinalPrice() != 0)
+    <div class="header__cart__price">Сумма: <span>{{ $cartInfo->getFinalPrice() }} ₸</span></div>
+@else
+    <div class="header__cart__price">Корзина пуста </div>
+@endif

@@ -34,7 +34,7 @@ $relatedProducts = !empty($relatedProducts) ? $relatedProducts : [];
                             </div>
                         </div>
                     </div>
-                    <a href="#" class="primary-btn">В корзину</a>
+                    <a href="{{ route('addToCart', $productInfo->getArticle()) }}" class="primary-btn">В корзину</a>
                     <a href="{{ route('add-favorite', $productInfo->getArticle()) }}" class="heart-icon"><span class="icon_heart_alt"></span></a>
                     <ul>
                         <li><b>Энергетическая ценность на 100 {{ $productInfo->getMeasureByHundred() }}</b> <span>{{ $productInfo->getKcal() }} ккал</span></li>
