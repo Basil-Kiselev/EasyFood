@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\NewsletterSubscribeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,4 +21,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/subscribe',[NewsletterSubscribeController::class, 'subscribeNewEmail']);
+
+Route::post('/cart', [CartController::class, 'applyCoupon']);
+
+Route::delete('/cart', [CartController::class, 'deleteCartProduct']);
+
+Route::put('/cart/change-quantity', [CartController::class, 'changeQuantityCartProducts']);
+
 

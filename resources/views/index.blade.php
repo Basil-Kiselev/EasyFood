@@ -44,8 +44,8 @@
 <script src="{{asset('js/mixitup.min.js')}}"></script>
 <script src="{{asset('js/owl.carousel.min.js')}}"></script>
 <script src="{{asset('js/main.js')}}"></script>
-<script src="{{asset('js/app.js')}}"></script>
-
+<script src="{{asset('js/cart.js')}}"></script>
+@vite(['resources/js/app.js'])
 
 </body>
 

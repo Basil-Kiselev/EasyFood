@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             let subscribeEmail = formData.get('subscribeEmail');
 
             if (validateEmail(subscribeEmail)) {
-                let response = await  fetch('/api/subscribe', {
+                let response = await fetch('/api/subscribe', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json;charset=utf-8'

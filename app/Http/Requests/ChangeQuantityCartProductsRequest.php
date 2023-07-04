@@ -6,9 +6,10 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * @property int $cartId
- * @property string $promoCode
+ * @property string $type
+ * @property string $article
  */
-class PromoCodeRequest extends FormRequest
+class ChangeQuantityCartProductsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,32 +27,47 @@ class PromoCodeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'promoCode' => 'required|string',
+            'article' => 'required|string|exists:App\Models\Product,article',
             'cartId' => 'required|int|exists:App\Models\Cart,id',
+            'type' => 'required|in:dec,inc',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'promoCode.required' => 'Введите промокод',
-            'promoCode.string' => 'Введите корректный код',
+            'article.required' => 'Артикль обязателен',
+            'article.string' => 'Артикль не корректен',
+            'article.exists' => 'Товар не найден',
             'cartId.required' => 'Id обязателен',
             'cartId.int' => 'Id не корректен',
             'cartId.exists' => 'Корзина пуста или не найдена',
+            'type.required' => 'Тип обязателен',
+            'type.in' => 'Не корректный тип',
         ];
+    }
+
+    /**
+     * @return int
+     */
+    public function getCartId(): int
+    {
+        return $this->cartId;
     }
 
     /**
      * @return string
      */
-    public function getPromoCode(): string
+    public function getType(): string
     {
-        return $this->promoCode;
+        return $this->type;
     }
 
-    public function getCartId(): int
+    /**
+     * @return string
+     */
+    public function getArticle(): string
     {
-        return $this->cartId;
+        return $this->article;
     }
 }

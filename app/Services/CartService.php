@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Http\Resources\CartResource;
 use App\Models\Cart;
 use App\Models\CartProduct;
+use App\Models\Coupon;
 use App\Models\Product;
 use App\Services\Dto\CartDto;
 use App\Services\Dto\CartProductDto;
@@ -35,10 +37,31 @@ class CartService
         return $cart->addProduct($product);
     }
 
+    public function changeQuantityCartProducts(int $cartId, string $type, string $article): string
+    {
+        /** @var Cart $cart */
+        $cart = Cart::query()->where('id', $cartId)->first();
+        $productId = Product::query()->where('article', $article)->value('id');
+        $query = $cart->cartProducts()->where('product_id', $productId);
+        $currentQuantity = $query->value('product_quantity');
+        $newQuantity = match ($type) {
+            'inc' => $currentQuantity + 1,
+            'dec' => $currentQuantity - 1,
+        };
+
+        if ($newQuantity > 0) {
+            $cart->updateProductQuantity($newQuantity, $productId);
+
+            return 'Кол-во изменено';
+        } else {
+            return $cart->deleteProduct($article);
+        }
+    }
+
     public function getUserCart(int $userId): CartDto
     {
         /** @var Cart $cart */
-        $cart = Cart::query()->where('user_id', $userId)->firstOrFail();
+        $cart = Cart::query()->where('user_id', $userId)->first();
 
         return $this->composeCartDto($cart);
     }
@@ -54,7 +77,7 @@ class CartService
     public function composeCartDto(Cart|null $cart = null): CartDto
     {
         if (!$cart) {
-            return new CartDto(0, 0, [], 0);
+            return new CartDto(0,0, 0, [], 0);
         }
 
         $cartProducts = $cart->cartProducts()->with('product')->get();
@@ -73,6 +96,7 @@ class CartService
             );
         }
         return new CartDto(
+            $cart->getId(),
             $cart->getPrice(),
             $cart->getFinalPrice(),
             $dtoList,
@@ -80,18 +104,10 @@ class CartService
         );
     }
 
-    public function deleteUserCartProduct(int $userId, string $article): bool
+    public function deleteCartProduct(int $cartId, string $article): string
     {
         /** @var Cart $cart */
-        $cart = Cart::query()->where('user_id', $userId)->firstOrFail();
-
-        return $cart->deleteProduct($article);
-    }
-
-    public function deleteSessionCartProduct(string $sessionId, string $article): bool
-    {
-        /** @var Cart $cart */
-        $cart = Cart::query()->where('session_id', $sessionId)->firstOrFail();
+        $cart = Cart::query()->where('id', $cartId)->first();
 
         return $cart->deleteProduct($article);
     }
@@ -122,19 +138,19 @@ class CartService
         );
     }
 
-    public function applyPromoCodeToUserCart(string $promoCode, int $userId): bool
+    public function applyPromoCodeToCart(string $promoCode, int $cartId): string
     {
-        /** @var Cart $cart */
-        $cart = Cart::query()->where('user_id', $userId)->first();
+        /**
+         * @var Coupon $coupon
+         * @var Cart $cart
+         */
+        $cart = Cart::query()->where('id', $cartId)->first();
+        $coupon = Coupon::query()->where('promo_code', $promoCode)->first();
 
-        return $cart->applyCoupon($promoCode);
-    }
-
-    public function applyPromoCodeToSessionCart(string $promoCode, string $sessionId): bool
-    {
-        /** @var Cart $cart */
-        $cart = Cart::query()->where('session_id', $sessionId)->first();
-
-        return $cart->applyCoupon($promoCode);
+        if (empty($coupon)) {
+            return 'Купон не действителен';
+        } else {
+            return $cart->applyCoupon($coupon);
+        }
     }
 }

@@ -48,6 +48,12 @@ class Cart extends Model
         return true;
     }
 
+    public function updateProductQuantity(int $newQuantity, int $productId): void
+    {
+        $this->cartProducts()->where('product_id', $productId)->update(['product_quantity' => $newQuantity]);
+        $this->recalculate();
+    }
+
     public function recalculate(): void
     {
         $price = 0;
@@ -64,20 +70,14 @@ class Cart extends Model
         $this->recalculateFinalPrice();
     }
 
-    public function applyCoupon(string $promoCode): string
+    public function applyCoupon(Coupon $coupon): string
     {
-        $coupon = Coupon::query()->where('promo_code', $promoCode)->first();
+        $couponValue = $coupon->getValue();
+        $discountCoefficient = (100 - $couponValue) / 100;
+        $this->setCouponId($coupon->getId());
+        $this->recalculateFinalPrice($discountCoefficient);
 
-        if (empty($coupon)) {
-            return 'Купон не действителен';
-        } else {
-            $couponValue = $coupon->getValue();
-            $discountCoefficient = (100 - $couponValue) / 100;
-            $this->setCouponId($coupon->getId());
-            $this->recalculateFinalPrice($discountCoefficient);
-
-            return 'Купон успешно применен';
-        }
+        return 'Купон успешно применен';
     }
 
     public function recalculateFinalPrice(float $discountCoefficient = 1): void
@@ -94,13 +94,20 @@ class Cart extends Model
         $this->setFinalPrice($finalPrice)->save();
     }
 
-    public function deleteProduct(string $article): bool
+    public function deleteProduct(string $article): string
     {
         $productId = Product::query()->where('article', $article)->value('id');
         $this->cartProducts()->where('product_id', $productId)->delete();
-        $this->recalculate();
 
-        return true;
+        if (!empty($this->cartProducts()->get()->all())) {
+            $this->recalculate();
+
+            return 'Товар убран';
+        } else {
+            $this->delete();
+
+            return 'Корзина пуста';
+        }
     }
 
     /**

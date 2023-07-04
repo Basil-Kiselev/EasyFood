@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ChangeQuantityCartProductsRequest;
+use App\Http\Requests\DeleteCartItemRequest;
 use App\Http\Requests\PromoCodeRequest;
+use App\Http\Resources\CartResource;
 use App\Services\CartService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -24,17 +28,24 @@ class CartController extends Controller
         return back();
     }
 
-    public function deleteCartProduct(CartService $service, string $article): RedirectResponse
+    public function changeQuantityCartProducts(CartService $service, ChangeQuantityCartProductsRequest $request): JsonResponse
     {
-        Auth::check() ? $service->deleteUserCartProduct(Auth::id(), $article) : $service->deleteSessionCartProduct(Session::getId(), $article);
+        $result = $service->changeQuantityCartProducts($request->getCartId(), $request->getType(), $request->getArticle());
 
-        return back();
+        return new JsonResponse(['message' => $result]);
     }
 
-    public function applyCoupon(CartService $service, PromoCodeRequest $request): RedirectResponse
+    public function deleteCartProduct(CartService $service, DeleteCartItemRequest $request): JsonResponse
     {
-        Auth::check() ? $service->applyPromoCodeToUserCart($request->getPromoCode(), Auth::id()) : $service->applyPromoCodeToSessionCart($request->getPromoCode(), Session::getId());
+        $result = $service->deleteCartProduct($request->getCartId(), $request->getArticle());
 
-        return back();
+        return new JsonResponse(['message' => $result]);
+    }
+
+    public function applyCoupon(CartService $service, PromoCodeRequest $request): JsonResponse
+    {
+        $result = $service->applyPromoCodeToCart($request->getPromoCode(), $request->getCartId());
+
+        return new JsonResponse(['message' => $result]);
     }
 }
