@@ -54,9 +54,7 @@ Route::get('/cart', [CartController::class, 'index'])->name('cart');
 
 Route::get('/cart/{article}', [CartController::class, 'addToCart'])->name('addToCart');
 
-Route::post('/delete-cartProduct/{article}', [CartController::class, 'deleteCartProduct'])->name('deleteCartProduct');
-
-Route::post('/cart', [CartController::class, 'applyCoupon'])->name('applyCoupon');
+//Route::post('/delete-cartProduct/{article}', [CartController::class, 'deleteCartProduct'])->name('deleteCartProduct');
 
 Route::get('/checkout', function () {
     return view('checkout');

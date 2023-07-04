@@ -11,7 +11,7 @@ $cartProducts = $cart?->getProducts() ?? [];
 @section('content')
 @include('blocks.breadcrumbs')
 <!-- Shoping Cart Section Begin -->
-<section class="shoping-cart spad">
+<section class="shoping-cart spad js-shoping-cart" data-cart-id="{{ $cart->getId() }}">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -39,8 +39,8 @@ $cartProducts = $cart?->getProducts() ?? [];
                                         </td>
                                         <td class="shoping__cart__quantity">
                                             <div class="quantity">
-                                                <div class="pro-qty">
-                                                    <input type="text" value="{{ $cartProduct->getQuantity() }}">
+                                                <div class="pro-qty js-value-qty" data-article="{{ $cartProduct->getArticle() }}">
+                                                    <input type="text" disabled value="{{ $cartProduct->getQuantity() }}">
                                                 </div>
                                             </div>
                                         </td>
@@ -48,14 +48,7 @@ $cartProducts = $cart?->getProducts() ?? [];
                                             {{ $cartProduct->getTotalPrice() }} ₸
                                         </td>
                                         <td class="shoping__cart__item__close">
-                                            <span class="icon_close"></span>
-                                        </td>
-                                        <td>
-                                            <form action="{{ route('deleteCartProduct', $cartProduct->getArticle()) }}" method="post">
-                                                @csrf
-                                                <button  type="submit">Удалить</button>
-                                            </form>
-
+                                            <span class="icon_close js-delete-cart-item" data-product-article="{{ $cartProduct->getArticle() }}"></span>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -86,13 +79,13 @@ $cartProducts = $cart?->getProducts() ?? [];
                 <div class="shoping__continue">
                     <div class="shoping__discount">
                         <h5>Скидочный купон</h5>
-                        <form action="{{ route('applyCoupon') }}" method="POST">
+                        <form action="#" class="js-coupon-form">
                             @csrf
                             <input type="text" placeholder="Введите код купона" name="promoCode" class="form-control @error('promoCode') is-invalid @else is-valid @enderror">
                             @error('promoCode')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
-                            <button type="submit" class="site-btn">Применить купон</button>
+                            <button type="submit" class="site-btn js-coupon-btn">Применить купон</button>
                         </form>
                     </div>
                 </div>

@@ -5,10 +5,10 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
+ * @property string $article
  * @property int $cartId
- * @property string $promoCode
  */
-class PromoCodeRequest extends FormRequest
+class DeleteCartItemRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,7 @@ class PromoCodeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'promoCode' => 'required|string',
+            'article' => 'required|string|exists:App\Models\Product,article',
             'cartId' => 'required|int|exists:App\Models\Cart,id',
         ];
     }
@@ -34,8 +34,9 @@ class PromoCodeRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'promoCode.required' => 'Введите промокод',
-            'promoCode.string' => 'Введите корректный код',
+            'article.required' => 'Артикль обязателен',
+            'article.string' => 'Артикль не корректен',
+            'article.exists' => 'Товар не найден',
             'cartId.required' => 'Id обязателен',
             'cartId.int' => 'Id не корректен',
             'cartId.exists' => 'Корзина пуста или не найдена',
@@ -45,11 +46,14 @@ class PromoCodeRequest extends FormRequest
     /**
      * @return string
      */
-    public function getPromoCode(): string
+    public function getArticle(): string
     {
-        return $this->promoCode;
+        return $this->article;
     }
 
+    /**
+     * @return int
+     */
     public function getCartId(): int
     {
         return $this->cartId;
