@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\Dto;
+namespace App\Services\DTO;
 
-class FilterForCatalogueDto
+class FilterForCatalogueDTO
 {
     public function __construct
     (
@@ -22,9 +22,9 @@ class FilterForCatalogueDto
 
     /**
      * @param string $category
-     * @return FilterForCatalogueDto
+     * @return FilterForCatalogueDTO
      */
-    public function setCategory(string $category): FilterForCatalogueDto
+    public function setCategory(string $category): FilterForCatalogueDTO
     {
         $this->category = $category;
         return $this;
@@ -40,9 +40,9 @@ class FilterForCatalogueDto
 
     /**
      * @param int $minPrice
-     * @return FilterForCatalogueDto
+     * @return FilterForCatalogueDTO
      */
-    public function setMinPrice(int $minPrice): FilterForCatalogueDto
+    public function setMinPrice(int $minPrice): FilterForCatalogueDTO
     {
         $this->minPrice = $minPrice;
         return $this;
@@ -58,9 +58,9 @@ class FilterForCatalogueDto
 
     /**
      * @param int $maxPrice
-     * @return FilterForCatalogueDto
+     * @return FilterForCatalogueDTO
      */
-    public function setMaxPrice(int $maxPrice): FilterForCatalogueDto
+    public function setMaxPrice(int $maxPrice): FilterForCatalogueDTO
     {
         $this->maxPrice = $maxPrice;
         return $this;
@@ -76,9 +76,9 @@ class FilterForCatalogueDto
 
     /**
      * @param int $isVegan
-     * @return FilterForCatalogueDto
+     * @return FilterForCatalogueDTO
      */
-    public function setIsVegan(int $isVegan): FilterForCatalogueDto
+    public function setIsVegan(int $isVegan): FilterForCatalogueDTO
     {
         $this->isVegan = $isVegan;
         return $this;

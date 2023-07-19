@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Services\UserFavoriteProductService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class UserFavoriteProductController extends Controller
 {
-    public function index(UserFavoriteProductService $service)
+    public function index(UserFavoriteProductService $service): View
     {
         return view('favorites')->with('favoriteProducts', $service->getFavoriteProducts());
     }

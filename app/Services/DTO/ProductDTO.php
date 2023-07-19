@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\Dto;
+namespace App\Services\DTO;
 
-class ProductDto
+class ProductDTO
 {
     public function __construct
     (
@@ -32,9 +32,9 @@ class ProductDto
 
     /**
      * @param string $article
-     * @return ProductDto
+     * @return ProductDTO
      */
-    public function setArticle(string $article): ProductDto
+    public function setArticle(string $article): ProductDTO
     {
         $this->article = $article;
         return $this;
@@ -50,9 +50,9 @@ class ProductDto
 
     /**
      * @param string $name
-     * @return ProductDto
+     * @return ProductDTO
      */
-    public function setName(string $name): ProductDto
+    public function setName(string $name): ProductDTO
     {
         $this->name = $name;
         return $this;
@@ -68,9 +68,9 @@ class ProductDto
 
     /**
      * @param string $description
-     * @return ProductDto
+     * @return ProductDTO
      */
-    public function setDescription(string $description): ProductDto
+    public function setDescription(string $description): ProductDTO
     {
         $this->description = $description;
         return $this;
@@ -86,9 +86,9 @@ class ProductDto
 
     /**
      * @param string $img
-     * @return ProductDto
+     * @return ProductDTO
      */
-    public function setImg(string $img): ProductDto
+    public function setImg(string $img): ProductDTO
     {
         $this->img = $img;
         return $this;
@@ -104,9 +104,9 @@ class ProductDto
 
     /**
      * @param int $price
-     * @return ProductDto
+     * @return ProductDTO
      */
-    public function setPrice(int $price): ProductDto
+    public function setPrice(int $price): ProductDTO
     {
         $this->price = $price;
         return $this;
@@ -122,9 +122,9 @@ class ProductDto
 
     /**
      * @param string|null $measureName
-     * @return ProductDto
+     * @return ProductDTO
      */
-    public function setMeasureName(?string $measureName): ProductDto
+    public function setMeasureName(?string $measureName): ProductDTO
     {
         $this->measureName = $measureName;
         return $this;
@@ -140,9 +140,9 @@ class ProductDto
 
     /**
      * @param float|null $measureValue
-     * @return ProductDto
+     * @return ProductDTO
      */
-    public function setMeasureValue(?float $measureValue): ProductDto
+    public function setMeasureValue(?float $measureValue): ProductDTO
     {
         $this->measureValue = $measureValue;
         return $this;
@@ -158,9 +158,9 @@ class ProductDto
 
     /**
      * @param string|null $measureType
-     * @return ProductDto
+     * @return ProductDTO
      */
-    public function setMeasureType(?string $measureType): ProductDto
+    public function setMeasureType(?string $measureType): ProductDTO
     {
         $this->measureType = $measureType;
         return $this;
@@ -176,9 +176,9 @@ class ProductDto
 
     /**
      * @param int $kcal
-     * @return ProductDto
+     * @return ProductDTO
      */
-    public function setKcal(int $kcal): ProductDto
+    public function setKcal(int $kcal): ProductDTO
     {
         $this->kcal = $kcal;
         return $this;
@@ -194,9 +194,9 @@ class ProductDto
 
     /**
      * @param float $protein
-     * @return ProductDto
+     * @return ProductDTO
      */
-    public function setProtein(float $protein): ProductDto
+    public function setProtein(float $protein): ProductDTO
     {
         $this->protein = $protein;
         return $this;
@@ -212,9 +212,9 @@ class ProductDto
 
     /**
      * @param float $fat
-     * @return ProductDto
+     * @return ProductDTO
      */
-    public function setFat(float $fat): ProductDto
+    public function setFat(float $fat): ProductDTO
     {
         $this->fat = $fat;
         return $this;
@@ -230,9 +230,9 @@ class ProductDto
 
     /**
      * @param float $carbohydrate
-     * @return ProductDto
+     * @return ProductDTO
      */
-    public function setCarbohydrate(float $carbohydrate): ProductDto
+    public function setCarbohydrate(float $carbohydrate): ProductDTO
     {
         $this->carbohydrate = $carbohydrate;
         return $this;
@@ -248,9 +248,9 @@ class ProductDto
 
     /**
      * @param string $vegan
-     * @return ProductDto
+     * @return ProductDTO
      */
-    public function setVegan(string $vegan): ProductDto
+    public function setVegan(string $vegan): ProductDTO
     {
         $this->vegan = $vegan;
         return $this;
@@ -266,9 +266,9 @@ class ProductDto
 
     /**
      * @param string $measureByHundred
-     * @return ProductDto
+     * @return ProductDTO
      */
-    public function setMeasureByHundred(string $measureByHundred): ProductDto
+    public function setMeasureByHundred(string $measureByHundred): ProductDTO
     {
         $this->measureByHundred = $measureByHundred;
         return $this;

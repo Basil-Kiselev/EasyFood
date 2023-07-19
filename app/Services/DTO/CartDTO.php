@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\Dto;
+namespace App\Services\DTO;
 
-class CartDto
+class CartDTO
 {
     public function __construct
     (
@@ -23,9 +23,9 @@ class CartDto
 
     /**
      * @param int $id
-     * @return CartDto
+     * @return CartDTO
      */
-    public function setId(int $id): CartDto
+    public function setId(int $id): CartDTO
     {
         $this->id = $id;
         return $this;
@@ -41,9 +41,9 @@ class CartDto
 
     /**
      * @param int $price
-     * @return CartDto
+     * @return CartDTO
      */
-    public function setPrice(int $price): CartDto
+    public function setPrice(int|null $price): CartDTO
     {
         $this->price = $price;
         return $this;
@@ -59,9 +59,9 @@ class CartDto
 
     /**
      * @param int $finalPrice
-     * @return CartDto
+     * @return CartDTO
      */
-    public function setFinalPrice(int $finalPrice): CartDto
+    public function setFinalPrice(int|null $finalPrice): CartDTO
     {
         $this->finalPrice = $finalPrice;
         return $this;
@@ -77,9 +77,9 @@ class CartDto
 
     /**
      * @param array $products
-     * @return CartDto
+     * @return CartDTO
      */
-    public function setProducts(array $products): CartDto
+    public function setProducts(array $products): CartDTO
     {
         $this->products = $products;
         return $this;
@@ -95,9 +95,9 @@ class CartDto
 
     /**
      * @param int|null $discount
-     * @return CartDto
+     * @return CartDTO
      */
-    public function setDiscount(?int $discount): CartDto
+    public function setDiscount(?int $discount): CartDTO
     {
         $this->discount = $discount;
         return $this;

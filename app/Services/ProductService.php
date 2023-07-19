@@ -5,11 +5,11 @@ namespace App\Services;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductRelation;
-use App\Services\Dto\FilterForCatalogueDto;
-use App\Services\Dto\CategoryDto;
-use App\Services\Dto\ProductDto;
-use App\Services\Dto\RecommendedProductDto;
-use App\Services\Dto\RelatedProductDto;
+use App\Services\DTO\FilterForCatalogueDTO;
+use App\Services\DTO\CategoryDTO;
+use App\Services\DTO\ProductDTO;
+use App\Services\DTO\RecommendedProductDTO;
+use App\Services\DTO\RelatedProductDTO;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -18,7 +18,7 @@ class ProductService
     public const COUNT_PAGINATE_PAGES = 3;
 
     /**
-     * @return CategoryDto[]
+     * @return CategoryDTO[]
      */
     public function getRecommendedProduct(): array
     {
@@ -33,12 +33,12 @@ class ProductService
         $result = [];
 
         foreach ($recommendedCategories as $category) {
-            $categoryDto = new CategoryDto($category->getCode(), $category->getName());
+            $categoryDto = new CategoryDTO($category->getCode(), $category->getName());
             $categoryId = $category->getId();
             $recommendedProducts = $products->where('category_id', $categoryId);
 
             foreach ($recommendedProducts as $product) {
-                $productDto = new RecommendedProductDto(
+                $productDto = new RecommendedProductDTO(
                     $product->getArticle(),
                     $product->getName(),
                     $product->getImg(),
@@ -52,7 +52,7 @@ class ProductService
         return $result;
     }
 
-    public function getProductsList(FilterForCatalogueDto $dto): LengthAwarePaginator
+    public function getProductsList(FilterForCatalogueDTO $dto): LengthAwarePaginator
     {
         $query = Product::query();
 
@@ -76,7 +76,7 @@ class ProductService
         return $query->paginate(ProductService::COUNT_PAGINATE_PAGES)->withQueryString();
     }
 
-    public function getProduct(string $article): ProductDto
+    public function getProduct(string $article): ProductDTO
     {
         /** @var Product $product */
         $product = Product::query()->where('article', $article)->firstOrFail();
@@ -99,7 +99,7 @@ class ProductService
             $measureByHundred = 'г';
         }
 
-        return new ProductDto(
+        return new ProductDTO(
             article: $product->getArticle(),
             name : $product->getName(),
             description : $product->getDescription(),
@@ -124,7 +124,7 @@ class ProductService
             ->get();
     }
 
-    /** @return RelatedProductDto[] */
+    /** @return RelatedProductDTO[] */
     public function getRelatedProducts(string $article): array
     {
         /**
@@ -140,7 +140,7 @@ class ProductService
         $results = [];
 
         foreach ($relatedProducts as $relatedProduct) {
-            $relatedProductDto = new RelatedProductDto(
+            $relatedProductDto = new RelatedProductDTO(
                 $relatedProduct->getArticle(),
                 $relatedProduct->getName(),
                 $relatedProduct->getImg(),

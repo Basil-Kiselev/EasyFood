@@ -1,6 +1,6 @@
 @if(!empty($recCategories))
     @php
-        /** @var \App\Services\Dto\CategoryDto $recCategory */
+        /** @var \App\Services\DTO\CategoryDTO $recCategory */
     @endphp<!-- Featured Section Begin -->
     <section class="featured spad">
         <div class="container">
@@ -26,12 +26,16 @@
                             <div class="featured__item">
                                 <div class="featured__item__pic set-bg" data-setbg="{{ asset($product->getImg()) }}">
                                     <ul class="featured__item__pic__hover">
-                                        <li><a href="{{ route('add-favorite', $product->getArticle()) }}"><i class="fa fa-heart"></i></a></li>
-                                        <li><a href="{{ route('addToCart', $product->getArticle()) }}"><i class="fa fa-shopping-cart"></i></a></li>
+                                        <li><a href="{{ route('add-favorite', $product->getArticle()) }}"><i
+                                                    class="fa fa-heart"></i></a></li>
+                                        <li><a href="{{ route('addToCart', $product->getArticle()) }}"><i
+                                                    class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
                                 <div class="featured__item__text">
-                                    <h6><a href="{{ route('product', $product->getArticle()) }}">{{ $product->getName() }}</a></h6>
+                                    <h6>
+                                        <a href="{{ route('product', $product->getArticle()) }}">{{ $product->getName() }}</a>
+                                    </h6>
                                     <h5>{{ $product->getPrice() }} ₸</h5>
                                 </div>
                             </div>

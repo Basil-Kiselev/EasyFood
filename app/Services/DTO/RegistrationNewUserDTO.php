@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\Dto;
+namespace App\Services\DTO;
 
-class RegistrationNewUserDto
+class RegistrationNewUserDTO
 {
     public function __construct
     (
@@ -22,9 +22,9 @@ class RegistrationNewUserDto
 
     /**
      * @param string $name
-     * @return RegistrationNewUserDto
+     * @return RegistrationNewUserDTO
      */
-    public function setName(string $name): RegistrationNewUserDto
+    public function setName(string $name): RegistrationNewUserDTO
     {
         $this->name = $name;
         return $this;
@@ -40,9 +40,9 @@ class RegistrationNewUserDto
 
     /**
      * @param string $email
-     * @return RegistrationNewUserDto
+     * @return RegistrationNewUserDTO
      */
-    public function setEmail(string $email): RegistrationNewUserDto
+    public function setEmail(string $email): RegistrationNewUserDTO
     {
         $this->email = $email;
         return $this;
@@ -58,9 +58,9 @@ class RegistrationNewUserDto
 
     /**
      * @param string $phone
-     * @return RegistrationNewUserDto
+     * @return RegistrationNewUserDTO
      */
-    public function setPhone(string $phone): RegistrationNewUserDto
+    public function setPhone(string $phone): RegistrationNewUserDTO
     {
         $this->phone = $phone;
         return $this;
@@ -76,9 +76,9 @@ class RegistrationNewUserDto
 
     /**
      * @param string $password
-     * @return RegistrationNewUserDto
+     * @return RegistrationNewUserDTO
      */
-    public function setPassword(string $password): RegistrationNewUserDto
+    public function setPassword(string $password): RegistrationNewUserDTO
     {
         $this->password = $password;
         return $this;
