@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\Dto;
+namespace App\Services\DTO;
 
-class CartProductDto
+class CartProductDTO
 {
     public function __construct
     (
@@ -24,9 +24,9 @@ class CartProductDto
 
     /**
      * @param string $article
-     * @return CartProductDto
+     * @return CartProductDTO
      */
-    public function setArticle(string $article): CartProductDto
+    public function setArticle(string $article): CartProductDTO
     {
         $this->article = $article;
         return $this;
@@ -42,9 +42,9 @@ class CartProductDto
 
     /**
      * @param string $name
-     * @return CartProductDto
+     * @return CartProductDTO
      */
-    public function setName(string $name): CartProductDto
+    public function setName(string $name): CartProductDTO
     {
         $this->name = $name;
         return $this;
@@ -60,9 +60,9 @@ class CartProductDto
 
     /**
      * @param string $img
-     * @return CartProductDto
+     * @return CartProductDTO
      */
-    public function setImg(string $img): CartProductDto
+    public function setImg(string $img): CartProductDTO
     {
         $this->img = $img;
         return $this;
@@ -78,9 +78,9 @@ class CartProductDto
 
     /**
      * @param int $price
-     * @return CartProductDto
+     * @return CartProductDTO
      */
-    public function setPrice(int $price): CartProductDto
+    public function setPrice(int $price): CartProductDTO
     {
         $this->price = $price;
         return $this;
@@ -96,9 +96,9 @@ class CartProductDto
 
     /**
      * @param int $quantity
-     * @return CartProductDto
+     * @return CartProductDTO
      */
-    public function setQuantity(int $quantity): CartProductDto
+    public function setQuantity(int $quantity): CartProductDTO
     {
         $this->quantity = $quantity;
         return $this;
@@ -114,9 +114,9 @@ class CartProductDto
 
     /**
      * @param int $totalPrice
-     * @return CartProductDto
+     * @return CartProductDTO
      */
-    public function setTotalPrice(int $totalPrice): CartProductDto
+    public function setTotalPrice(int $totalPrice): CartProductDTO
     {
         $this->totalPrice = $totalPrice;
         return $this;

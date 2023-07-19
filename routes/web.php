@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CatalogueController;
 use App\Http\Controllers\MainPageController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SearchProductController;
 use App\Http\Controllers\UserFavoriteProductController;
@@ -54,11 +55,9 @@ Route::get('/cart', [CartController::class, 'index'])->name('cart');
 
 Route::get('/cart/{article}', [CartController::class, 'addToCart'])->name('addToCart');
 
-//Route::post('/delete-cartProduct/{article}', [CartController::class, 'deleteCartProduct'])->name('deleteCartProduct');
+Route::get('/checkout', [OrderController::class, 'index'])->name('checkout');
 
-Route::get('/checkout', function () {
-    return view('checkout');
-})->name('checkout');
+Route::post('/checkout', [OrderController::class, 'createOrder']);
 
 Route::get('/contact', function () {
     return view('contact');

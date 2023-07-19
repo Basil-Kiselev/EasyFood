@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\Dto;
+namespace App\Services\DTO;
 
-class RelatedProductDto
+class RelatedProductDTO
 {
     public function __construct
     (
@@ -22,9 +22,9 @@ class RelatedProductDto
 
     /**
      * @param string $article
-     * @return RelatedProductDto
+     * @return RelatedProductDTO
      */
-    public function setArticle(string $article): RelatedProductDto
+    public function setArticle(string $article): RelatedProductDTO
     {
         $this->article = $article;
         return $this;
@@ -40,9 +40,9 @@ class RelatedProductDto
 
     /**
      * @param string $name
-     * @return RelatedProductDto
+     * @return RelatedProductDTO
      */
-    public function setName(string $name): RelatedProductDto
+    public function setName(string $name): RelatedProductDTO
     {
         $this->name = $name;
         return $this;
@@ -58,9 +58,9 @@ class RelatedProductDto
 
     /**
      * @param string $img
-     * @return RelatedProductDto
+     * @return RelatedProductDTO
      */
-    public function setImg(string $img): RelatedProductDto
+    public function setImg(string $img): RelatedProductDTO
     {
         $this->img = $img;
         return $this;
@@ -76,9 +76,9 @@ class RelatedProductDto
 
     /**
      * @param int $price
-     * @return RelatedProductDto
+     * @return RelatedProductDTO
      */
-    public function setPrice(int $price): RelatedProductDto
+    public function setPrice(int $price): RelatedProductDTO
     {
         $this->price = $price;
         return $this;

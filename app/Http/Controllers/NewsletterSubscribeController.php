@@ -8,7 +8,7 @@ use Illuminate\Http\JsonResponse;
 
 class NewsletterSubscribeController extends Controller
 {
-    public function subscribeNewEmail(NewsletterSubscribeService $service, NewsletterSubscribeRequest $request)
+    public function subscribeNewEmail(NewsletterSubscribeService $service, NewsletterSubscribeRequest $request): JsonResponse
     {
         $result = $service->subscribeNewEmail($request->getEmail());
 

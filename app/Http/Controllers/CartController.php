@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ChangeQuantityCartProductsRequest;
 use App\Http\Requests\DeleteCartItemRequest;
 use App\Http\Requests\PromoCodeRequest;
-use App\Http\Resources\CartResource;
 use App\Services\CartService;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
-    public function index(CartService $service)
+    public function index(CartService $service): View
     {
         $cart = Auth::check() ? $service->getUserCart(Auth::id()) : $service->getSessionCart(Session::getId());
 

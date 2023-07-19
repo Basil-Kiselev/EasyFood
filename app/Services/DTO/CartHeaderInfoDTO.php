@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\Dto;
+namespace App\Services\DTO;
 
-class CartHeaderInfoDto
+class CartHeaderInfoDTO
 {
     public function __construct
     (
@@ -20,9 +20,9 @@ class CartHeaderInfoDto
 
     /**
      * @param int $countProducts
-     * @return CartHeaderInfoDto
+     * @return CartHeaderInfoDTO
      */
-    public function setCountProducts(int $countProducts): CartHeaderInfoDto
+    public function setCountProducts(int $countProducts): CartHeaderInfoDTO
     {
         $this->countProducts = $countProducts;
         return $this;
@@ -38,9 +38,9 @@ class CartHeaderInfoDto
 
     /**
      * @param int $finalPrice
-     * @return CartHeaderInfoDto
+     * @return CartHeaderInfoDTO
      */
-    public function setFinalPrice(int $finalPrice): CartHeaderInfoDto
+    public function setFinalPrice(int $finalPrice): CartHeaderInfoDTO
     {
         $this->finalPrice = $finalPrice;
         return $this;

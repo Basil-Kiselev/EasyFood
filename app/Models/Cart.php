@@ -48,6 +48,12 @@ class Cart extends Model
         return true;
     }
 
+    public function deleteWithRelationship(): void
+    {
+        $this->cartProducts()->delete();
+        $this->delete();
+    }
+
     public function updateProductQuantity(int $newQuantity, int $productId): void
     {
         $this->cartProducts()->where('product_id', $productId)->update(['product_quantity' => $newQuantity]);
@@ -205,6 +211,24 @@ class Cart extends Model
     public function setFinalPrice(?int $final_price): Cart
     {
         $this->final_price = $final_price;
+        return $this;
+    }
+
+    /**
+     * @return Coupon|BelongsTo
+     */
+    public function getCoupon(): BelongsTo|Coupon
+    {
+        return $this->coupon;
+    }
+
+    /**
+     * @param Coupon|BelongsTo $coupon
+     * @return Cart
+     */
+    public function setCoupon(BelongsTo|Coupon $coupon): Cart
+    {
+        $this->coupon = $coupon;
         return $this;
     }
 }

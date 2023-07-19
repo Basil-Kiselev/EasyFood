@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\NewsletterSubscribeController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,4 +29,4 @@ Route::delete('/cart', [CartController::class, 'deleteCartProduct']);
 
 Route::put('/cart/change-quantity', [CartController::class, 'changeQuantityCartProducts']);
 
-
+Route::post('/checkout', [OrderController::class, 'createOrder']);
