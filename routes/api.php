@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\NewsletterSubscribeController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Http\Request;
@@ -30,3 +31,5 @@ Route::delete('/cart', [CartController::class, 'deleteCartProduct']);
 Route::put('/cart/change-quantity', [CartController::class, 'changeQuantityCartProducts']);
 
 Route::post('/checkout', [OrderController::class, 'createOrder']);
+
+Route::post('/contact', [ContactsController::class, 'createMessage']);

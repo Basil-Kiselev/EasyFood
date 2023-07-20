@@ -20,6 +20,8 @@ class Setting extends Model
     public const CODE_ADDRESS = 'address';
     public const CODE_EMAIL = 'email';
     public const CODE_FREE_DELIVERY = 'free_delivery_value';
+    public const CODE_WORKDAY_START = 'workday_start';
+    public const CODE_WORKDAY_END = 'workday_end';
 
     protected $guarded = ['id'];
 
