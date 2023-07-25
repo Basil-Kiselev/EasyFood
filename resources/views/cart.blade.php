@@ -31,7 +31,7 @@
                                     <tbody>
                                     <tr>
                                         <td class="shoping__cart__item">
-                                            <img style="width: 100px" src="{{ $cartProduct->getImg() }}" alt="">
+                                            <img style="width: 100px" src="{{ asset($cartProduct->getImg()) }}" alt="">
                                             <h5>{{ $cartProduct->getName() }}</h5>
                                         </td>
                                         <td class="shoping__cart__price">

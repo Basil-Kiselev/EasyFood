@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CatalogueController;
 use App\Http\Controllers\ContactsController;
@@ -64,9 +65,7 @@ Route::get('/contact', [ContactsController::class, 'index'])->name('contact');
 
 Route::get('/catalogue', [CatalogueController::class, 'index'])->name('catalogue');
 
-Route::get('/blog-details', function () {
-    return view('blog-details');
-})->name('blog-details');
+Route::get('/blog-details/{alias}', [BlogController::class, 'index'])->name('blog-details');
 
 Route::get('/blog', function () {
     return view('blog');
