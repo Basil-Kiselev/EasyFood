@@ -5,7 +5,6 @@
         <ul class="header__menu__dropdown">
             <li><a href="{{ route('cart') }}">Корзина</a></li>
             <li><a href="{{ route('checkout') }}">Оформление заказа</a></li>
-            <li><a href="{{ route('blog-details') }}">Страница блога</a></li>
         </ul>
     </li>
     <li><a href="{{ route('blog') }}">Блог</a></li>

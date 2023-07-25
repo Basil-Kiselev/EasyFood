@@ -65,7 +65,7 @@ class ProductSeeder extends Seeder
                 'carbohydrate' => '1.8',
                 'is_vegan' => '1',
                 'is_recommend' => random_int(0,1),
-                'img' => 'database/seeders/product_img/apple.jpg',
+                'img' => 'database/seeders/product_img/avocado.jpg',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
@@ -238,7 +238,7 @@ class ProductSeeder extends Seeder
             if (Storage::exists($productData['img'])) {
                 $oldFile = $productData['img'];
                 $newFile = 'img/products/' . $productData['article'] . '.' . 'jpg';
-                Storage::copy($oldFile, $newFile);
+                Storage::copy($oldFile, 'public/' . $newFile);
                 $productData['img'] = $newFile;
             }
 
