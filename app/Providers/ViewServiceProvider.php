@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\View\Composers\BlogComposer;
 use App\View\Composers\HeaderComposer;
 use App\View\Composers\HeroComposer;
 use App\View\Composers\FooterComposer;
@@ -26,5 +27,6 @@ class ViewServiceProvider extends ServiceProvider
         View::composer('blocks.footer', FooterComposer::class);
         View::composer('blocks.hero', HeroComposer::class);
         View::composer('blocks.header', HeaderComposer::class);
+        View::composer('blog', BlogComposer::class);
     }
 }

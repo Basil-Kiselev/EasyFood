@@ -65,8 +65,10 @@ Route::get('/contact', [ContactsController::class, 'index'])->name('contact');
 
 Route::get('/catalogue', [CatalogueController::class, 'index'])->name('catalogue');
 
-Route::get('/blog-details/{alias}', [BlogController::class, 'index'])->name('blog-details');
+Route::get('/blog-details/{alias}', [BlogController::class, 'viewArticle'])->name('blog-details');
 
-Route::get('/blog', function () {
-    return view('blog');
-})->name('blog');
+Route::get('/blog', [BlogController::class, 'index'])->name('blog');
+
+Route::get('/blog/search' , [BlogController::class, 'searchArticle'])->name('blog-search');
+
+Route::get('/blog/{category}', [BlogController::class, 'viewCategoryArticles'])->name('blog-category');

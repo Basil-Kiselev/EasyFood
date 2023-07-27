@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Article;
 use App\Models\ArticleCategory;
 use App\Services\DTO\GetArticlesDTO;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
 class BlogService
@@ -12,6 +13,7 @@ class BlogService
     private const COUNT_ARTICLES_MAIN_PAGE = 3;
     private const COUNT_RECOMMEND_ARTICLES = 3;
     private const COUNT_RECENT_ARTICLES = 3;
+    private const COUNT_PAGINATE_ARTICLES_PAGE = 4;
 
     public function composeGetArticlesDTO(Article $article): GetArticlesDTO
     {
@@ -46,9 +48,19 @@ class BlogService
         return $this->composeGetArticlesDTO($article);
     }
 
+    public function getArticles(): LengthAwarePaginator
+    {
+        return Article::query()->paginate(self::COUNT_PAGINATE_ARTICLES_PAGE)->withQueryString();
+    }
+
     public function getArticleCategories(): Collection
     {
         return ArticleCategory::has('articles')->get();
+    }
+
+    public function getArticlesByCategory(string $categoryCode): LengthAwarePaginator
+    {
+        return Article::query()->whereRelation('articleCategory', 'code', $categoryCode)->paginate(self::COUNT_PAGINATE_ARTICLES_PAGE)->withQueryString();
     }
 
     public function getRecentArticles(): array
@@ -75,5 +87,10 @@ class BlogService
         }
 
         return $dto;
+    }
+
+    public function searchArticle(string $searchValue): LengthAwarePaginator
+    {
+        return Article::query()->where('header', 'LIKE', "%$searchValue%")->paginate(self::COUNT_PAGINATE_ARTICLES_PAGE)->withQueryString();
     }
 }
