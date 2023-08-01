@@ -18,13 +18,16 @@ class BlogController extends Controller
     {
         return view('blog-details')
             ->with('article', $service->getArticle($alias))
-            ->with('recommendArticles', $service->getRecommedArticles());
+            ->with('recommendArticles', $service->getRecommendArticles())
+            ->with('articleCategories', $service->getArticleCategories())
+            ->with('recentArticles', $service->getRecentArticles());
     }
 
     public function viewCategoryArticles(BlogService $service, string $categoryCode): View
     {
         return view('blog')
-            ->with('articles', $service->getArticlesByCategory($categoryCode));
+            ->with('articles', $service->getArticlesByCategory($categoryCode))
+            ->with('breadcrumbsName', $service->getCaterogyName($categoryCode));
     }
 
     public function searchArticle(BlogService $service, ArticleSearchRequest $request): View

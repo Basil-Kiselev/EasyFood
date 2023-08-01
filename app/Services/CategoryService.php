@@ -11,4 +11,9 @@ class CategoryService
     {
         return Category::has('products')->get();
     }
+
+    public function getCaterogyName(string|null $code): string|null
+    {
+        return Category::query()->where('code', $code)->value('name');
+    }
 }
