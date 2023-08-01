@@ -42,7 +42,7 @@ $recommendArticles = !empty($recommendArticles) ? $recommendArticles : [];
                         <h4>Категории</h4>
                         <ul>
                             @foreach($articleCategories as $articleCategory)
-                                <li><a href="#">{{ $articleCategory->getName() }} ({{ $articleCategory->articles()->count() }})</a></li>
+                                <li><a href="{{ route('blog-category', $articleCategory->getCode()) }}">{{ $articleCategory->getName() }} ({{ $articleCategory->articles()->count() }})</a></li>
                             @endforeach
                         </ul>
                     </div>

@@ -11,6 +11,7 @@ class ProductController extends Controller
     {
         return view('product')
             ->with('productInfo', $service->getProduct($article))
-            ->with('relatedProducts', $service->getRelatedProducts($article));
+            ->with('relatedProducts', $service->getRelatedProducts($article))
+            ->with('breadcrumbsName', $service->getProduct($article)->getName());
     }
 }

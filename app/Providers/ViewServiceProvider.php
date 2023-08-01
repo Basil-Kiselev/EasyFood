@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\View\Composers\BlogComposer;
+use App\View\Composers\BreadcrumbsComposer;
 use App\View\Composers\HeaderComposer;
 use App\View\Composers\HeroComposer;
 use App\View\Composers\FooterComposer;
@@ -28,5 +29,6 @@ class ViewServiceProvider extends ServiceProvider
         View::composer('blocks.hero', HeroComposer::class);
         View::composer('blocks.header', HeaderComposer::class);
         View::composer('blog', BlogComposer::class);
+        View::composer('blocks.breadcrumbs', BreadcrumbsComposer::class);
     }
 }

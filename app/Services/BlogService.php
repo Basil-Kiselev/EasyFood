@@ -76,9 +76,9 @@ class BlogService
         return $dto;
     }
 
-    public function getRecommedArticles(): array
+    public function getRecommendArticles(): array
     {
-        $recommendArticles = Article::query()->where('is_recommend', 1)->inRandomOrder()->limit(self::COUNT_RECOMMEND_ARTICLES)->get();
+        $recommendArticles = Article::query()->where('is_recommend', true)->inRandomOrder()->limit(self::COUNT_RECOMMEND_ARTICLES)->get();
         $dto = [];
 
         /** @var Article $article */
@@ -92,5 +92,10 @@ class BlogService
     public function searchArticle(string $searchValue): LengthAwarePaginator
     {
         return Article::query()->where('header', 'LIKE', "%$searchValue%")->paginate(self::COUNT_PAGINATE_ARTICLES_PAGE)->withQueryString();
+    }
+
+    public function getCaterogyName(string $categoryCode): string
+    {
+        return ArticleCategory::query()->where('code', $categoryCode)->value('name');
     }
 }
