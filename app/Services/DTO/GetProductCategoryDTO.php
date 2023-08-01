@@ -2,7 +2,7 @@
 
 namespace App\Services\DTO;
 
-class CategoryDTO
+class GetProductCategoryDTO
 {
     private array $products = [];
 
@@ -12,13 +12,13 @@ class CategoryDTO
         private string $name,
     ){}
 
-    public function addProduct(RecommendedProductDTO $dto)
+    public function addProduct(GetRecommendedProductDTO $dto)
     {
         $this->products[] = $dto;
     }
 
     /**
-     * @return RecommendedProductDTO[]
+     * @return GetRecommendedProductDTO[]
      */
     public function getProducts(): array
     {
@@ -35,9 +35,9 @@ class CategoryDTO
 
     /**
      * @param string $code
-     * @return CategoryDTO
+     * @return GetProductCategoryDTO
      */
-    public function setCode(string $code): CategoryDTO
+    public function setCode(string $code): GetProductCategoryDTO
     {
         $this->code = $code;
         return $this;
@@ -53,9 +53,9 @@ class CategoryDTO
 
     /**
      * @param string $name
-     * @return CategoryDTO
+     * @return GetProductCategoryDTO
      */
-    public function setName(string $name): CategoryDTO
+    public function setName(string $name): GetProductCategoryDTO
     {
         $this->name = $name;
         return $this;

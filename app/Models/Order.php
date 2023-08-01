@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Services\DTO\OrderDTO;
+use App\Services\DTO\GetOrderDTO;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -34,7 +34,7 @@ class Order extends Model
         return $this->hasOne(OrderDeliveryDetail::class);
     }
 
-    public static function createOrder(Cart $cart, OrderDTO $DTO): Order
+    public static function createOrder(Cart $cart, GetOrderDTO $DTO): Order
     {
         /** @var Cart $cart */
         $order = new Order();

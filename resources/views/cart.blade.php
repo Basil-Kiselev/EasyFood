@@ -1,7 +1,7 @@
 @php
     /**
-     * @var \App\Services\DTO\CartProductDTO $cartProduct
-     * @var \App\Services\DTO\CartDTO $cart
+     * @var \App\Services\DTO\GetCartProductDTO $cartProduct
+     * @var \App\Services\DTO\GetCartDTO $cart
      */
 
     $cart = !empty($cart) ? $cart : null;

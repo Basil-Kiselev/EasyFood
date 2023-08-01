@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Services\DTO\DeliveryDetailDTO;
-use App\Services\DTO\OrderDTO;
+use App\Services\DTO\GetOrderDTO;
 use App\Services\DTO\RegistrationNewUserDTO;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -153,9 +153,9 @@ class OrderRequest extends FormRequest
         return $this->createAcc;
     }
 
-    public function composeOrderDTO(): OrderDTO
+    public function composeOrderDTO(): GetOrderDTO
     {
-        return new OrderDTO(
+        return new GetOrderDTO(
             name: $this->input('name'),
             phone: $this->input('phone'),
             orderNotes: $this->input('orderNotes'),

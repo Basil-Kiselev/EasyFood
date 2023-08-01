@@ -2,7 +2,7 @@
 
 namespace App\Services\DTO;
 
-class CartDTO
+class GetCartDTO
 {
     public function __construct
     (
@@ -23,9 +23,9 @@ class CartDTO
 
     /**
      * @param int $id
-     * @return CartDTO
+     * @return GetCartDTO
      */
-    public function setId(int $id): CartDTO
+    public function setId(int $id): GetCartDTO
     {
         $this->id = $id;
         return $this;
@@ -41,9 +41,9 @@ class CartDTO
 
     /**
      * @param int $price
-     * @return CartDTO
+     * @return GetCartDTO
      */
-    public function setPrice(int|null $price): CartDTO
+    public function setPrice(int|null $price): GetCartDTO
     {
         $this->price = $price;
         return $this;
@@ -59,9 +59,9 @@ class CartDTO
 
     /**
      * @param int $finalPrice
-     * @return CartDTO
+     * @return GetCartDTO
      */
-    public function setFinalPrice(int|null $finalPrice): CartDTO
+    public function setFinalPrice(int|null $finalPrice): GetCartDTO
     {
         $this->finalPrice = $finalPrice;
         return $this;
@@ -77,9 +77,9 @@ class CartDTO
 
     /**
      * @param array $products
-     * @return CartDTO
+     * @return GetCartDTO
      */
-    public function setProducts(array $products): CartDTO
+    public function setProducts(array $products): GetCartDTO
     {
         $this->products = $products;
         return $this;
@@ -95,9 +95,9 @@ class CartDTO
 
     /**
      * @param int|null $discount
-     * @return CartDTO
+     * @return GetCartDTO
      */
-    public function setDiscount(?int $discount): CartDTO
+    public function setDiscount(?int $discount): GetCartDTO
     {
         $this->discount = $discount;
         return $this;

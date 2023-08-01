@@ -1,5 +1,5 @@
 @php
-    /** @var \App\Services\DTO\CartHeaderInfoDTO $cartInfo */
+    /** @var \App\Services\DTO\GetCartHeaderInfoDTO $cartInfo */
     $countFavoriteProducts = !empty($countFavoriteProducts) ? $countFavoriteProducts : 0;
 @endphp
 <ul>

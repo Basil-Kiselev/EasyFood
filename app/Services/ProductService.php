@@ -6,10 +6,10 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductRelation;
 use App\Services\DTO\FilterForCatalogueDTO;
-use App\Services\DTO\CategoryDTO;
-use App\Services\DTO\ProductDTO;
-use App\Services\DTO\RecommendedProductDTO;
-use App\Services\DTO\RelatedProductDTO;
+use App\Services\DTO\GetProductCategoryDTO;
+use App\Services\DTO\GetProductDTO;
+use App\Services\DTO\GetRecommendedProductDTO;
+use App\Services\DTO\GetRelatedProductDTO;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -18,7 +18,7 @@ class ProductService
     public const COUNT_PAGINATE_PAGES = 3;
 
     /**
-     * @return CategoryDTO[]
+     * @return GetProductCategoryDTO[]
      */
     public function getRecommendedProduct(): array
     {
@@ -33,12 +33,12 @@ class ProductService
         $result = [];
 
         foreach ($recommendedCategories as $category) {
-            $categoryDto = new CategoryDTO($category->getCode(), $category->getName());
+            $categoryDto = new GetProductCategoryDTO($category->getCode(), $category->getName());
             $categoryId = $category->getId();
             $recommendedProducts = $products->where('category_id', $categoryId);
 
             foreach ($recommendedProducts as $product) {
-                $productDto = new RecommendedProductDTO(
+                $productDto = new GetRecommendedProductDTO(
                     $product->getArticle(),
                     $product->getName(),
                     $product->getImg(),
@@ -76,7 +76,7 @@ class ProductService
         return $query->paginate(ProductService::COUNT_PAGINATE_PAGES)->withQueryString();
     }
 
-    public function getProduct(string $article): ProductDTO
+    public function getProduct(string $article): GetProductDTO
     {
         /** @var Product $product */
         $product = Product::query()->where('article', $article)->firstOrFail();
@@ -99,7 +99,7 @@ class ProductService
             $measureByHundred = 'г';
         }
 
-        return new ProductDTO(
+        return new GetProductDTO(
             article: $product->getArticle(),
             name : $product->getName(),
             description : $product->getDescription(),
@@ -124,7 +124,7 @@ class ProductService
             ->get();
     }
 
-    /** @return RelatedProductDTO[] */
+    /** @return GetRelatedProductDTO[] */
     public function getRelatedProducts(string $article): array
     {
         /**
@@ -140,7 +140,7 @@ class ProductService
         $results = [];
 
         foreach ($relatedProducts as $relatedProduct) {
-            $relatedProductDto = new RelatedProductDTO(
+            $relatedProductDto = new GetRelatedProductDTO(
                 $relatedProduct->getArticle(),
                 $relatedProduct->getName(),
                 $relatedProduct->getImg(),

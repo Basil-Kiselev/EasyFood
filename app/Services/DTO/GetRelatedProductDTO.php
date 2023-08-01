@@ -2,7 +2,7 @@
 
 namespace App\Services\DTO;
 
-class RelatedProductDTO
+class GetRelatedProductDTO
 {
     public function __construct
     (
@@ -22,9 +22,9 @@ class RelatedProductDTO
 
     /**
      * @param string $article
-     * @return RelatedProductDTO
+     * @return GetRelatedProductDTO
      */
-    public function setArticle(string $article): RelatedProductDTO
+    public function setArticle(string $article): GetRelatedProductDTO
     {
         $this->article = $article;
         return $this;
@@ -40,9 +40,9 @@ class RelatedProductDTO
 
     /**
      * @param string $name
-     * @return RelatedProductDTO
+     * @return GetRelatedProductDTO
      */
-    public function setName(string $name): RelatedProductDTO
+    public function setName(string $name): GetRelatedProductDTO
     {
         $this->name = $name;
         return $this;
@@ -58,9 +58,9 @@ class RelatedProductDTO
 
     /**
      * @param string $img
-     * @return RelatedProductDTO
+     * @return GetRelatedProductDTO
      */
-    public function setImg(string $img): RelatedProductDTO
+    public function setImg(string $img): GetRelatedProductDTO
     {
         $this->img = $img;
         return $this;
@@ -76,9 +76,9 @@ class RelatedProductDTO
 
     /**
      * @param int $price
-     * @return RelatedProductDTO
+     * @return GetRelatedProductDTO
      */
-    public function setPrice(int $price): RelatedProductDTO
+    public function setPrice(int $price): GetRelatedProductDTO
     {
         $this->price = $price;
         return $this;

@@ -6,9 +6,9 @@ use App\Models\Cart;
 use App\Models\CartProduct;
 use App\Models\Coupon;
 use App\Models\Product;
-use App\Services\DTO\CartDTO;
-use App\Services\DTO\CartProductDTO;
-use App\Services\DTO\CartHeaderInfoDTO;
+use App\Services\DTO\GetCartDTO;
+use App\Services\DTO\GetCartProductDTO;
+use App\Services\DTO\GetCartHeaderInfoDTO;
 use Illuminate\Database\Eloquent\Model;
 
 class CartService
@@ -81,7 +81,7 @@ class CartService
         return Cart::query()->find($cartId);
     }
 
-    public function getUserCart(int $userId): CartDTO
+    public function getUserCart(int $userId): GetCartDTO
     {
         /** @var Cart $cart */
         $cart = Cart::query()->where('user_id', $userId)->first();
@@ -89,7 +89,7 @@ class CartService
         return $this->composeCartDto($cart);
     }
 
-    public function getSessionCart(string $sessionId): CartDTO
+    public function getSessionCart(string $sessionId): GetCartDTO
     {
         /** @var Cart $cart */
         $cart = Cart::query()->where('session_id', $sessionId)->first();
@@ -97,10 +97,10 @@ class CartService
         return $this->composeCartDto($cart);
     }
 
-    public function composeCartDto(Cart|null $cart = null): CartDTO
+    public function composeCartDto(Cart|null $cart = null): GetCartDTO
     {
         if (!$cart) {
-            return new CartDTO(0,0, 0, [], 0);
+            return new GetCartDTO(0,0, 0, [], 0);
         }
 
         $cartProducts = $cart->cartProducts()->with('product')->get();
@@ -109,7 +109,7 @@ class CartService
         /** @var CartProduct $cartProduct */
         foreach ($cartProducts as $cartProduct) {
             $totalPrice = $cartProduct->getProductQuantity() * $cartProduct->product->getPrice();
-            $dtoList[] = new CartProductDTO(
+            $dtoList[] = new GetCartProductDTO(
                 article: $cartProduct->product->getArticle(),
                 name: $cartProduct->product->getName(),
                 img: $cartProduct->product->getImg(),
@@ -119,7 +119,7 @@ class CartService
             );
         }
 
-        return new CartDTO(
+        return new GetCartDTO(
             $cart->getId(),
             $cart->getPrice(),
             $cart->getFinalPrice(),
@@ -136,27 +136,27 @@ class CartService
         return $cart->deleteProduct($article);
     }
 
-    public function getSessionCartHeaderInfo(string $sessionId): CartHeaderInfoDTO
+    public function getSessionCartHeaderInfo(string $sessionId): GetCartHeaderInfoDTO
     {
         $cart = Cart::query()->where('session_id', $sessionId)->first();
 
         return $this->composeCartHeaderInfoDto($cart);
     }
 
-    public function getUserCartHeaderInfo(int $userId): CartHeaderInfoDTO
+    public function getUserCartHeaderInfo(int $userId): GetCartHeaderInfoDTO
     {
         $cart = Cart::query()->where('user_id', $userId)->first();
 
         return $this->composeCartHeaderInfoDto($cart);
     }
 
-    public function composeCartHeaderInfoDto(Cart|null $cart = null): CartHeaderInfoDTO
+    public function composeCartHeaderInfoDto(Cart|null $cart = null): GetCartHeaderInfoDTO
     {
         if (!$cart) {
-            return new CartHeaderInfoDTO(0,0);
+            return new GetCartHeaderInfoDTO(0,0);
         }
 
-        return new CartHeaderInfoDTO(
+        return new GetCartHeaderInfoDTO(
             $cart->cartProducts()->sum('product_quantity'),
             $cart->getFinalPrice(),
         );
