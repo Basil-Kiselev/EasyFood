@@ -2,7 +2,7 @@
 
 namespace App\Services\DTO;
 
-class CartHeaderInfoDTO
+class GetCartHeaderInfoDTO
 {
     public function __construct
     (
@@ -20,9 +20,9 @@ class CartHeaderInfoDTO
 
     /**
      * @param int $countProducts
-     * @return CartHeaderInfoDTO
+     * @return GetCartHeaderInfoDTO
      */
-    public function setCountProducts(int $countProducts): CartHeaderInfoDTO
+    public function setCountProducts(int $countProducts): GetCartHeaderInfoDTO
     {
         $this->countProducts = $countProducts;
         return $this;
@@ -38,9 +38,9 @@ class CartHeaderInfoDTO
 
     /**
      * @param int $finalPrice
-     * @return CartHeaderInfoDTO
+     * @return GetCartHeaderInfoDTO
      */
-    public function setFinalPrice(int $finalPrice): CartHeaderInfoDTO
+    public function setFinalPrice(int $finalPrice): GetCartHeaderInfoDTO
     {
         $this->finalPrice = $finalPrice;
         return $this;

@@ -1,7 +1,7 @@
 @php
     /**
-     * @var \App\Services\DTO\ProductDTO $productInfo
-     * @var \App\Services\DTO\RelatedProductDTO $relatedProduct
+     * @var \App\Services\DTO\GetProductDTO $productInfo
+     * @var \App\Services\DTO\GetRelatedProductDTO $relatedProduct
      */
     $productInfo = !empty($productInfo) ? $productInfo : [];
     $relatedProducts = !empty($relatedProducts) ? $relatedProducts : [];

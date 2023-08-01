@@ -1,11 +1,11 @@
 @php
-/**
- * @var \App\Services\DTO\CartProductDTO $cartProduct
- * @var \App\Services\DTO\CartDTO $cart
- */
+    /**
+     * @var \App\Services\DTO\GetCartProductDTO $cartProduct
+     * @var \App\Services\DTO\GetCartDTO $cart
+     */
 
-$cart = !empty($cart) ? $cart : null;
-$cartProducts = $cart?->getProducts() ?? [];
+    $cart = !empty($cart) ? $cart : null;
+    $cartProducts = $cart?->getProducts() ?? [];
 @endphp
 @extends('index')
 @section('content')
@@ -32,7 +32,7 @@ $cartProducts = $cart?->getProducts() ?? [];
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>Имя<span>*</span></p>
-                                        <input  name="name" type="text">
+                                        <input name="name" type="text">
                                     </div>
                                 </div>
                             </div>
@@ -79,15 +79,15 @@ $cartProducts = $cart?->getProducts() ?? [];
                                 <h4 style="border-bottom: 0">Ваш заказ</h4>
                                 <table class="table">
                                     <tbody>
-                                        @if(!empty($cartProducts))
-                                            @foreach($cartProducts as $cartProduct)
-                                                <tr>
-                                                    <td>{{ $cartProduct->getName() }}</td>
-                                                    <td>{{ $cartProduct->getQuantity() }} шт</td>
-                                                    <td>{{ $cartProduct->getPrice() }} ₸</td>
-                                                </tr>
-                                            @endforeach
-                                        @endif
+                                    @if(!empty($cartProducts))
+                                        @foreach($cartProducts as $cartProduct)
+                                            <tr>
+                                                <td>{{ $cartProduct->getName() }}</td>
+                                                <td>{{ $cartProduct->getQuantity() }} шт</td>
+                                                <td>{{ $cartProduct->getPrice() }} ₸</td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
                                     </tbody>
                                 </table>
                                 <div class="checkout__order__subtotal">Итого<span>{{ $cart->getPrice() }} ₸</span></div>

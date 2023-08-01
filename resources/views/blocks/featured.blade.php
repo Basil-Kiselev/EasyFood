@@ -1,6 +1,6 @@
 @if(!empty($recCategories))
     @php
-        /** @var \App\Services\DTO\CategoryDTO $recCategory */
+        /** @var \App\Services\DTO\GetProductCategoryDTO $recCategory */
     @endphp<!-- Featured Section Begin -->
     <section class="featured spad">
         <div class="container">
@@ -27,9 +27,9 @@
                                 <div class="featured__item__pic set-bg" data-setbg="{{ asset($product->getImg()) }}">
                                     <ul class="featured__item__pic__hover">
                                         <li><a href="{{ route('add-favorite', $product->getArticle()) }}"><i
-                                                    class="fa fa-heart"></i></a></li>
+                                                        class="fa fa-heart"></i></a></li>
                                         <li><a href="{{ route('addToCart', $product->getArticle()) }}"><i
-                                                    class="fa fa-shopping-cart"></i></a></li>
+                                                        class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
                                 <div class="featured__item__text">

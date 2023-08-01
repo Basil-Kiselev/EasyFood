@@ -2,7 +2,7 @@
 
 namespace App\Services\DTO;
 
-class OrderDTO
+class GetOrderDTO
 {
     public function __construct
     (
@@ -22,9 +22,9 @@ class OrderDTO
 
     /**
      * @param string $name
-     * @return OrderDTO
+     * @return GetOrderDTO
      */
-    public function setName(string $name): OrderDTO
+    public function setName(string $name): GetOrderDTO
     {
         $this->name = $name;
         return $this;
@@ -40,9 +40,9 @@ class OrderDTO
 
     /**
      * @param string $phone
-     * @return OrderDTO
+     * @return GetOrderDTO
      */
-    public function setPhone(string $phone): OrderDTO
+    public function setPhone(string $phone): GetOrderDTO
     {
         $this->phone = $phone;
         return $this;
@@ -58,9 +58,9 @@ class OrderDTO
 
     /**
      * @param int $price
-     * @return OrderDTO
+     * @return GetOrderDTO
      */
-    public function setPrice(int $price): OrderDTO
+    public function setPrice(int $price): GetOrderDTO
     {
         $this->price = $price;
         return $this;
@@ -76,9 +76,9 @@ class OrderDTO
 
     /**
      * @param int $finalPrice
-     * @return OrderDTO
+     * @return GetOrderDTO
      */
-    public function setFinalPrice(int $finalPrice): OrderDTO
+    public function setFinalPrice(int $finalPrice): GetOrderDTO
     {
         $this->finalPrice = $finalPrice;
         return $this;
@@ -94,9 +94,9 @@ class OrderDTO
 
     /**
      * @param string|null $orderNotes
-     * @return OrderDTO
+     * @return GetOrderDTO
      */
-    public function setOrderNotes(?string $orderNotes): OrderDTO
+    public function setOrderNotes(?string $orderNotes): GetOrderDTO
     {
         $this->orderNotes = $orderNotes;
         return $this;
@@ -112,9 +112,9 @@ class OrderDTO
 
     /**
      * @param DeliveryDetailDTO $deliveryDetailDTO
-     * @return OrderDTO
+     * @return GetOrderDTO
      */
-    public function setDeliveryDetailDTO(DeliveryDetailDTO $deliveryDetailDTO): OrderDTO
+    public function setDeliveryDetailDTO(DeliveryDetailDTO $deliveryDetailDTO): GetOrderDTO
     {
         $this->deliveryDetailDTO = $deliveryDetailDTO;
         return $this;
