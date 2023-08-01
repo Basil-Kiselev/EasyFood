@@ -45,8 +45,6 @@
 <script src="{{asset('js/owl.carousel.min.js')}}"></script>
 <script src="{{asset('js/main.js')}}"></script>
 <script src="{{asset('js/cart.js')}}"></script>
-<script src="{{asset('js/checkout.js')}}"></script>
-<script src="{{asset('js/contacts.js')}}"></script>
 @vite(['resources/js/app.js'])
 
 </body>
