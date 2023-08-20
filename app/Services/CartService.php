@@ -42,13 +42,26 @@ class CartService
         $sessionCart = Cart::query()->where('session_id', $sessionId)->first();
         $userCart = Cart::query()->where('user_id', $userId)->first();
 
+        /**
+         * @var Cart $sessionCart
+         * @var Cart $userCart
+         */
         if (!empty($sessionCart)) {
-            $sessionCart->setUserId($userId);
-            $sessionCart->setSessionId(null);
-            $sessionCart->save();
 
-            if (!empty($userCart)) {
-                $userCart->delete();
+            if (empty($userCart)) {
+                $sessionCart->setUserId($userId);
+                $sessionCart->setSessionId(null);
+                $sessionCart->save();
+            } else {
+                $sessionCartProducts = $sessionCart->cartProducts()->get()->all();
+                $userCartId = $userCart->getId();
+
+                /** @var CartProduct $cartProduct */
+                foreach ($sessionCartProducts as $cartProduct) {
+                    $cartProduct->setCartId($userCartId);
+                    $cartProduct->save();
+                }
+                $sessionCart->delete();
             }
         }
 
@@ -60,8 +73,7 @@ class CartService
         /** @var Cart $cart */
         $cart = Cart::query()->where('id', $cartId)->first();
         $productId = Product::query()->where('article', $article)->value('id');
-        $query = $cart->cartProducts()->where('product_id', $productId);
-        $currentQuantity = $query->value('product_quantity');
+        $currentQuantity = $cart->cartProducts()->where('product_id', $productId)->value('product_quantity');
         $newQuantity = match ($type) {
             'inc' => $currentQuantity + 1,
             'dec' => $currentQuantity - 1,

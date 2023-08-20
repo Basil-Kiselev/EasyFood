@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $cart_id
  * @property int $product_id
  * @property int $product_quantity
+ * @property BelongsTo|Product $product
  */
 class CartProduct extends Model
 {
