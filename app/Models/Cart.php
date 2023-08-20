@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int|null $price
  * @property int|null $final_price
  * @property BelongsTo|Coupon $coupon
+ * @property BelongsTo|CartProduct $cartProducts
  */
 class Cart extends Model
 {
@@ -105,7 +106,7 @@ class Cart extends Model
         $productId = Product::query()->where('article', $article)->value('id');
         $this->cartProducts()->where('product_id', $productId)->delete();
 
-        if (!empty($this->cartProducts()->get()->all())) {
+        if (!empty($this->cartProducts()->first())) {
             $this->recalculate();
 
             return 'Товар убран';
