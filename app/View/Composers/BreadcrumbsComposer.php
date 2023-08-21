@@ -67,6 +67,12 @@ class BreadcrumbsComposer
                     'name' => 'Поиск',
                 ];
                 break;
+            case 'blog-search':
+                $breadcrumbsData = [
+                    'url' => 'http://easyfood.local/blog-search',
+                    'name' => 'Поиск статей'
+                ];
+                break;
         }
         $view->with('breadcrumbs', $breadcrumbsData);
     }
