@@ -33,6 +33,7 @@ class BlogController extends Controller
     public function searchArticle(BlogService $service, ArticleSearchRequest $request): View
     {
         return view('blog')
-            ->with('articles', $service->searchArticle($request->getSearchValue()));
+            ->with('articles', $service->searchArticle($request->getSearchValue()))
+            ->with('breadcrumbsName', $request->getSearchValue());
     }
 }
