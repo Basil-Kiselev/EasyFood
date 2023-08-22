@@ -32,7 +32,7 @@ class AuthService
         ];
         Auth::attempt($credential);
 
-        if ($sessionId != null) {
+        if ($sessionId != null && Auth::check()) {
             $userId = Auth::id();
             event(new UserLogin($userId, $sessionId));
         }
