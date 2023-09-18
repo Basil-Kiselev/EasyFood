@@ -21,11 +21,11 @@ class ChangeSessionToUserCart
     public function handle(UserLogin $event): void
     {
         $userId = $event->getUserId();
-        $sessionId = $event->getSessionId();
+        $fingerprint = $event->getFingerprint();
 
-        if ($sessionId != null && $userId != null) {
+        if ($fingerprint != null && $userId != null) {
             $service = new CartService();
-            $service->changeSessionToUser($sessionId, $userId);
+            $service->changeSessionToUser($fingerprint, $userId);
         }
     }
 }

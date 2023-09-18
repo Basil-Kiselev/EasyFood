@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\AuthHelper;
 use App\Http\Requests\ChangeQuantityCartProductsRequest;
 use App\Http\Requests\DeleteCartItemRequest;
 use App\Http\Requests\PromoCodeRequest;
@@ -10,20 +11,19 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
     public function index(CartService $service): View
     {
-        $cart = Auth::check() ? $service->getUserCart(Auth::id()) : $service->getSessionCart(Session::getId());
+        $cart = Auth::check() ? $service->getUserCart(Auth::id()) : $service->getSessionCart(AuthHelper::fingerprint());
 
         return view('cart')->with('cart', $cart);
     }
 
     public function addToCart(CartService $service, string $article): RedirectResponse
     {
-        Auth::check() ? $service->addToUserCart($article, Auth::id()) : $service->addToSessionCart($article, Session::getId());
+        Auth::check() ? $service->addToUserCart($article, Auth::id()) : $service->addToSessionCart($article, AuthHelper::fingerprint());
 
         return back();
     }

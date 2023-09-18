@@ -2,6 +2,7 @@
 
 namespace App\View\Composers;
 
+use App\Helpers\AuthHelper;
 use App\Models\Setting;
 use App\Services\CartService;
 use App\Services\SettingService;
@@ -17,7 +18,7 @@ class HeaderComposer
         $settingService = new SettingService();
         $favoriteProductService = new UserFavoriteProductService();
         $cartService = new CartService();
-        $cartInfo = Auth::check() ? $cartService->getUserCartHeaderInfo(Auth::id()) : $cartService->getSessionCartHeaderInfo(Session::getId());
+        $cartInfo = Auth::check() ? $cartService->getUserCartHeaderInfo(Auth::id()) : $cartService->getSessionCartHeaderInfo(AuthHelper::fingerprint());
 
         $view
             ->with('freeDelivery', $settingService->getSettingByCode(Setting::CODE_FREE_DELIVERY))

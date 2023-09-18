@@ -25,21 +25,21 @@ class CartService
         return $cart->addProduct($product);
     }
 
-    public function addToSessionCart(string $article, string $sessionId): bool
+    public function addToSessionCart(string $article, string $fingerprint): bool
     {
         /**
          * @var Product $product
          * @var Cart $cart
          */
         $product = Product::query()->where('article', $article)->firstOrFail();
-        $cart = Cart::query()->firstOrCreate(['session_id' => $sessionId]);
+        $cart = Cart::query()->firstOrCreate(['fingerprint' => $fingerprint]);
 
         return $cart->addProduct($product);
     }
 
-    public function changeSessionToUser(string $sessionId, int $userId): bool
+    public function changeSessionToUser(string $fingerprint, int $userId): bool
     {
-        $sessionCart = Cart::query()->where('session_id', $sessionId)->first();
+        $sessionCart = Cart::query()->where('fingerprint', $fingerprint)->first();
         $userCart = Cart::query()->where('user_id', $userId)->first();
 
         /**
@@ -50,7 +50,7 @@ class CartService
 
             if (empty($userCart)) {
                 $sessionCart->setUserId($userId);
-                $sessionCart->setSessionId(null);
+                $sessionCart->setFingerprint(null);
                 $sessionCart->save();
             } else {
                 $sessionCartProducts = $sessionCart->cartProducts()->get()->all();
@@ -101,10 +101,10 @@ class CartService
         return $this->composeCartDto($cart);
     }
 
-    public function getSessionCart(string $sessionId): GetCartDTO
+    public function getSessionCart(string $fingerprint): GetCartDTO
     {
         /** @var Cart $cart */
-        $cart = Cart::query()->where('session_id', $sessionId)->first();
+        $cart = Cart::query()->where('fingerprint', $fingerprint)->first();
 
         return $this->composeCartDto($cart);
     }
@@ -148,9 +148,9 @@ class CartService
         return $cart->deleteProduct($article);
     }
 
-    public function getSessionCartHeaderInfo(string $sessionId): GetCartHeaderInfoDTO
+    public function getSessionCartHeaderInfo(string $fingerprint): GetCartHeaderInfoDTO
     {
-        $cart = Cart::query()->where('session_id', $sessionId)->first();
+        $cart = Cart::query()->where('fingerprint', $fingerprint)->first();
 
         return $this->composeCartHeaderInfoDto($cart);
     }
