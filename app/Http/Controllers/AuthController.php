@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\AuthHelper;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegistrationRequest;
 use App\Services\AuthService;
@@ -20,9 +21,9 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request, AuthService $service): View|RedirectResponse
     {
-        $sessionId = Session::getId();
+        $fingerprint = AuthHelper::fingerprint();
 
-        if($service->login($request->getEmail(),$request->getPassword(), $sessionId)) {
+        if($service->login($request->getEmail(),$request->getPassword(), $fingerprint)) {
             return redirect(route('home'));
         } else {
             return back()

@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * @property int $id
  * @property int|null $user_id
- * @property string|null $session_id
+ * @property string|null $fingerprint
  * @property int|null $coupon_id
  * @property int|null $price
  * @property int|null $final_price
@@ -146,18 +146,18 @@ class Cart extends Model
     /**
      * @return string|null
      */
-    public function getSessionId(): ?string
+    public function getFingerprint(): ?string
     {
-        return $this->session_id;
+        return $this->fingerprint;
     }
 
     /**
-     * @param string|null $session_id
+     * @param string|null $fingerprint
      * @return Cart
      */
-    public function setSessionId(?string $session_id): Cart
+    public function setFingerprint(?string $fingerprint): Cart
     {
-        $this->session_id = $session_id;
+        $this->fingerprint = $fingerprint;
         return $this;
     }
 

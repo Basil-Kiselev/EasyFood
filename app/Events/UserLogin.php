@@ -12,15 +12,15 @@ class UserLogin
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     private int $userId;
-    private string $sessionId;
+    private string $fingerprint;
 
     /**
      * Create a new event instance.
      */
-    public function __construct(int $userId, string $sessionId)
+    public function __construct(int $userId, string $fingerprint)
     {
         $this->userId = $userId;
-        $this->sessionId = $sessionId;
+        $this->fingerprint = $fingerprint;
     }
 
     /**
@@ -46,8 +46,8 @@ class UserLogin
     /**
      * @return string
      */
-    public function getSessionId(): string
+    public function getFingerprint(): string
     {
-        return $this->sessionId;
+        return $this->fingerprint;
     }
 }
