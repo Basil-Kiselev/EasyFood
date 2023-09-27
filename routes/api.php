@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthApiController;
+use App\Http\Controllers\API\SettingsApiController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\NewsletterSubscribeController;
@@ -26,6 +27,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/login', [AuthApiController::class, 'loginUser']);
 Route::post('/registration', [AuthApiController::class, 'registrationNewUser']);
 Route::post('/logout', [AuthApiController::class, 'logoutUser']);
+
+Route::get('/settings', [SettingsApiController::class, 'getSettings']);
 
 Route::post('/subscribe',[NewsletterSubscribeController::class, 'subscribeNewEmail']);
 

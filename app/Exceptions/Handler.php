@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Throwable;
 
@@ -52,8 +53,11 @@ class Handler extends ExceptionHandler
 
         $this->renderable(function (Throwable $e, $request) {
             if ($request->is('api/*')) {
+                $message = env('APP_DEBUG') ? $e->getMessage() : "Ошибка, попробуйте позже";
+                Log::error($e->getMessage(), $e->getTrace());
+
                 return response()->json([
-                    'message' => 'Ошибка, попробуйте позже',
+                    'message' => $message,
                 ], 500);
             }
         });
