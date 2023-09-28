@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CategoryCollection;
+use App\Http\Resources\CategoryResource;
 use App\Services\CategoryService;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class CategoryApiController extends Controller
 {
-    public function getCategories(CategoryService $service): CategoryCollection
+    public function getCategories(CategoryService $service): AnonymousResourceCollection
     {
-        return new CategoryCollection($service->getCategories());
+        return CategoryResource::collection($service->getCategories());
     }
 }
