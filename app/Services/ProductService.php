@@ -100,6 +100,7 @@ class ProductService
         }
 
         return new GetProductDTO(
+            id: $product->getId(),
             article: $product->getArticle(),
             name : $product->getName(),
             description : $product->getDescription(),

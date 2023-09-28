@@ -6,6 +6,7 @@ class GetProductDTO
 {
     public function __construct
     (
+        private int $id,
         private string $article,
         private string $name,
         private string $description,
@@ -21,6 +22,24 @@ class GetProductDTO
         private string $vegan,
         private string $measureByHundred,
     ){}
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     * @return GetProductDTO
+     */
+    public function setId(int $id): GetProductDTO
+    {
+        $this->id = $id;
+        return $this;
+    }
 
     /**
      * @return string
