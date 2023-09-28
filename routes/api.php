@@ -36,6 +36,8 @@ Route::get('/categories', [CategoryApiController::class, 'getCategories']);
 
 Route::get('/products', [ProductApiController::class, 'getProducts']);
 
+Route::get('/products/{alias}', [ProductApiController::class, 'getProduct']);
+
 Route::post('/subscribe',[NewsletterSubscribeController::class, 'subscribeNewEmail']);
 
 Route::post('/cart', [CartController::class, 'applyCoupon']);
