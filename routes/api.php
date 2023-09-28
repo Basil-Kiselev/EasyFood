@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AuthApiController;
 use App\Http\Controllers\API\CategoryApiController;
+use App\Http\Controllers\API\ProductApiController;
 use App\Http\Controllers\API\SettingsApiController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactsController;
@@ -32,6 +33,8 @@ Route::post('/logout', [AuthApiController::class, 'logoutUser']);
 Route::get('/settings', [SettingsApiController::class, 'getSettings']);
 
 Route::get('/categories', [CategoryApiController::class, 'getCategories']);
+
+Route::get('/products', [ProductApiController::class, 'getProducts']);
 
 Route::post('/subscribe',[NewsletterSubscribeController::class, 'subscribeNewEmail']);
 
