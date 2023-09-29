@@ -152,4 +152,9 @@ class ProductService
 
         return $results;
     }
+
+    public function getRecommendedProductCollection(): Collection
+    {
+        return Category::has('recommendProducts')->with('products')->get();
+    }
 }

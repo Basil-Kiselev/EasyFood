@@ -21,6 +21,11 @@ class Category extends Model
         return $this->hasMany(Product::class);
     }
 
+    public function recommendProducts(): HasMany
+    {
+        return $this->products()->where('is_recommend', 1);
+    }
+
     /**
      * @return int
      */
