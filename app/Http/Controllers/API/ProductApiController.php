@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FilterForCatalogueRequest;
+use App\Http\Requests\SearchProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\ProductShortResource;
 use App\Services\DTO\FilterForCatalogueDTO;
@@ -27,5 +28,10 @@ class ProductApiController extends Controller
     public function getProduct(string $article, ProductService $service): ProductResource
     {
         return new ProductResource($service->getProduct($article));
+    }
+
+    public function searchProducts(SearchProductRequest $request, ProductService $service): AnonymousResourceCollection
+    {
+        return ProductShortResource::collection($service->searchProducts($request->getDataInput()));
     }
 }
