@@ -22,7 +22,7 @@ class SearchProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'q' => 'string',
+            'q' => 'string|required',
         ];
     }
 
@@ -30,6 +30,7 @@ class SearchProductRequest extends FormRequest
     {
         return [
             'q.string' => 'Запрос должен быть строкой',
+            'q.required' => 'Запрос обязателен'
         ];
     }
 
