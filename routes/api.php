@@ -38,6 +38,8 @@ Route::get('/products', [ProductApiController::class, 'getProducts']);
 
 Route::get('/products/search', [ProductApiController::class, 'searchProducts']);
 
+Route::get('/products/recommended', [ProductApiController::class, 'getRecommendedProducts']);
+
 Route::get('/products/{alias}', [ProductApiController::class, 'getProduct']);
 
 
