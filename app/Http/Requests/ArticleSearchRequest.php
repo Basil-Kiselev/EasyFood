@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-/** @property string $value */
+/** @property string $q */
 class ArticleSearchRequest extends FormRequest
 {
     /**
@@ -23,13 +23,14 @@ class ArticleSearchRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'value' => 'string',
+            'q' => 'string|required',
         ];
     }
     public function messages(): array
     {
         return [
-            'value.string' => 'Запрос должен быть строкой',
+            'q.string' => 'Запрос должен быть строкой',
+            'q.required' => 'Запрос обязателен',
         ];
     }
 
@@ -38,6 +39,6 @@ class ArticleSearchRequest extends FormRequest
      */
     public function getSearchValue(): string
     {
-        return $this->value;
+        return $this->q;
     }
 }

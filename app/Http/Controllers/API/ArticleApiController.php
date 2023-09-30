@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ArticlesApiRequest;
+use App\Http\Requests\ArticleSearchRequest;
 use App\Http\Resources\ArticleCategoryResource;
 use App\Http\Resources\ArticleShortResource;
 use App\Services\BlogService;
@@ -22,5 +23,10 @@ class ArticleApiController extends Controller
     public function getArticleCategories(BlogService $service): AnonymousResourceCollection
     {
         return ArticleCategoryResource::collection($service->getArticleCategories());
+    }
+
+    public function searchArticles(ArticleSearchRequest $request, BlogService $service)
+    {
+        return ArticleShortResource::collection($service->searchArticle($request->getSearchValue()));
     }
 }
