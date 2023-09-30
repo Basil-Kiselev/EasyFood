@@ -12,6 +12,6 @@ class MainPageController extends Controller
     {
         return view('home')
             ->with('recCategories', $productService->getRecommendedProduct())
-            ->with('articles', $blogService->getArticlesMainPage());
+            ->with('articles', $blogService->prepareArticlesDTO($blogService->getRandomArticles()));
     }
 }

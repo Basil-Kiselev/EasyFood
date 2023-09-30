@@ -12,6 +12,6 @@ class BlogComposer
         $service = new BlogService();
         $view
             ->with('articleCategories', $service->getArticleCategories())
-            ->with('recentArticles', $service->getRecentArticles());
+            ->with('recentArticles', $service->prepareArticlesDTO($service->getRecentArticles()));
     }
 }

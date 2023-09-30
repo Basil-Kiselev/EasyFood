@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\ArticleApiController;
 use App\Http\Controllers\API\AuthApiController;
 use App\Http\Controllers\API\CategoryApiController;
 use App\Http\Controllers\API\ProductApiController;
@@ -42,6 +43,7 @@ Route::get('/products/recommended', [ProductApiController::class, 'getRecommende
 
 Route::get('/products/{alias}', [ProductApiController::class, 'getProduct']);
 
+Route::get('/articles', [ArticleApiController::class, 'getArticles']);
 
 Route::post('/subscribe',[NewsletterSubscribeController::class, 'subscribeNewEmail']);
 
