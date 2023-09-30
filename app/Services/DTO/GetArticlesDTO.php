@@ -6,6 +6,7 @@ class GetArticlesDTO
 {
     public function __construct
     (
+        private int $id,
         private string $header,
         private string|null $text,
         private string $img,
@@ -13,6 +14,14 @@ class GetArticlesDTO
         private string|null $articleCategory,
         private string $dateCreated,
     ){}
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
 
     /**
      * @return string

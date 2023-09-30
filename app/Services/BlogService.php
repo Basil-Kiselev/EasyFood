@@ -18,6 +18,7 @@ class BlogService
     public function composeGetArticlesDTO(Article $article): GetArticlesDTO
     {
         return new GetArticlesDTO(
+            id: $article->getId(),
             header: $article->getHeader(),
             text: $article->getText(),
             img: $article->getImg(),

@@ -47,6 +47,8 @@ Route::get('/articles', [ArticleApiController::class, 'getArticles']);
 
 Route::get('/articles/search', [ArticleApiController::class, 'searchArticles']);
 
+Route::get('/articles/{alias}', [ArticleApiController::class, 'getArticle']);
+
 Route::get('/article-categories', [ArticleApiController::class, 'getArticleCategories']);
 
 Route::post('/subscribe',[NewsletterSubscribeController::class, 'subscribeNewEmail']);
