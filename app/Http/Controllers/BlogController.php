@@ -18,9 +18,9 @@ class BlogController extends Controller
     {
         return view('blog-details')
             ->with('article', $service->getArticle($alias))
-            ->with('recommendArticles', $service->getRecommendArticles())
+            ->with('recommendArticles', $service->prepareArticlesDTO($service->getRecommendArticles()))
             ->with('articleCategories', $service->getArticleCategories())
-            ->with('recentArticles', $service->getRecentArticles());
+            ->with('recentArticles', $service->prepareArticlesDTO($service->getRecentArticles()));
     }
 
     public function viewCategoryArticles(BlogService $service, string $categoryCode): View
