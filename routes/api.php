@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\ArticleApiController;
 use App\Http\Controllers\API\AuthApiController;
+use App\Http\Controllers\API\CartApiController;
 use App\Http\Controllers\API\CategoryApiController;
 use App\Http\Controllers\API\ProductApiController;
 use App\Http\Controllers\API\SettingsApiController;
@@ -50,6 +51,8 @@ Route::get('/articles/search', [ArticleApiController::class, 'searchArticles']);
 Route::get('/articles/{alias}', [ArticleApiController::class, 'getArticle']);
 
 Route::get('/article-categories', [ArticleApiController::class, 'getArticleCategories']);
+
+Route::get('/cart', [CartApiController::class, 'getCart']);
 
 Route::post('/subscribe',[NewsletterSubscribeController::class, 'subscribeNewEmail']);
 

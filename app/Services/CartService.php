@@ -112,7 +112,7 @@ class CartService
     public function composeCartDto(Cart|null $cart = null): GetCartDTO
     {
         if (!$cart) {
-            return new GetCartDTO(0,0, 0, [], 0);
+            return new GetCartDTO(0,0, 0, 0, [], null);
         }
 
         $cartProducts = $cart->cartProducts()->with('product')->get();
@@ -122,6 +122,7 @@ class CartService
         foreach ($cartProducts as $cartProduct) {
             $totalPrice = $cartProduct->getProductQuantity() * $cartProduct->product->getPrice();
             $dtoList[] = new GetCartProductDTO(
+                id: $cartProduct->product->getId(),
                 article: $cartProduct->product->getArticle(),
                 name: $cartProduct->product->getName(),
                 img: $cartProduct->product->getImg(),
@@ -132,11 +133,12 @@ class CartService
         }
 
         return new GetCartDTO(
-            $cart->getId(),
-            $cart->getPrice(),
-            $cart->getFinalPrice(),
-            $dtoList,
-            $cart->coupon?->getValue(),
+            id: $cart->getId(),
+            price: $cart->getPrice(),
+            finalPrice: $cart->getFinalPrice(),
+            productsCount: $cart->cartProducts()->sum('product_quantity'),
+            products: $dtoList,
+            discount: $cart->coupon?->getValue(),
         );
     }
 
