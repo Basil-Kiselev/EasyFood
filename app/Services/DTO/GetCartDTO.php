@@ -9,6 +9,7 @@ class GetCartDTO
         private int $id,
         private int $price,
         private int $finalPrice,
+        private int $productsCount,
         private array $products,
         private int|null $discount = null,
     ){}
@@ -100,6 +101,24 @@ class GetCartDTO
     public function setDiscount(?int $discount): GetCartDTO
     {
         $this->discount = $discount;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getProductsCount(): int
+    {
+        return $this->productsCount;
+    }
+
+    /**
+     * @param int $productsCount
+     * @return GetCartDTO
+     */
+    public function setProductsCount(int $productsCount): GetCartDTO
+    {
+        $this->productsCount = $productsCount;
         return $this;
     }
 }

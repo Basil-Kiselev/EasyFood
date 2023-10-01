@@ -6,6 +6,7 @@ class GetCartProductDTO
 {
     public function __construct
     (
+        private int $id,
         private string $article,
         private string $name,
         private string $img,
@@ -13,6 +14,24 @@ class GetCartProductDTO
         private int $quantity,
         private int $totalPrice,
     ){}
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     * @return GetCartProductDTO
+     */
+    public function setId(int $id): GetCartProductDTO
+    {
+        $this->id = $id;
+        return $this;
+    }
 
     /**
      * @return string
