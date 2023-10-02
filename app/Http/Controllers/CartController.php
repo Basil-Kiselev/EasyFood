@@ -16,8 +16,7 @@ class CartController extends Controller
 {
     public function index(CartService $service): View
     {
-        $cart = Auth::check() ? $service->getUserCart(Auth::id()) : $service->getSessionCart(AuthHelper::fingerprint());
-        $cartDTO = $service->composeCartDto($cart);
+        $cartDTO = Auth::check() ? $service->composeCartDto($service->getUserCart(Auth::id())) : $service->composeCartDto($service->getSessionCart(AuthHelper::fingerprint()));
 
         return view('cart')->with('cart', $cartDTO);
     }
