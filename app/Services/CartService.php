@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CartService
 {
-    public function addToUserCart(string $article, int $userId): bool
+    public function addToUserCart(string $article, int $userId): Cart
     {
         /**
          * @var Product $product
@@ -25,7 +25,7 @@ class CartService
         return $cart->addProduct($product);
     }
 
-    public function addToSessionCart(string $article, string $fingerprint): bool
+    public function addToSessionCart(string $article, string $fingerprint): Cart
     {
         /**
          * @var Product $product
@@ -93,12 +93,12 @@ class CartService
         return Cart::query()->find($cartId);
     }
 
-    public function getUserCart(int $userId): Cart|Model
+    public function getUserCart(int $userId): Cart|Model|null
     {
         return Cart::query()->where('user_id', $userId)->first();
     }
 
-    public function getSessionCart(string $fingerprint): Cart|Model
+    public function getSessionCart(string $fingerprint): Cart|Model|null
     {
         return Cart::query()->where('fingerprint', $fingerprint)->first();
     }

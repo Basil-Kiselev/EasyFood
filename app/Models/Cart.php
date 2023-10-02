@@ -32,7 +32,7 @@ class Cart extends Model
         return $this->belongsTo(Coupon::class);
     }
 
-    public function addProduct(Product $product): bool
+    public function addProduct(Product $product): Cart
     {
         $query = $this->cartProducts()->where('product_id', $product->getId());
 
@@ -46,7 +46,7 @@ class Cart extends Model
         }
         $this->recalculate();
 
-        return true;
+        return $this;
     }
 
     public function deleteWithRelationship(): void
