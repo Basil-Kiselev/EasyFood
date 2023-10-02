@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CartService
 {
-    public function addToUserCart(string $article, int $userId): bool
+    public function addToUserCart(string $article, int $userId): Cart
     {
         /**
          * @var Product $product
@@ -25,7 +25,7 @@ class CartService
         return $cart->addProduct($product);
     }
 
-    public function addToSessionCart(string $article, string $fingerprint): bool
+    public function addToSessionCart(string $article, string $fingerprint): Cart
     {
         /**
          * @var Product $product
@@ -93,20 +93,14 @@ class CartService
         return Cart::query()->find($cartId);
     }
 
-    public function getUserCart(int $userId): GetCartDTO
+    public function getUserCart(int $userId): Cart|Model|null
     {
-        /** @var Cart $cart */
-        $cart = Cart::query()->where('user_id', $userId)->first();
-
-        return $this->composeCartDto($cart);
+        return Cart::query()->where('user_id', $userId)->first();
     }
 
-    public function getSessionCart(string $fingerprint): GetCartDTO
+    public function getSessionCart(string $fingerprint): Cart|Model|null
     {
-        /** @var Cart $cart */
-        $cart = Cart::query()->where('fingerprint', $fingerprint)->first();
-
-        return $this->composeCartDto($cart);
+        return Cart::query()->where('fingerprint', $fingerprint)->first();
     }
 
     public function composeCartDto(Cart|null $cart = null): GetCartDTO
@@ -176,13 +170,11 @@ class CartService
         );
     }
 
-    public function applyPromoCodeToCart(string $promoCode, int $cartId): string
+    public function applyPromoCodeToCart(string $promoCode, Cart $cart): string
     {
         /**
          * @var Coupon $coupon
-         * @var Cart $cart
          */
-        $cart = Cart::query()->where('id', $cartId)->first();
         $coupon = Coupon::query()->where('promo_code', $promoCode)->first();
 
         if (empty($coupon)) {

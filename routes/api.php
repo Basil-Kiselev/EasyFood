@@ -54,6 +54,8 @@ Route::get('/article-categories', [ArticleApiController::class, 'getArticleCateg
 
 Route::get('/cart', [CartApiController::class, 'getCart']);
 
+Route::post('/cart/items', [CartApiController::class, 'addItemToCart']);
+
 Route::post('/subscribe',[NewsletterSubscribeController::class, 'subscribeNewEmail']);
 
 Route::post('/cart', [CartController::class, 'applyCoupon']);

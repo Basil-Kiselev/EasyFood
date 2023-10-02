@@ -4,10 +4,9 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-/**
- * @property string $promoCode
- */
-class PromoCodeRequest extends FormRequest
+/** @property string $productAlias */
+
+class AddItemToCartRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,23 +24,23 @@ class PromoCodeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'promoCode' => 'required|string',
+            'productAlias' => 'required|string',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'promoCode.required' => 'Введите промокод',
-            'promoCode.string' => 'Введите корректный код',
+            'productAlias.required' => 'Код товара обязятелен',
+            'productAlias.string' => 'Код должен быть строкой'
         ];
     }
 
     /**
      * @return string
      */
-    public function getPromoCode(): string
+    public function getProductAlias(): string
     {
-        return $this->promoCode;
+        return $this->productAlias;
     }
 }

@@ -16,9 +16,9 @@ class CartController extends Controller
 {
     public function index(CartService $service): View
     {
-        $cart = Auth::check() ? $service->getUserCart(Auth::id()) : $service->getSessionCart(AuthHelper::fingerprint());
+        $cartDTO = Auth::check() ? $service->composeCartDto($service->getUserCart(Auth::id())) : $service->composeCartDto($service->getSessionCart(AuthHelper::fingerprint()));
 
-        return view('cart')->with('cart', $cart);
+        return view('cart')->with('cart', $cartDTO);
     }
 
     public function addToCart(CartService $service, string $article): RedirectResponse
@@ -44,7 +44,8 @@ class CartController extends Controller
 
     public function applyCoupon(CartService $service, PromoCodeRequest $request): JsonResponse
     {
-        $result = $service->applyPromoCodeToCart($request->getPromoCode(), $request->getCartId());
+        $cart = Auth::check() ? $service->getUserCart(Auth::id()) : $service->getSessionCart(AuthHelper::fingerprint());
+        $result = $service->applyPromoCodeToCart($request->getPromoCode(), $cart);
 
         return new JsonResponse(['message' => $result]);
     }
