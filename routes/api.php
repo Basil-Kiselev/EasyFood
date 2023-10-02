@@ -56,6 +56,8 @@ Route::get('/cart', [CartApiController::class, 'getCart']);
 
 Route::post('/cart/items', [CartApiController::class, 'addItemToCart']);
 
+Route::delete('/cart/items', [CartApiController::class, 'deleteItemFromCart']);
+
 Route::post('/cart/coupon', [CartApiController::class, 'applyCoupon']);
 
 Route::post('/subscribe',[NewsletterSubscribeController::class, 'subscribeNewEmail']);
