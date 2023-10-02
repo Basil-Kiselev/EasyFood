@@ -5,7 +5,6 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * @property int $cartId
  * @property string $promoCode
  */
 class PromoCodeRequest extends FormRequest
@@ -27,7 +26,6 @@ class PromoCodeRequest extends FormRequest
     {
         return [
             'promoCode' => 'required|string',
-            'cartId' => 'required|int|exists:App\Models\Cart,id',
         ];
     }
 
@@ -36,9 +34,6 @@ class PromoCodeRequest extends FormRequest
         return [
             'promoCode.required' => 'Введите промокод',
             'promoCode.string' => 'Введите корректный код',
-            'cartId.required' => 'Id обязателен',
-            'cartId.int' => 'Id не корректен',
-            'cartId.exists' => 'Корзина пуста или не найдена',
         ];
     }
 
@@ -48,10 +43,5 @@ class PromoCodeRequest extends FormRequest
     public function getPromoCode(): string
     {
         return $this->promoCode;
-    }
-
-    public function getCartId(): int
-    {
-        return $this->cartId;
     }
 }
