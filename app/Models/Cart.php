@@ -101,7 +101,7 @@ class Cart extends Model
         $this->setFinalPrice($finalPrice)->save();
     }
 
-    public function deleteProduct(string $article): string
+    public function deleteProduct(string $article): Cart|null
     {
         $productId = Product::query()->where('article', $article)->value('id');
         $this->cartProducts()->where('product_id', $productId)->delete();
@@ -109,11 +109,12 @@ class Cart extends Model
         if (!empty($this->cartProducts()->first())) {
             $this->recalculate();
 
-            return 'Товар убран';
+            return $this;
         } else {
+            $this->recalculate();
             $this->delete();
 
-            return 'Корзина пуста';
+            return null;
         }
     }
 

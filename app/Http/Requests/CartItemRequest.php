@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /** @property string $productAlias */
 
-class AddItemToCartRequest extends FormRequest
+class CartItemRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
