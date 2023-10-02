@@ -19,14 +19,13 @@ document.addEventListener('DOMContentLoaded', async function (event) {
                 let promoCode = formData.get('promoCode');
 
                 if (validatePromoCode(promoCode)) {
-                    let response = await fetch('/api/cart', {
+                    let response = await fetch('/api/cart/coupon', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json;charset=utf-8'
                         },
                         body: JSON.stringify({
                             promoCode: promoCode,
-                            cartId: cart.dataset.cartId,
                         })
                     });
                     let result = await response.json();
