@@ -68,10 +68,8 @@ class CartService
         return true;
     }
 
-    public function changeQuantityCartProducts(int $cartId, string $type, string $article): string
+    public function changeQuantityCartProducts(Cart $cart, string $type, string $article): Cart|Model|null
     {
-        /** @var Cart $cart */
-        $cart = Cart::query()->where('id', $cartId)->first();
         $productId = Product::query()->where('article', $article)->value('id');
         $currentQuantity = $cart->cartProducts()->where('product_id', $productId)->value('product_quantity');
         $newQuantity = match ($type) {
@@ -82,7 +80,7 @@ class CartService
         if ($newQuantity > 0) {
             $cart->updateProductQuantity($newQuantity, $productId);
 
-            return 'Кол-во изменено';
+            return $cart;
         } else {
             return $cart->deleteProduct($article);
         }

@@ -30,7 +30,8 @@ class CartController extends Controller
 
     public function changeQuantityCartProducts(CartService $service, ChangeQuantityCartProductsRequest $request): JsonResponse
     {
-        $result = $service->changeQuantityCartProducts($request->getCartId(), $request->getType(), $request->getArticle());
+        $cart =  Auth::check() ? $service->getUserCart(Auth::id()) : $service->getSessionCart(AuthHelper::fingerprint());
+        $result = $service->changeQuantityCartProducts($cart, $request->getType(), $request->getArticle());
 
         return new JsonResponse(['message' => $result]);
     }

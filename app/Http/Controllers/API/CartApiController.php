@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Helpers\AuthHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CartItemRequest;
+use App\Http\Requests\ChangeQuantityCartProductsRequest;
 use App\Http\Requests\PromoCodeRequest;
 use App\Http\Resources\CartResource;
 use App\Models\Cart;
@@ -42,6 +43,18 @@ class CartApiController extends Controller
         /** @var Cart $cart */
         $cart = auth('sanctum')->check() ? $service->getUserCart(auth('sanctum')->id()) : $service->getSessionCart(AuthHelper::fingerprint());
         $cart->deleteProduct($itemAlias);
+
+        return new CartResource($service->composeCartDto($cart));
+    }
+
+    public function changeQuantityCartProducts(ChangeQuantityCartProductsRequest $request, CartService $service): CartResource
+    {
+        $changeType = $request->getType();
+        $itemAlias = $request->getArticle();
+
+        /** @var Cart $cart */
+        $cart = auth('sanctum')->check() ? $service->getUserCart(auth('sanctum')->id()) : $service->getSessionCart(AuthHelper::fingerprint());
+        $service->changeQuantityCartProducts($cart, $changeType, $itemAlias);
 
         return new CartResource($service->composeCartDto($cart));
     }

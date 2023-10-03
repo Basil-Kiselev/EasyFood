@@ -5,7 +5,6 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * @property int $cartId
  * @property string $type
  * @property string $article
  */
@@ -28,7 +27,6 @@ class ChangeQuantityCartProductsRequest extends FormRequest
     {
         return [
             'article' => 'required|string|exists:App\Models\Product,article',
-            'cartId' => 'required|int|exists:App\Models\Cart,id',
             'type' => 'required|in:dec,inc',
         ];
     }
@@ -39,20 +37,9 @@ class ChangeQuantityCartProductsRequest extends FormRequest
             'article.required' => 'Артикль обязателен',
             'article.string' => 'Артикль не корректен',
             'article.exists' => 'Товар не найден',
-            'cartId.required' => 'Id обязателен',
-            'cartId.int' => 'Id не корректен',
-            'cartId.exists' => 'Корзина пуста или не найдена',
             'type.required' => 'Тип обязателен',
             'type.in' => 'Не корректный тип',
         ];
-    }
-
-    /**
-     * @return int
-     */
-    public function getCartId(): int
-    {
-        return $this->cartId;
     }
 
     /**
