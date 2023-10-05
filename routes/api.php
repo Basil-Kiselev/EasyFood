@@ -75,3 +75,5 @@ Route::post('/checkout', [OrderController::class, 'createOrder']);
 Route::post('/contact', [ContactsController::class, 'createMessage']);
 
 Route::get('/user/favorites', [ProductApiController::class, 'getUserFavoriteProducts']);
+
+Route::post('/user/favorites', [ProductApiController::class, 'addToUserFavoriteProducts']);

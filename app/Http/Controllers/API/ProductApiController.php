@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\FavoriteProductRequest;
 use App\Http\Requests\FilterForCatalogueRequest;
 use App\Http\Requests\SearchProductRequest;
 use App\Http\Resources\ProductResource;
@@ -48,5 +49,13 @@ class ProductApiController extends Controller
         $userId = auth('sanctum')->id();
 
         return ProductShortResource::collection($service->getFavoriteProducts($userId));
+    }
+
+    public function addToUserFavoriteProducts(UserFavoriteProductService $service, FavoriteProductRequest $request): AnonymousResourceCollection
+    {
+        $userId = auth('sanctum')->id();
+        $productAlias = $request->getProductAlias();
+
+        return ProductShortResource::collection($service->addProductToFavorite($userId, $productAlias));
     }
 }
