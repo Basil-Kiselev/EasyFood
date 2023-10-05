@@ -26,7 +26,8 @@ class UserFavoriteProductController extends Controller
 
     public function removeFromFavorite(string $productArticle, UserFavoriteProductService $service): RedirectResponse
     {
-        $service->removeProductFromFavorite($productArticle);
+        $userId = Auth::id();
+        $service->removeProductFromFavorite($userId, $productArticle);
 
         return back();
     }
