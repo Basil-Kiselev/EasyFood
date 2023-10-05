@@ -37,9 +37,8 @@ class UserFavoriteProductService
         return Product::query()->whereIn('id', $favoriteProductsIds)->get();
     }
 
-    public function removeProductFromFavorite(string $productArticle): bool
+    public function removeProductFromFavorite(int $userId, string $productArticle): Collection
     {
-        $userId = Auth::id();
         $productId = Product::query()->where('article', $productArticle)->valueOrFail('id');
         $favoriteProductQuery = UserFavoriteProduct::query()
             ->where('user_id', $userId)
@@ -49,7 +48,7 @@ class UserFavoriteProductService
             $favoriteProductQuery->delete();
         }
 
-        return true;
+        return $this->getFavoriteProducts($userId);
     }
 
     public function getCountFavoriteProducts(): int

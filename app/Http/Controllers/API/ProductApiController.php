@@ -58,4 +58,12 @@ class ProductApiController extends Controller
 
         return ProductShortResource::collection($service->addProductToFavorite($userId, $productAlias));
     }
+
+    public function removeProductFromFavorite(UserFavoriteProductService $service, FavoriteProductRequest $request): AnonymousResourceCollection
+    {
+        $userId = auth('sanctum')->id();
+        $productAlias = $request->getProductAlias();
+
+        return ProductShortResource::collection($service->removeProductFromFavorite($userId, $productAlias));
+    }
 }
