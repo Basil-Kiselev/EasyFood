@@ -73,3 +73,5 @@ Route::put('/cart/change-quantity', [CartController::class, 'changeQuantityCartP
 Route::post('/checkout', [OrderController::class, 'createOrder']);
 
 Route::post('/contact', [ContactsController::class, 'createMessage']);
+
+Route::get('/user/favorites', [ProductApiController::class, 'getUserFavoriteProducts']);
