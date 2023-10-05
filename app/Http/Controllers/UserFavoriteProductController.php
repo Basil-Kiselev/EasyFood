@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Services\UserFavoriteProductService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class UserFavoriteProductController extends Controller
 {
     public function index(UserFavoriteProductService $service): View
     {
-        return view('favorites')->with('favoriteProducts', $service->getFavoriteProducts());
+        $userId = Auth::id();
+
+        return view('favorites')->with('favoriteProducts', $service->getFavoriteProducts($userId));
     }
 
     public function addToFavorite(string $productArticle, UserFavoriteProductService $service): RedirectResponse

@@ -10,7 +10,9 @@ use App\Http\Resources\ProductShortResource;
 use App\Http\Resources\RecommendedProductResource;
 use App\Services\DTO\FilterForCatalogueDTO;
 use App\Services\ProductService;
+use App\Services\UserFavoriteProductService;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Auth;
 
 class ProductApiController extends Controller
 {
@@ -39,5 +41,12 @@ class ProductApiController extends Controller
     public function getRecommendedProducts(ProductService $service): AnonymousResourceCollection
     {
         return RecommendedProductResource::collection($service->getRecommendedProductCollection());
+    }
+
+    public function getUserFavoriteProducts(UserFavoriteProductService $service): AnonymousResourceCollection
+    {
+        $userId = auth('sanctum')->id();
+
+        return ProductShortResource::collection($service->getFavoriteProducts($userId));
     }
 }

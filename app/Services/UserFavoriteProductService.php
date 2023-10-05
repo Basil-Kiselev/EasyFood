@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Product;
 use App\Models\UserFavoriteProduct;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 
 class UserFavoriteProductService
@@ -32,13 +33,11 @@ class UserFavoriteProductService
         }
     }
 
-    public function getFavoriteProducts()
+    public function getFavoriteProducts(int $userId): Collection
     {
-        $userId = Auth::id();
         $favoriteProductsIds = UserFavoriteProduct::query()->where('user_id', $userId)->pluck('product_id');
-        $favoriteProducts = Product::query()->whereIn('id', $favoriteProductsIds)->get();
 
-        return $favoriteProducts;
+        return Product::query()->whereIn('id', $favoriteProductsIds)->get();
     }
 
     public function removeProductFromFavorite(string $productArticle): bool
