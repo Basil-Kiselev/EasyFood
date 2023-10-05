@@ -18,7 +18,8 @@ class UserFavoriteProductController extends Controller
 
     public function addToFavorite(string $productArticle, UserFavoriteProductService $service): RedirectResponse
     {
-        $service->addProductToFavorite($productArticle);
+        $userId = Auth::id();
+        $service->addProductToFavorite($userId, $productArticle);
 
         return back();
     }

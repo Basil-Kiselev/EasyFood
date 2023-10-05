@@ -10,27 +10,24 @@ use Illuminate\Support\Facades\Auth;
 
 class UserFavoriteProductService
 {
-    public function addProductToFavorite(string $productArticle): bool
+    public function addProductToFavorite(int $userId, string $productArticle): Collection
     {
-        $userId = Auth::id();
         $productId = Product::query()->where('article', $productArticle)->valueOrFail('id');
         $favoriteProduct = UserFavoriteProduct::query()
             ->where('user_id', $userId)
             ->where('product_id', $productId)
             ->first();
 
-        if (!empty($favoriteProduct)) {
-            return false;
-        } else {
+        if (empty($favoriteProduct)) {
             $userFavoriteProductData = [
                 'user_id' => $userId,
                 'product_id' => $productId,
                 'created_at' => Carbon::now(),
             ];
             UserFavoriteProduct::query()->insert($userFavoriteProductData);
-
-            return true;
         }
+
+        return $this->getFavoriteProducts($userId);
     }
 
     public function getFavoriteProducts(int $userId): Collection
