@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 /**
  * @property string $email
  */
-class NewsletterSubscribeRequest extends FormRequest
+class SubscribeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

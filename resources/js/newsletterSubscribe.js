@@ -24,8 +24,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 });
 
                 let result = await response.json();
-                if (result.message) {
-                    alert(result.message);
+                if (result.message === true) {
+                    alert('Вы подписаны');
                 }
             }
         });

@@ -4,12 +4,12 @@ use App\Http\Controllers\API\ArticleApiController;
 use App\Http\Controllers\API\AuthApiController;
 use App\Http\Controllers\API\CartApiController;
 use App\Http\Controllers\API\CategoryApiController;
+use App\Http\Controllers\API\SubscribeApiController;
 use App\Http\Controllers\API\ProductApiController;
 use App\Http\Controllers\API\SettingsApiController;
 use App\Http\Controllers\API\UserApiController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactsController;
-use App\Http\Controllers\NewsletterSubscribeController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -63,7 +63,7 @@ Route::patch('/cart/items', [CartApiController::class, 'changeQuantityCartProduc
 
 Route::post('/cart/coupon', [CartApiController::class, 'applyCoupon']);
 
-Route::post('/subscribe',[NewsletterSubscribeController::class, 'subscribeNewEmail']);
+Route::post('/subscribe',[SubscribeApiController::class, 'subscribeNewEmail']);
 
 Route::post('/cart', [CartController::class, 'applyCoupon']);
 
