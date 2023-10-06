@@ -5,9 +5,9 @@ namespace App\Services;
 use App\Models\NewsletterSubscriber;
 use Carbon\Carbon;
 
-class NewsletterSubscribeService
+class SubscribeService
 {
-    public function subscribeNewEmail(string $email)
+    public function subscribeNewEmail(string $email): bool
     {
         $timeCreate = Carbon::now();
         $subscriberData = [
@@ -17,11 +17,10 @@ class NewsletterSubscribeService
 
         $currentEmail = NewsletterSubscriber::query()->where('email', $email)->exists();
 
-        if ($currentEmail) {
-            return 'Вы уже подписаны';
-        } else {
+        if (!empty($currentEmail)) {
             NewsletterSubscriber::query()->create($subscriberData);
-            return 'Вы успешно подписались';
         }
+
+        return true;
     }
 }
