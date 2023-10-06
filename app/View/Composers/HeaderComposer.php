@@ -19,11 +19,12 @@ class HeaderComposer
         $favoriteProductService = new UserFavoriteProductService();
         $cartService = new CartService();
         $cartInfo = Auth::check() ? $cartService->getUserCartHeaderInfo(Auth::id()) : $cartService->getSessionCartHeaderInfo(AuthHelper::fingerprint());
+        $countFavoriteProduct = Auth::check() ? $favoriteProductService->getCountFavoriteProducts(Auth::id()) : null;
 
         $view
             ->with('freeDelivery', $settingService->getSettingByCode(Setting::CODE_FREE_DELIVERY))
             ->with('email', $settingService->getSettingByCode(Setting::CODE_EMAIL))
-            ->with('countFavoriteProducts', $favoriteProductService->getCountFavoriteProducts())
+            ->with('countFavoriteProducts', $countFavoriteProduct)
             ->with('cartInfo', $cartInfo);
     }
 }

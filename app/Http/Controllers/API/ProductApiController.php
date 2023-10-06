@@ -13,7 +13,6 @@ use App\Services\DTO\FilterForCatalogueDTO;
 use App\Services\ProductService;
 use App\Services\UserFavoriteProductService;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Support\Facades\Auth;
 
 class ProductApiController extends Controller
 {
