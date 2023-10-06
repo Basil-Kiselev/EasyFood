@@ -6,6 +6,7 @@ use App\Http\Controllers\API\CartApiController;
 use App\Http\Controllers\API\CategoryApiController;
 use App\Http\Controllers\API\ProductApiController;
 use App\Http\Controllers\API\SettingsApiController;
+use App\Http\Controllers\API\UserApiController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\NewsletterSubscribeController;
@@ -79,3 +80,5 @@ Route::get('/user/favorites', [ProductApiController::class, 'getUserFavoriteProd
 Route::post('/user/favorites', [ProductApiController::class, 'addToUserFavoriteProducts']);
 
 Route::delete('/user/favorites', [ProductApiController::class, 'removeProductFromFavorite']);
+
+Route::get('/user/info', [UserApiController::class, 'getUserInfo']);

@@ -6,7 +6,6 @@ use App\Models\Product;
 use App\Models\UserFavoriteProduct;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Auth;
 
 class UserFavoriteProductService
 {
@@ -51,11 +50,8 @@ class UserFavoriteProductService
         return $this->getFavoriteProducts($userId);
     }
 
-    public function getCountFavoriteProducts(): int
+    public function getCountFavoriteProducts(int $userId): int
     {
-        $userId = Auth::id();
-        $countProducts = UserFavoriteProduct::query()->where('user_id', $userId)->count();
-
-        return $countProducts;
+        return UserFavoriteProduct::query()->where('user_id', $userId)->count();
     }
 }
