@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             event.preventDefault();
 
             let formData = new FormData(feedbackForm, feedbackBtn);
-            let response = await fetch('/api/contact', {
+            let response = await fetch('/api/feedback', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'
@@ -23,8 +23,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
             });
             let result = await response.json();
 
-            if (result.message) {
-                alert(result.message);
+            if (result.message === true) {
+                alert('Спасибо за обратную связь');
             }
         });
     }

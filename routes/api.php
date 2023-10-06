@@ -4,7 +4,7 @@ use App\Http\Controllers\API\ArticleApiController;
 use App\Http\Controllers\API\AuthApiController;
 use App\Http\Controllers\API\CartApiController;
 use App\Http\Controllers\API\CategoryApiController;
-use App\Http\Controllers\API\SubscribeApiController;
+use App\Http\Controllers\API\ContactsApiController;
 use App\Http\Controllers\API\ProductApiController;
 use App\Http\Controllers\API\SettingsApiController;
 use App\Http\Controllers\API\UserApiController;
@@ -63,7 +63,7 @@ Route::patch('/cart/items', [CartApiController::class, 'changeQuantityCartProduc
 
 Route::post('/cart/coupon', [CartApiController::class, 'applyCoupon']);
 
-Route::post('/subscribe',[SubscribeApiController::class, 'subscribeNewEmail']);
+Route::post('/subscribe',[ContactsApiController::class, 'subscribeNewEmail']);
 
 Route::post('/cart', [CartController::class, 'applyCoupon']);
 
@@ -73,7 +73,7 @@ Route::put('/cart/change-quantity', [CartController::class, 'changeQuantityCartP
 
 Route::post('/checkout', [OrderController::class, 'createOrder']);
 
-Route::post('/contact', [ContactsController::class, 'createMessage']);
+Route::post('/feedback', [ContactsApiController::class, 'sendFeedbackMessage']);
 
 Route::get('/user/favorites', [ProductApiController::class, 'getUserFavoriteProducts']);
 
