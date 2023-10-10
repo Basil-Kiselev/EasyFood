@@ -15,6 +15,10 @@ class BlogService
     private const COUNT_RECENT_ARTICLES = 3;
     private const COUNT_PAGINATE_ARTICLES_PAGE = 4;
 
+    private const TYPE_RECENT = 'recent';
+    private const TYPE_RECOMMEND = 'recommend';
+    private const TYPE_RANDOM = 'random';
+
     public function composeGetArticlesDTO(Article $article): GetArticlesDTO
     {
         return new GetArticlesDTO(
@@ -55,7 +59,7 @@ class BlogService
 
     public function getArticles(): LengthAwarePaginator
     {
-        return Article::query()->paginate(self::COUNT_PAGINATE_ARTICLES_PAGE)->withQueryString();
+        return Article::query()->paginate(self::COUNT_PAGINATE_ARTICLES_PAGE);
     }
 
     public function getArticleCategories(): Collection
@@ -65,22 +69,28 @@ class BlogService
 
     public function getArticlesByCategory(string $categoryCode): LengthAwarePaginator
     {
-        return Article::query()->whereRelation('articleCategory', 'code', $categoryCode)->paginate(self::COUNT_PAGINATE_ARTICLES_PAGE)->withQueryString();
+        return Article::query()->whereRelation('articleCategory', 'code', $categoryCode)
+            ->paginate(self::COUNT_PAGINATE_ARTICLES_PAGE);
     }
 
     public function getRecentArticles(): Collection
     {
-        return Article::query()->orderBy('created_at', 'desc')->limit(self::COUNT_RECENT_ARTICLES)->get();
+        return Article::query()->orderBy('created_at', 'desc')
+            ->limit(self::COUNT_RECENT_ARTICLES)
+            ->get();
     }
 
     public function getRecommendArticles(): Collection
     {
-        return Article::query()->where('is_recommend', true)->inRandomOrder()->limit(self::COUNT_RECOMMEND_ARTICLES)->get();
+        return Article::query()->where('is_recommend', true)->inRandomOrder()
+            ->limit(self::COUNT_RECOMMEND_ARTICLES)
+            ->get();
     }
 
     public function searchArticle(string $searchValue): LengthAwarePaginator
     {
-        return Article::query()->where('header', 'LIKE', "%$searchValue%")->paginate(self::COUNT_PAGINATE_ARTICLES_PAGE)->withQueryString();
+        return Article::query()->where('header', 'LIKE', "%$searchValue%")
+            ->paginate(self::COUNT_PAGINATE_ARTICLES_PAGE);
     }
 
     public function getCaterogyName(string $categoryCode): string
@@ -88,22 +98,23 @@ class BlogService
         return ArticleCategory::query()->where('code', $categoryCode)->value('name');
     }
 
-    public function getArticlesCollection(string $category = null, string $type = null): LengthAwarePaginator|Collection|array
+    public function getArticlesCollection(?int $categoryId = null, ?string $type = null): LengthAwarePaginator
     {
-        $result = [];
+        $query = Article::query();
 
-        if ($category == null && $type == null) {
-            $result = $this->getArticles();
-        } elseif ($category != null) {
-            $result = $this->getArticlesByCategory($category);
-        } elseif ($type == 'recent') {
-            $result = $this->getRecentArticles();
-        } elseif ($type == 'recommend') {
-            $result = $this->getRecommendArticles();
-        } elseif ($type == 'random') {
-            $result = $this->getRandomArticles();
+        if ($categoryId != null) {
+            $query = $query->where('article_category_id', $categoryId);
         }
 
-        return $result;
+        if ($type != null) {
+            $query = match ($type) {
+                self::TYPE_RANDOM => $query->inRandomOrder()->limit(self::COUNT_ARTICLES_MAIN_PAGE),
+                self::TYPE_RECENT => $query->orderBy('created_at', 'desc')->limit(self::COUNT_RECENT_ARTICLES),
+                self::TYPE_RECOMMEND =>$query->where('is_recommend', true)->inRandomOrder()->limit(self::COUNT_RECOMMEND_ARTICLES),
+                default => $query,
+            };
+        }
+
+        return $query->paginate();
     }
 }

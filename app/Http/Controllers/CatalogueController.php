@@ -21,7 +21,7 @@ class CatalogueController extends Controller
 
         return view('catalogue')
             ->with('categories', $categoryService->getCategories())
-            ->with('products', $productService->getProductsList($catalogueDto))
-            ->with('breadcrumbsName', $categoryService->getCaterogyName($request->getCategory()));
+            ->with('products', $productService->getProductsList($catalogueDto)->withQueryString())
+            ->with('breadcrumbsName', $categoryService->getCategoryName($request->getCategory()));
     }
 }

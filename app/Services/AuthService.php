@@ -13,13 +13,13 @@ class AuthService
 {
     public const AUTH_API_TRUE = true;
 
-    public function createUser(RegistrationNewUserDTO $DTO, string|null $fingerprint = null): bool
+    public function register(RegistrationNewUserDTO $userData, string|null $fingerprint = null): bool
     {
         $newUser = User::query()->create([
-            'name' => $DTO->getName(),
-            'phone' => $DTO->getPhone(),
-            'email' => $DTO->getEmail(),
-            'password' => Hash::make($DTO->getPassword()),
+            'name' => $userData->getName(),
+            'phone' => $userData->getPhone(),
+            'email' => $userData->getEmail(),
+            'password' => Hash::make($userData->getPassword()),
         ]);
 
         Auth::login($newUser);
@@ -44,34 +44,34 @@ class AuthService
         return Auth::check();
     }
 
-    public function loginOrRegister(RegistrationNewUserDTO $DTO, string|null $fingerprint = null, bool|null $api = null): string|bool
+    public function loginOrRegister(RegistrationNewUserDTO $userData, string|null $fingerprint = null, bool|null $api = null): string|bool
     {
-        $email = $DTO->getEmail();
+        $email = $userData->getEmail();
         $user = User::query()->where('email', $email)->first();
 
         if ($api === true) {
 
             if (empty($user)) {
-                return $this->registrationUserApi($DTO);
+                return $this->registerApi($userData);
             } else {
-                $password = $DTO->getPassword();
+                $password = $userData->getPassword();
 
-                return $this->loginUserApi($email, $password, $fingerprint);
+                return $this->loginApi($email, $password, $fingerprint);
             }
 
         } elseif (empty($user)) {
-            $this->createUser($DTO, $fingerprint);
+            $this->register($userData, $fingerprint);
 
             return 'Вы зарегистрировались';
         } else {
-            $password = $DTO->getPassword();
+            $password = $userData->getPassword();
             $this->login($email, $password, $fingerprint);
 
             return 'Вы уже были зарегистрированы';
         }
     }
 
-    public function loginUserApi(string $email, string $password, string|null $fingerprint = null): bool|string
+    public function loginApi(string $email, string $password, string|null $fingerprint = null): bool|string
     {
         $credential = [
             'email' => $email,
@@ -95,7 +95,7 @@ class AuthService
         }
     }
 
-    public function registrationUserApi(RegistrationNewUserDTO $DTO): bool|string
+    public function registerApi(RegistrationNewUserDTO $DTO): bool|string
     {
         /** @var User $newUser */
         $newUser = User::query()->create([

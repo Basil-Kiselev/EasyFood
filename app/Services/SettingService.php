@@ -12,20 +12,20 @@ class SettingService
         return Setting::query()->where('code', $code)->value('value');
     }
 
-    public function getSettingByParam(string $settingType = null, array $settingCode = null ): Collection|array
+    public function getSettingByParam(?string $settingType = null, ?array $settingCode = null ): Collection|array
     {
         $result = [];
         $query = Setting::query();
 
         if (!empty($settingType)) {
-            $result = $query->where('type', $settingType)->get();
+            $result = $query->where('type', $settingType);
         }
 
         if (!empty($settingCode)) {
-            $result = $query->whereIn('code', $settingCode)->get();
+            $result = $query->whereIn('code', $settingCode);
         }
 
-        return $result;
+        return $result->get();
     }
 }
 
