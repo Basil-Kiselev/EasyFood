@@ -15,9 +15,9 @@ class SubscribeService
             'created_at' => $timeCreate,
         ];
 
-        $currentEmail = NewsletterSubscriber::query()->where('email', $email)->exists();
+        $currentEmail = NewsletterSubscriber::query()->where('email', $email)->first();
 
-        if (!empty($currentEmail)) {
+        if (empty($currentEmail)) {
             NewsletterSubscriber::query()->create($subscriberData);
         }
 

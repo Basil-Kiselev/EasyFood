@@ -5,12 +5,10 @@ use App\Http\Controllers\API\AuthApiController;
 use App\Http\Controllers\API\CartApiController;
 use App\Http\Controllers\API\CategoryApiController;
 use App\Http\Controllers\API\ContactsApiController;
+use App\Http\Controllers\API\OrderApiController;
 use App\Http\Controllers\API\ProductApiController;
 use App\Http\Controllers\API\SettingsApiController;
 use App\Http\Controllers\API\UserApiController;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\ContactsController;
-use App\Http\Controllers\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -63,15 +61,9 @@ Route::patch('/cart/items', [CartApiController::class, 'changeQuantityCartProduc
 
 Route::post('/cart/coupon', [CartApiController::class, 'applyCoupon']);
 
+Route::post('/cart/checkout', [OrderApiController::class, 'createOrder']);
+
 Route::post('/subscribe',[ContactsApiController::class, 'subscribeNewEmail']);
-
-Route::post('/cart', [CartController::class, 'applyCoupon']);
-
-Route::delete('/cart', [CartController::class, 'deleteCartProduct']);
-
-Route::put('/cart/change-quantity', [CartController::class, 'changeQuantityCartProducts']);
-
-Route::post('/checkout', [OrderController::class, 'createOrder']);
 
 Route::post('/feedback', [ContactsApiController::class, 'sendFeedbackMessage']);
 

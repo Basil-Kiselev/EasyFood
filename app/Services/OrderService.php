@@ -7,13 +7,13 @@ use App\Services\DTO\GetOrderDTO;
 
 class OrderService
 {
-    public function createOrder(GetOrderDTO $DTO, int $cartId): Order
+    public function createOrder(GetOrderDTO $orderInfo, string $fingerprint, ?int $userId = null): int
     {
         $cartService = new CartService();
-        $cart = $cartService->getCart($cartId);
-        $order = Order::createOrder($cart, $DTO);
+        $cart = $userId ? $cartService->getUserCart($userId) : $cartService->getSessionCart($fingerprint);
+        $order = Order::createOrder($cart, $orderInfo);
         $cart->deleteWithRelationship();
 
-        return $order;
+        return $order->getId();
     }
 }
