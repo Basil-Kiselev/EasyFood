@@ -24,7 +24,7 @@
             </div>
             <div class="checkout__form">
                 <h4>Детали заказа</h4>
-                <form class="js-checkout-form" action="{{ route('checkout') }}" method="post">
+                <form class="checkout-form" action="{{ route('createOrder') }}" method="post">
                     @csrf
                     <div class="row">
                         <div class="col-lg-8 col-md-6">
@@ -97,7 +97,7 @@
                                 @endif
                                 <div class="checkout__order__total">К оплате<span>{{ $cart->getFinalPrice() }} ₸</span>
                                 </div>
-                                <button type="submit" class="site-btn js-checkout-btn">Заказать</button>
+                                <button type="submit" class="site-btn checkout-btn">Заказать</button>
                             </div>
                         </div>
                     </div>

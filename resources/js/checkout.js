@@ -6,10 +6,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
    if (checkout.length) {
        checkout = checkout[0];
-       let cartId = checkout.dataset.cartId;
 
        // Создание заказа
-       if (checkoutForm.length) {
+       /*if (checkoutForm.length) {
            checkoutForm = checkoutForm[0];
            checkoutBtn = checkoutBtn[0];
 
@@ -34,13 +33,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
                    "email": formData.get('email'),
                    "password": formData.get('password'),
                };
-               let response = await fetch('/api/checkout', {
+               let response = await fetch('/ajax/checkout', {
                    method: 'POST',
                    headers: {
                        'Content-Type': 'application/json;charset=utf-8'
                    },
                    body: JSON.stringify({
-                       cartId: cartId,
                        name: dataArray['name'],
                        phone: dataArray['phone'],
                        street: dataArray['street'],
@@ -62,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                    window.location.href = '/';
                }
            });
-       }
+       }*/
 
 // Применение купона
        if (tagCoupon.length) {

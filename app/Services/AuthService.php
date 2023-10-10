@@ -7,10 +7,13 @@ use App\Models\User;
 use App\Services\DTO\RegistrationNewUserDTO;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class AuthService
 {
-    public function createUser(RegistrationNewUserDTO $DTO): bool
+    public const AUTH_API_TRUE = true;
+
+    public function createUser(RegistrationNewUserDTO $DTO, string|null $fingerprint = null): bool
     {
         $newUser = User::query()->create([
             'name' => $DTO->getName(),
@@ -20,6 +23,8 @@ class AuthService
         ]);
 
         Auth::login($newUser);
+        $userId = Auth::id();
+        event(new UserLogin($userId, $fingerprint));
 
         return true;
     }
@@ -36,22 +41,31 @@ class AuthService
             $userId = Auth::id();
             event(new UserLogin($userId, $fingerprint));
         }
-
         return Auth::check();
     }
 
-    public function loginOrRegister(RegistrationNewUserDTO $DTO): string
+    public function loginOrRegister(RegistrationNewUserDTO $DTO, string|null $fingerprint = null, bool|null $api = null): string|bool
     {
         $email = $DTO->getEmail();
         $user = User::query()->where('email', $email)->first();
 
-        if (empty($user)) {
-            $this->createUser($DTO);
+        if ($api === true) {
+
+            if (empty($user)) {
+                return $this->registrationUserApi($DTO);
+            } else {
+                $password = $DTO->getPassword();
+
+                return $this->loginUserApi($email, $password, $fingerprint);
+            }
+
+        } elseif (empty($user)) {
+            $this->createUser($DTO, $fingerprint);
 
             return 'Вы зарегистрировались';
         } else {
             $password = $DTO->getPassword();
-            $this->login($email, $password);
+            $this->login($email, $password, $fingerprint);
 
             return 'Вы уже были зарегистрированы';
         }

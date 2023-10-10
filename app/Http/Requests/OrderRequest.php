@@ -8,7 +8,6 @@ use App\Services\DTO\RegistrationNewUserDTO;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * @property int $cartId
  * @property string $name
  * @property string $street
  * @property string $building
@@ -37,7 +36,6 @@ class OrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'cartId' => 'required|int',
             'name' => 'required|string',
             'street' => 'required|string',
             'building' => 'required|string',
@@ -53,8 +51,6 @@ class OrderRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'cartId.required' => 'Айди корзины обязателен',
-            'cartId.int' => 'Айди корзины не корректен',
             'name.required' => 'Имя обязательно',
             'name.string' => 'Имя не корректно',
             'street.required' => 'Введите улицу',
@@ -71,14 +67,6 @@ class OrderRequest extends FormRequest
             'password.min' => 'Пароль не короче 6 символов',
             'orderNotes.string' => 'Описание не корректно'
         ];
-    }
-
-    /**
-     * @return int
-     */
-    public function getCartId(): int
-    {
-        return $this->cartId;
     }
 
     /**

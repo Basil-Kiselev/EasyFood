@@ -57,10 +57,6 @@ Route::get('/cart', [CartController::class, 'index'])->name('cart');
 
 Route::get('/cart/{article}', [CartController::class, 'addToCart'])->name('addToCart');
 
-Route::get('/checkout', [OrderController::class, 'index'])->name('checkout');
-
-Route::post('/checkout', [OrderController::class, 'createOrder']);
-
 Route::get('/contact', [ContactsController::class, 'index'])->name('contact');
 
 Route::get('/catalogue', [CatalogueController::class, 'index'])->name('catalogue');
@@ -72,3 +68,17 @@ Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 Route::get('/blog/search' , [BlogController::class, 'searchArticle'])->name('blog-search');
 
 Route::get('/blog/{category}', [BlogController::class, 'viewCategoryArticles'])->name('blog-category');
+
+Route::get('/checkout', [OrderController::class, 'index'])->name('checkout');
+
+Route::post('/checkout', [OrderController::class, 'createOrder'])->name('createOrder');
+
+Route::get('/order', function () {
+    return view('order');
+})->name('order');
+
+Route::post('/ajax/cart', [CartController::class, 'applyCoupon']);
+
+Route::delete('/ajax/cart', [CartController::class, 'deleteCartProduct']);
+
+Route::put('/ajax/cart/change-quantity', [CartController::class, 'changeQuantityCartProducts']);
