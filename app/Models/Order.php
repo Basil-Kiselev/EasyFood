@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Services\DTO\GetOrderDTO;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -18,6 +19,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property int $final_price
  * @property string $status
  * @property string|null $order_notes
+ * @property HasMany|Collection|OrderProduct[] $orderProducts
+ * @property HasOne|OrderDeliveryDetail $orderDeliveryDetail
  */
 class Order extends Model
 {

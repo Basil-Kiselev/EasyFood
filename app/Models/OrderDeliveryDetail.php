@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $street
  * @property string $building
  * @property string|null $apartment
+ * @property BelongsTo|Order $order
  */
 class OrderDeliveryDetail extends Model
 {

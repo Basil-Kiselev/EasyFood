@@ -2,9 +2,13 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @property Setting $resource
+ */
 class SettingsResource extends JsonResource
 {
     /**
@@ -15,8 +19,8 @@ class SettingsResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'code' => $this->code,
-            'value' => $this->value,
+            'code' => $this->resource->getCode(),
+            'value' => $this->resource->getValue(),
         ];
     }
 }
