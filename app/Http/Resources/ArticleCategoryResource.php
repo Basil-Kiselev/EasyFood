@@ -2,9 +2,13 @@
 
 namespace App\Http\Resources;
 
+use App\Models\ArticleCategory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @property ArticleCategory $resource
+ */
 class ArticleCategoryResource extends JsonResource
 {
     /**
@@ -15,10 +19,10 @@ class ArticleCategoryResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'count' => $this->articles()->count(),
-            'alias' => $this->code,
+            'id' => $this->resource->getId(),
+            'name' => $this->resource->getName(),
+            'count' => $this->resource->articles()->count(),
+            'alias' => $this->resource->getCode(),
         ];
     }
 }

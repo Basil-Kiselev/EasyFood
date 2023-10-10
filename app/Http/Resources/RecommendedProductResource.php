@@ -2,9 +2,13 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @property Category $resource
+ */
 class RecommendedProductResource extends JsonResource
 {
     /**
@@ -15,10 +19,10 @@ class RecommendedProductResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'category_id' => $this->id,
-            'category_name' => $this->name,
-            'category_code' => $this->code,
-            'products' => ProductShortResource::collection($this->products),
+            'category_id' => $this->resource->getId(),
+            'category_name' => $this->resource->getName(),
+            'category_code' => $this->resource->getCode(),
+            'products' => ProductShortResource::collection($this->resource->products),
         ];
     }
 }

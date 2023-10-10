@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $alias
  * @property string $img
  * @property DateTimeInterface $created_at
+ * @property BelongsTo|ArticleCategory $articleCategory
  */
 class Article extends Model
 {

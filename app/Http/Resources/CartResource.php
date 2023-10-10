@@ -2,9 +2,13 @@
 
 namespace App\Http\Resources;
 
+use App\Services\DTO\GetCartDTO;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @property GetCartDTO $resource
+ */
 class CartResource extends JsonResource
 {
     /**
@@ -15,12 +19,12 @@ class CartResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->getId(),
-            'price' => $this->getPrice(),
-            'finalPrice' => $this->getFinalPrice(),
-            'discount' => $this->getDiscount(),
-            'productsCount' => $this->getProductsCount(),
-            'products' => CartProductResource::collection($this->getProducts()),
+            'id' => $this->resource->getId(),
+            'price' => $this->resource->getPrice(),
+            'finalPrice' => $this->resource->getFinalPrice(),
+            'discount' => $this->resource->getDiscount(),
+            'productsCount' => $this->resource->getProductsCount(),
+            'products' => CartProductResource::collection($this->resource->getProducts()),
         ];
     }
 }
