@@ -11,7 +11,7 @@ class BlogController extends Controller
     public function index(BlogService $service): View
     {
         return view('blog')
-            ->with('articles', $service->getArticles());
+            ->with('articles', $service->getArticles()->withQueryString());
     }
 
     public function viewArticle(BlogService $service, string $alias): View
@@ -26,14 +26,14 @@ class BlogController extends Controller
     public function viewCategoryArticles(BlogService $service, string $categoryCode): View
     {
         return view('blog')
-            ->with('articles', $service->getArticlesByCategory($categoryCode))
+            ->with('articles', $service->getArticlesByCategory($categoryCode)->withQueryString())
             ->with('breadcrumbsName', $service->getCaterogyName($categoryCode));
     }
 
     public function searchArticle(BlogService $service, ArticleSearchRequest $request): View
     {
         return view('blog')
-            ->with('articles', $service->searchArticle($request->getSearchValue()))
+            ->with('articles', $service->searchArticle($request->getSearchValue())->withQueryString())
             ->with('breadcrumbsName', $request->getSearchValue());
     }
 }

@@ -29,6 +29,9 @@
                             </div>
                         @endforeach
                     </div>
+                    <div class="product__pagination">
+                        {{ $foundProducts->links() }}
+                    </div>
                 </div>
             </div>
         </div>

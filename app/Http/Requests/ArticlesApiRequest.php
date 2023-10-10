@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * @property string|null $type
- * @property string|null $category
+ * @property int|null $categoryId
  */
 
 class ArticlesApiRequest extends FormRequest
@@ -27,7 +27,7 @@ class ArticlesApiRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'category' => 'nullable|string',
+            'category_id' => 'nullable|integer',
             'type' => 'nullable|string',
         ];
     }
@@ -35,7 +35,7 @@ class ArticlesApiRequest extends FormRequest
     public function messages(): array
     {
         return [
-          'category.string' => 'Категория должна быть строкой',
+          'category_id.integer' => 'Id не корректен',
           'type.string' => 'Тип должен быть строкой',
         ];
     }
@@ -45,14 +45,16 @@ class ArticlesApiRequest extends FormRequest
      */
     public function getType(): ?string
     {
-        return $this->type;
+        return $this->input('type');
     }
 
     /**
-     * @return string|null
+     * @return int|null
      */
-    public function getCategory(): ?string
+    public function getCategoryId(): ?int
     {
-        return $this->category;
+        return $this->input('category_id');
     }
+
+
 }

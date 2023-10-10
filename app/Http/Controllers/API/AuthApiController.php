@@ -10,19 +10,19 @@ use App\Services\AuthService;
 
 class AuthApiController extends Controller
 {
-    public function registrationNewUser(RegistrationRequest $request, AuthService $service): bool|string
+    public function register(RegistrationRequest $request, AuthService $service): bool|string
     {
-        return $service->registrationUserApi($request->createRegistrationNewUserDto());
+        return $service->registerApi($request->createRegistrationNewUserDto());
     }
 
-    public function loginUser(LoginRequest $request, AuthService $service): bool|string
+    public function login(LoginRequest $request, AuthService $service): bool|string
     {
         $fingerprint = AuthHelper::fingerprint();
 
-        return $service->loginUserApi($request->getEmail(), $request->getPassword(), $fingerprint);
+        return $service->loginApi($request->getEmail(), $request->getPassword(), $fingerprint);
     }
 
-    public function logoutUser(): bool
+    public function logout(): bool
     {
         return auth('sanctum')->user()->currentAccessToken()->delete();
     }

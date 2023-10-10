@@ -16,9 +16,9 @@ class ArticleApiController extends Controller
     public function getArticles(ArticlesApiRequest $request, BlogService $service): AnonymousResourceCollection
     {
         $type = $request->getType();
-        $category = $request->getCategory();
+        $categoryId = $request->getCategoryId();
 
-        return ArticleShortResource::collection($service->getArticlesCollection($category, $type));
+        return ArticleShortResource::collection($service->getArticlesCollection($categoryId, $type));
     }
 
     public function getArticleCategories(BlogService $service): AnonymousResourceCollection
@@ -26,7 +26,7 @@ class ArticleApiController extends Controller
         return ArticleCategoryResource::collection($service->getArticleCategories());
     }
 
-    public function searchArticles(ArticleSearchRequest $request, BlogService $service)
+    public function searchArticles(ArticleSearchRequest $request, BlogService $service): AnonymousResourceCollection
     {
         return ArticleShortResource::collection($service->searchArticle($request->getSearchValue()));
     }

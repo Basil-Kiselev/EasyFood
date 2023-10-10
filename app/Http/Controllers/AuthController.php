@@ -11,9 +11,9 @@ use Illuminate\View\View;
 
 class AuthController extends Controller
 {
-    public function createUser(RegistrationRequest $request, AuthService $service): RedirectResponse
+    public function register(RegistrationRequest $request, AuthService $service): RedirectResponse
     {
-        $service->createUser($request->createRegistrationNewUserDto());
+        $service->register($request->createRegistrationNewUserDto());
 
         return redirect(route('home'));
     }

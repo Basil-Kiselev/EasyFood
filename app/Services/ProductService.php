@@ -73,7 +73,7 @@ class ProductService
             $query = $query->where('is_vegan', $dto->getIsVegan());
         }
 
-        return $query->paginate(ProductService::COUNT_PAGINATE_PAGES)->withQueryString();
+        return $query->paginate(ProductService::COUNT_PAGINATE_PAGES);
     }
 
     public function getProduct(string $article): GetProductDTO
@@ -92,7 +92,7 @@ class ProductService
             $measureValue = '1';
             $measureType = 'шт';
             $measureByHundred = 'г';
-        } elseif ($product->getUom() === 'weight') {
+        } else  {
             $measureName = 'Вес';
             $measureType = 'г';
             $measureValue = $product->getWeight();
@@ -118,11 +118,11 @@ class ProductService
         );
     }
 
-    public function searchProducts(string $dataInput): Collection
+    public function searchProducts(string $dataInput): LengthAwarePaginator
     {
         return Product::query()
             ->where('name', 'LIKE', "%$dataInput%")
-            ->get();
+            ->paginate(self::COUNT_PAGINATE_PAGES);
     }
 
     /** @return GetRelatedProductDTO[] */
