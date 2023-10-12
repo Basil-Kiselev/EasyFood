@@ -52,25 +52,25 @@ class ProductService
         return $result;
     }
 
-    public function getProductsList(FilterForCatalogueDTO $dto): LengthAwarePaginator
+    public function getProductsList(FilterForCatalogueDTO $filters): LengthAwarePaginator
     {
         $query = Product::query();
 
-        if (!empty($dto->getCategory()) && $dto->getCategory() !== 'all') {
-            $categoryId = Category::query()->where('code', $dto->getCategory())->value('id');
+        if (!empty($filters->getCategory()) && $filters->getCategory() !== 'all') {
+            $categoryId = Category::query()->where('code', $filters->getCategory())->value('id');
             $query = $query->where('category_id', $categoryId);
         }
 
-        if (is_numeric($dto->getMinPrice())) {
-            $query = $query->where('price', '>=', $dto->getMinPrice());
+        if (is_numeric($filters->getMinPrice())) {
+            $query = $query->where('price', '>=', $filters->getMinPrice());
         }
 
-        if (is_numeric($dto->getMaxPrice())) {
-            $query = $query->where('price', '<=', $dto->getMaxPrice());
+        if (is_numeric($filters->getMaxPrice())) {
+            $query = $query->where('price', '<=', $filters->getMaxPrice());
         }
 
-        if (!empty($dto->getIsVegan())) {
-            $query = $query->where('is_vegan', $dto->getIsVegan());
+        if (!empty($filters->getIsVegan())) {
+            $query = $query->where('is_vegan', $filters->getIsVegan());
         }
 
         return $query->paginate(ProductService::COUNT_PAGINATE_PAGES);

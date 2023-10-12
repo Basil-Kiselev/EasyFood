@@ -37,24 +37,24 @@ class Order extends Model
         return $this->hasOne(OrderDeliveryDetail::class);
     }
 
-    public static function createOrder(Cart $cart, GetOrderDTO $DTO): Order
+    public static function createOrder(Cart $cart, GetOrderDTO $orderData): Order
     {
         /** @var Cart $cart */
         $order = new Order();
         $order
             ->setUserId($cart->getUserId())
-            ->setName($DTO->getName())
-            ->setPhone($DTO->getPhone())
+            ->setName($orderData->getName())
+            ->setPhone($orderData->getPhone())
             ->setCouponId($cart->getCouponId())
             ->setPrice($cart->getPrice())
             ->setFinalPrice($cart->getFinalPrice())
-            ->setOrderNotes($DTO->getOrderNotes())
+            ->setOrderNotes($orderData->getOrderNotes())
             ->save();
 
         $order->orderDeliveryDetail()->create([
-            'street' => $DTO->getDeliveryDetailDTO()->getStreet(),
-            'building' => $DTO->getDeliveryDetailDTO()->getBuilding(),
-            'apartment' => $DTO->getDeliveryDetailDTO()->getApartment(),
+            'street' => $orderData->getDeliveryDetailDTO()->getStreet(),
+            'building' => $orderData->getDeliveryDetailDTO()->getBuilding(),
+            'apartment' => $orderData->getDeliveryDetailDTO()->getApartment(),
         ]);
 
         $cartProducts = $cart->cartProducts()->with('product')->get();

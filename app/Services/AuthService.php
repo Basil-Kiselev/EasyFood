@@ -95,14 +95,14 @@ class AuthService
         }
     }
 
-    public function registerApi(RegistrationNewUserDTO $DTO): bool|string
+    public function registerApi(RegistrationNewUserDTO $userData): bool|string
     {
         /** @var User $newUser */
         $newUser = User::query()->create([
-            'name' => $DTO->getName(),
-            'phone' => $DTO->getPhone(),
-            'email' => $DTO->getEmail(),
-            'password' => Hash::make($DTO->getPassword()),
+            'name' => $userData->getName(),
+            'phone' => $userData->getPhone(),
+            'email' => $userData->getEmail(),
+            'password' => Hash::make($userData->getPassword()),
         ]);
 
         return $newUser->createToken('api')->plainTextToken;

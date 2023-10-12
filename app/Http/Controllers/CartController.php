@@ -16,21 +16,27 @@ class CartController extends Controller
 {
     public function index(CartService $service): View
     {
-        $cartDTO = Auth::check() ? $service->composeCartDto($service->getUserCart(Auth::id())) : $service->composeCartDto($service->getSessionCart(AuthHelper::fingerprint()));
+        $cartDTO = Auth::check() ?
+            $service->composeCartDto($service->getUserCart(Auth::id())) :
+            $service->composeCartDto($service->getSessionCart(AuthHelper::fingerprint()));
 
         return view('cart')->with('cart', $cartDTO);
     }
 
     public function addToCart(CartService $service, string $article): RedirectResponse
     {
-        Auth::check() ? $service->addToUserCart($article, Auth::id()) : $service->addToSessionCart($article, AuthHelper::fingerprint());
+        Auth::check() ?
+            $service->addToUserCart($article, Auth::id()) :
+            $service->addToSessionCart($article, AuthHelper::fingerprint());
 
         return back();
     }
 
     public function changeQuantityCartProducts(CartService $service, ChangeQuantityCartProductsRequest $request): JsonResponse
     {
-        $cart =  Auth::check() ? $service->getUserCart(Auth::id()) : $service->getSessionCart(AuthHelper::fingerprint());
+        $cart =  Auth::check() ?
+            $service->getUserCart(Auth::id()) :
+            $service->getSessionCart(AuthHelper::fingerprint());
         $result = $service->changeQuantityCartProducts($cart, $request->getType(), $request->getArticle());
 
         return new JsonResponse(['message' => $result]);
@@ -45,7 +51,9 @@ class CartController extends Controller
 
     public function applyCoupon(CartService $service, PromoCodeRequest $request): JsonResponse
     {
-        $cart = Auth::check() ? $service->getUserCart(Auth::id()) : $service->getSessionCart(AuthHelper::fingerprint());
+        $cart = Auth::check() ?
+            $service->getUserCart(Auth::id()) :
+            $service->getSessionCart(AuthHelper::fingerprint());
         $result = $service->applyPromoCodeToCart($request->getPromoCode(), $cart);
 
         return new JsonResponse(['message' => $result]);

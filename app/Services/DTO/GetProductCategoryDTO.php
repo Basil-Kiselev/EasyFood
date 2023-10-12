@@ -12,9 +12,9 @@ class GetProductCategoryDTO
         private string $name,
     ){}
 
-    public function addProduct(GetRecommendedProductDTO $dto)
+    public function addProduct(GetRecommendedProductDTO $productsData)
     {
-        $this->products[] = $dto;
+        $this->products[] = $productsData;
     }
 
     /**

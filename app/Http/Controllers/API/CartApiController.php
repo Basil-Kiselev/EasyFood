@@ -15,7 +15,9 @@ class CartApiController extends Controller
 {
     public function getCart(CartService $service): CartResource
     {
-        $cartDTO = auth('sanctum')->check() ? $service->composeCartDto($service->getUserCart(auth('sanctum')->id())) : $service->composeCartDto($service->getSessionCart(AuthHelper::fingerprint()));
+        $cartDTO = auth('sanctum')->check() ?
+            $service->composeCartDto($service->getUserCart(auth('sanctum')->id())) :
+            $service->composeCartDto($service->getSessionCart(AuthHelper::fingerprint()));
 
         return new CartResource($cartDTO);
     }
@@ -23,14 +25,18 @@ class CartApiController extends Controller
     public function addItemToCart(CartItemRequest $request, CartService $service): CartResource
     {
         $itemAlias = $request->getProductAlias();
-        $cartDTO = auth('sanctum')->check() ? $service->composeCartDto($service->addToUserCart($itemAlias, auth('sanctum')->id())) : $service->composeCartDto($service->addToSessionCart($itemAlias, AuthHelper::fingerprint()));
+        $cartDTO = auth('sanctum')->check() ?
+            $service->composeCartDto($service->addToUserCart($itemAlias, auth('sanctum')->id())) :
+            $service->composeCartDto($service->addToSessionCart($itemAlias, AuthHelper::fingerprint()));
 
         return new CartResource($cartDTO);
     }
 
     public function applyCoupon(CartService $service, PromoCodeRequest $request): CartResource
     {
-        $cart = auth('sanctum')->check() ? $service->getUserCart(auth('sanctum')->id()) : $service->getSessionCart(AuthHelper::fingerprint());
+        $cart = auth('sanctum')->check() ?
+            $service->getUserCart(auth('sanctum')->id()) :
+            $service->getSessionCart(AuthHelper::fingerprint());
         $service->applyPromoCodeToCart($request->getPromoCode(), $cart);
 
         return new CartResource($service->composeCartDto($cart));
@@ -41,7 +47,9 @@ class CartApiController extends Controller
         $itemAlias = $request->getProductAlias();
 
         /** @var Cart $cart */
-        $cart = auth('sanctum')->check() ? $service->getUserCart(auth('sanctum')->id()) : $service->getSessionCart(AuthHelper::fingerprint());
+        $cart = auth('sanctum')->check() ?
+            $service->getUserCart(auth('sanctum')->id()) :
+            $service->getSessionCart(AuthHelper::fingerprint());
         $cart->deleteProduct($itemAlias);
 
         return new CartResource($service->composeCartDto($cart));
@@ -53,7 +61,9 @@ class CartApiController extends Controller
         $itemAlias = $request->getArticle();
 
         /** @var Cart $cart */
-        $cart = auth('sanctum')->check() ? $service->getUserCart(auth('sanctum')->id()) : $service->getSessionCart(AuthHelper::fingerprint());
+        $cart = auth('sanctum')->check() ?
+            $service->getUserCart(auth('sanctum')->id()) :
+            $service->getSessionCart(AuthHelper::fingerprint());
         $service->changeQuantityCartProducts($cart, $changeType, $itemAlias);
 
         return new CartResource($service->composeCartDto($cart));

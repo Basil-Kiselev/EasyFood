@@ -34,14 +34,14 @@ class BlogService
 
     public function prepareArticlesDTO(Collection $articles): array
     {
-        $dto = [];
+        $articleDtoList = [];
 
         /** @var Article $article */
         foreach ($articles as $article) {
-            $dto[] = $this->composeGetArticlesDTO($article);
+            $articleDtoList[] = $this->composeGetArticlesDTO($article);
         }
 
-        return $dto;
+        return $articleDtoList;
     }
 
     public function getRandomArticles(): Collection
