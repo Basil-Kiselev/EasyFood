@@ -18,14 +18,14 @@ class ProductApiController extends Controller
 {
     public function getProducts(FilterForCatalogueRequest $request, ProductService $service): AnonymousResourceCollection
     {
-        $DTO = new FilterForCatalogueDTO(
+        $filters = new FilterForCatalogueDTO(
             $request->getCategory(),
             $request->getPriceMin(),
             $request->getPriceMax(),
             $request->getIsVegan(),
         );
 
-        return ProductShortResource::collection($service->getProductsList($DTO));
+        return ProductShortResource::collection($service->getProductsList($filters));
     }
 
     public function getProduct(string $article, ProductService $service): ProductResource

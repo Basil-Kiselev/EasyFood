@@ -12,7 +12,7 @@ class CatalogueController extends Controller
 {
     public function index(ProductService $productService, CategoryService $categoryService, FilterForCatalogueRequest $request): View
     {
-        $catalogueDto = new FilterForCatalogueDTO(
+        $filterForCatalogueDTO = new FilterForCatalogueDTO(
             $request->getCategory(),
             $request->getPriceMin(),
             $request->getPriceMax(),
@@ -21,7 +21,7 @@ class CatalogueController extends Controller
 
         return view('catalogue')
             ->with('categories', $categoryService->getCategories())
-            ->with('products', $productService->getProductsList($catalogueDto)->withQueryString())
+            ->with('products', $productService->getProductsList($filterForCatalogueDTO)->withQueryString())
             ->with('breadcrumbsName', $categoryService->getCategoryName($request->getCategory()));
     }
 }

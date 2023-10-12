@@ -7,13 +7,12 @@ use App\Helpers\AuthHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OrderRequest;
 use App\Services\AuthService;
-use App\Services\CartService;
 use App\Services\OrderService;
 use Illuminate\Http\JsonResponse;
 
 class OrderApiController extends Controller
 {
-    public function createOrder(OrderRequest $request, OrderService $orderService, CartService $cartService, AuthService $authService): JsonResponse
+    public function createOrder(OrderRequest $request, OrderService $orderService, AuthService $authService): JsonResponse
     {
         $fingerprint = AuthHelper::fingerprint();
 

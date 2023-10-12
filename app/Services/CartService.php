@@ -108,12 +108,12 @@ class CartService
         }
 
         $cartProducts = $cart->cartProducts()->with('product')->get();
-        $dtoList = [];
+        $productDtoList = [];
 
         /** @var CartProduct $cartProduct */
         foreach ($cartProducts as $cartProduct) {
             $totalPrice = $cartProduct->getProductQuantity() * $cartProduct->product->getPrice();
-            $dtoList[] = new GetCartProductDTO(
+            $productDtoList[] = new GetCartProductDTO(
                 id: $cartProduct->product->getId(),
                 article: $cartProduct->product->getArticle(),
                 name: $cartProduct->product->getName(),
@@ -129,7 +129,7 @@ class CartService
             price: $cart->getPrice(),
             finalPrice: $cart->getFinalPrice(),
             productsCount: $cart->cartProducts()->sum('product_quantity'),
-            products: $dtoList,
+            products: $productDtoList,
             discount: $cart->coupon?->getValue(),
         );
     }

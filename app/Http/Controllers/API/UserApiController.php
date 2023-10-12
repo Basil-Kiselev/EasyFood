@@ -8,7 +8,7 @@ use Illuminate\Http\JsonResponse;
 
 class UserApiController extends Controller
 {
-    public function getUserInfo(UserFavoriteProductService $service)
+    public function getUserInfo(UserFavoriteProductService $service): JsonResponse
     {
         $userId = auth('sanctum')->id();
         $countUserFavoriteProducts = $service->getCountFavoriteProducts($userId);
