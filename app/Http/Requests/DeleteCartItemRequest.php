@@ -6,7 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * @property string $article
- * @property int $cartId
  */
 class DeleteCartItemRequest extends FormRequest
 {
@@ -27,7 +26,6 @@ class DeleteCartItemRequest extends FormRequest
     {
         return [
             'article' => 'required|string|exists:App\Models\Product,article',
-            'cartId' => 'required|int|exists:App\Models\Cart,id',
         ];
     }
 
@@ -37,9 +35,6 @@ class DeleteCartItemRequest extends FormRequest
             'article.required' => 'Артикль обязателен',
             'article.string' => 'Артикль не корректен',
             'article.exists' => 'Товар не найден',
-            'cartId.required' => 'Id обязателен',
-            'cartId.int' => 'Id не корректен',
-            'cartId.exists' => 'Корзина пуста или не найдена',
         ];
     }
 
@@ -49,13 +44,5 @@ class DeleteCartItemRequest extends FormRequest
     public function getArticle(): string
     {
         return $this->article;
-    }
-
-    /**
-     * @return int
-     */
-    public function getCartId(): int
-    {
-        return $this->cartId;
     }
 }

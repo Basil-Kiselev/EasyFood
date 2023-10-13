@@ -40,10 +40,7 @@ Route::get('/login', function () {
 
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::get('/logout', function () {
-    Auth::logout();
-    return redirect('/');
-})->name('logout');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/product/{article}', [ProductController::class, 'index'])->name('product');
 

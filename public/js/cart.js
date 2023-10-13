@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', async function (event) {
 
     if (cart.length) {
         cart = cart[0];
+
 // Применение купона
         if (couponForm.length) {
             couponForm = couponForm[0];
@@ -19,19 +20,22 @@ document.addEventListener('DOMContentLoaded', async function (event) {
                 let promoCode = formData.get('promoCode');
 
                 if (validatePromoCode(promoCode)) {
-                    let response = await fetch('/api/cart/coupon', {
+                    let response = await fetch('/ajax/cart', {
                         method: 'POST',
                         headers: {
-                            'Content-Type': 'application/json;charset=utf-8'
+                            'Content-Type': 'application/json;charset=utf-8',
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         body: JSON.stringify({
                             promoCode: promoCode,
                         })
                     });
                     let result = await response.json();
+
                     if (result.message) {
                         alert(result.message);
                     }
+
                     location.reload()
                 }
             });
@@ -42,21 +46,24 @@ document.addEventListener('DOMContentLoaded', async function (event) {
                 deleteIcon.addEventListener('click', async function (event) {
                     event.preventDefault();
                     let productArticle = deleteIcon.dataset.productArticle;
-                    let cartId = cart.dataset.cartId;
-                    let response = await fetch('/api/cart', {
+                    let response = await fetch('/ajax/cart', {
                         method: 'DELETE',
                         headers: {
-                            'Content-Type': 'application/json;charset=utf-8'
+                            'Content-Type': 'application/json;charset=utf-8',
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         body: JSON.stringify({
                             article: productArticle,
-                            cartId: cartId,
                         })
                     });
                     let result = await response.json();
-                    if (result.message) {
-                        alert(result.message);
+
+                    if (result.result === true) {
+                        alert('Товар удален');
+                    } else if (result.result === null) {
+                        alert('Корзина пуста')
                     }
+
                     location.reload()
                 });
             }
@@ -66,24 +73,25 @@ document.addEventListener('DOMContentLoaded', async function (event) {
             for (let incBtn of incBtns) {
                 incBtn.addEventListener('click', async function (event) {
                     event.preventDefault();
-                    quantValue = incBtn.parentNode
-                    let cartId = cart.dataset.cartId;
+                    let quantValue = incBtn.parentNode
                     let productArticle = quantValue.dataset.article;
-                    let response = await fetch('/api/cart/change-quantity', {
+                    let response = await fetch('/ajax/cart/change-quantity', {
                         method: 'PUT',
                         headers: {
-                            'Content-Type': 'application/json;charset=utf-8'
+                            'Content-Type': 'application/json;charset=utf-8',
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         body: JSON.stringify({
                             article: productArticle,
-                            cartId: cartId,
                             type: 'inc',
                         })
                     });
                     let result = await response.json();
-                    if (result.message) {
-                        alert(result.message);
+
+                    if (result.result === true) {
+                        alert('Кол-во изменено');
                     }
+
                     location.reload()
                 });
             }
@@ -93,24 +101,25 @@ document.addEventListener('DOMContentLoaded', async function (event) {
             for (let decBtn of decBtns) {
                 decBtn.addEventListener('click', async function (event) {
                     event.preventDefault();
-                    quantValue = decBtn.parentNode
-                    let cartId = cart.dataset.cartId;
+                    let quantValue = decBtn.parentNode
                     let productArticle = quantValue.dataset.article;
-                    let response = await fetch('/api/cart/change-quantity', {
+                    let response = await fetch('/ajax/cart/change-quantity', {
                         method: 'PUT',
                         headers: {
-                            'Content-Type': 'application/json;charset=utf-8'
+                            'Content-Type': 'application/json;charset=utf-8',
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         body: JSON.stringify({
                             article: productArticle,
-                            cartId: cartId,
                             type: 'dec',
                         })
                     });
                     let result = await response.json();
-                    if (result.message) {
-                        alert(result.message);
+
+                    if (result.result === true) {
+                        alert('Кол-во изменено');
                     }
+
                     location.reload();
                 });
             }

@@ -102,7 +102,7 @@ class Cart extends Model
         $this->setFinalPrice($finalPrice)->save();
     }
 
-    public function deleteProduct(string $article): Cart|null
+    public function deleteProduct(string $article): bool|null
     {
         $productId = Product::query()->where('article', $article)->value('id');
         $this->cartProducts()->where('product_id', $productId)->delete();
@@ -110,7 +110,7 @@ class Cart extends Model
         if (!empty($this->cartProducts()->first())) {
             $this->recalculate();
 
-            return $this;
+            return true;
         } else {
             $this->recalculate();
             $this->delete();
