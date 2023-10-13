@@ -11,16 +11,17 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
     public function index(CartService $service): View
     {
-        $cartDTO = Auth::check() ?
+        $cartData = Auth::check() ?
             $service->composeCartDto($service->getUserCart(Auth::id())) :
             $service->composeCartDto($service->getSessionCart(AuthHelper::fingerprint()));
 
-        return view('cart')->with('cart', $cartDTO);
+        return view('cart')->with('cart', $cartData);
     }
 
     public function addToCart(CartService $service, string $article): RedirectResponse
@@ -34,26 +35,33 @@ class CartController extends Controller
 
     public function changeQuantityCartProducts(CartService $service, ChangeQuantityCartProductsRequest $request): JsonResponse
     {
-        $cart =  Auth::check() ?
-            $service->getUserCart(Auth::id()) :
-            $service->getSessionCart(AuthHelper::fingerprint());
-        $result = $service->changeQuantityCartProducts($cart, $request->getType(), $request->getArticle());
+        $fingerprint = Session::get('fingerprint');
+        $userId = Session::get('user_id');
 
-        return new JsonResponse(['message' => $result]);
+        $result = $service->changeQuantityCartProducts($request->getType(), $request->getArticle(), $fingerprint, $userId);
+
+        return new JsonResponse(['result' => !empty($result)]);
     }
 
     public function deleteCartProduct(CartService $service, DeleteCartItemRequest $request): JsonResponse
     {
-        $result = $service->deleteCartProduct($request->getCartId(), $request->getArticle());
+        $fingerprint = Session::get('fingerprint');
+        $userId = Session::get('user_id');
 
-        return new JsonResponse(['message' => $result]);
+        $result = $service->deleteCartProduct($request->getArticle(), $fingerprint, $userId);
+
+        return new JsonResponse(['result' => $result]);
     }
 
     public function applyCoupon(CartService $service, PromoCodeRequest $request): JsonResponse
     {
-        $cart = Auth::check() ?
-            $service->getUserCart(Auth::id()) :
-            $service->getSessionCart(AuthHelper::fingerprint());
+        $userId = Session::get('user_id');
+        $fingerprint = Session::get('fingerprint');
+
+        $cart = !empty($userId) ?
+            $service->getUserCart($userId) :
+            $service->getSessionCart($fingerprint);
+
         $result = $service->applyPromoCodeToCart($request->getPromoCode(), $cart);
 
         return new JsonResponse(['message' => $result]);

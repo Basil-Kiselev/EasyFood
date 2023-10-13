@@ -68,8 +68,12 @@ class CartService
         return true;
     }
 
-    public function changeQuantityCartProducts(Cart $cart, string $type, string $article): Cart|Model|null
+    public function changeQuantityCartProducts(string $type, string $article, string $fingerprint, ?int $userId = null): bool|null
     {
+        $cart = !empty($userId) ?
+            self::getUserCart($userId) :
+            self::getSessionCart($fingerprint);
+
         $productId = Product::query()->where('article', $article)->value('id');
         $currentQuantity = $cart->cartProducts()->where('product_id', $productId)->value('product_quantity');
         $newQuantity = match ($type) {
@@ -80,7 +84,7 @@ class CartService
         if ($newQuantity > 0) {
             $cart->updateProductQuantity($newQuantity, $productId);
 
-            return $cart;
+            return true;
         } else {
             return $cart->deleteProduct($article);
         }
@@ -134,10 +138,12 @@ class CartService
         );
     }
 
-    public function deleteCartProduct(int $cartId, string $article): string
+    public function deleteCartProduct(string $article, string $fingerprint, ?int $userId = null): bool|null
     {
         /** @var Cart $cart */
-        $cart = Cart::query()->where('id', $cartId)->first();
+        $cart = !empty($userId) ?
+            self::getUserCart($userId) :
+            self::getSessionCart($fingerprint);
 
         return $cart->deleteProduct($article);
     }

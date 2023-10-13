@@ -37,6 +37,7 @@ class CartApiController extends Controller
         $cart = auth('sanctum')->check() ?
             $service->getUserCart(auth('sanctum')->id()) :
             $service->getSessionCart(AuthHelper::fingerprint());
+
         $service->applyPromoCodeToCart($request->getPromoCode(), $cart);
 
         return new CartResource($service->composeCartDto($cart));
@@ -50,6 +51,7 @@ class CartApiController extends Controller
         $cart = auth('sanctum')->check() ?
             $service->getUserCart(auth('sanctum')->id()) :
             $service->getSessionCart(AuthHelper::fingerprint());
+
         $cart->deleteProduct($itemAlias);
 
         return new CartResource($service->composeCartDto($cart));
@@ -64,6 +66,7 @@ class CartApiController extends Controller
         $cart = auth('sanctum')->check() ?
             $service->getUserCart(auth('sanctum')->id()) :
             $service->getSessionCart(AuthHelper::fingerprint());
+
         $service->changeQuantityCartProducts($cart, $changeType, $itemAlias);
 
         return new CartResource($service->composeCartDto($cart));

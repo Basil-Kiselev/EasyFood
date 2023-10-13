@@ -72,20 +72,22 @@ document.addEventListener("DOMContentLoaded", function (event) {
                let promoCode = prompt('Введите ваш промокод');
 
                if (validatePromoCode(promoCode)) {
-                   let response = await fetch('/api/cart', {
+                   let response = await fetch('/ajax/cart', {
                        method: 'POST',
                        headers: {
-                           'Content-Type': 'application/json;charset=utf-8'
+                           'Content-Type': 'application/json;charset=utf-8',
+                           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                        },
                        body: JSON.stringify({
                            promoCode: promoCode,
-                           cartId: cartId,
                        })
                    });
                    let result = await response.json();
+
                    if (result.message) {
                        alert(result.message);
                    }
+
                    location.reload()
                }
            })

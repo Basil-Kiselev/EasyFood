@@ -7,12 +7,13 @@ use App\Models\User;
 use App\Services\DTO\RegistrationNewUserDTO;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class AuthService
 {
     public const AUTH_API_TRUE = true;
 
-    public function register(RegistrationNewUserDTO $userData, ?string $fingerprint = null): bool
+    public function register(RegistrationNewUserDTO $userData, string $fingerprint): bool
     {
         $newUser = User::query()->create([
             'name' => $userData->getName(),
@@ -22,13 +23,16 @@ class AuthService
         ]);
 
         Auth::login($newUser);
+
         $userId = Auth::id();
+        Session::put('user_id', $userId);
+
         event(new UserLogin($userId, $fingerprint));
 
         return true;
     }
 
-    public function login(string $email, string $password, ?string $fingerprint = null): bool
+    public function login(string $email, string $password, string $fingerprint): bool
     {
         $credential = [
           'email' => $email,
@@ -36,10 +40,12 @@ class AuthService
         ];
         Auth::attempt($credential);
 
-        if ($fingerprint != null && Auth::check()) {
+        if (Auth::check()) {
             $userId = Auth::id();
+            Session::put('user_id', $userId);
             event(new UserLogin($userId, $fingerprint));
         }
+
         return Auth::check();
     }
 
