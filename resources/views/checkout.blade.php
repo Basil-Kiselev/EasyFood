@@ -32,22 +32,33 @@
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>Имя<span>*</span></p>
-                                        <input name="name" type="text">
+                                        <input name="name" type="text" placeholder="Ваше имя" class="form-control @error('name') is-invalid @else is-valid @enderror" id="name" value="{{ old('name') }}">
+                                        @error('name')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
                             <div class="checkout__input">
                                 <p>Адрес<span>*</span></p>
-                                <input type="text" name="street" placeholder="Улица" class="checkout__input__add">
-                                <input type="text" name="building" placeholder="Номер дома"
-                                       class="checkout__input__add">
+                                <input type="text" name="street" placeholder="Улица" class="checkout__input__add form-control @error('street') is-invalid @else is-valid @enderror">
+                                @error('street')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                                <input type="text" name="building" placeholder="Номер дома" class="checkout__input__add form-control @error('building') is-invalid @else is-valid @enderror">
+                                @error('building')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                                 <input type="text" name="apartment" placeholder="Квартира\офис">
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>Номер телефона<span>*</span></p>
-                                        <input name="phone" type="text">
+                                        <input type="text" name="phone" placeholder="Телефон" class="form-control @error('phone') is-invalid @else is-valid @enderror" id="phone" value="{{ old('phone') }}">
+                                        @error('phone')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -66,11 +77,17 @@
                                 </div>
                                 <div class="checkout__input">
                                     <p>Email</p>
-                                    <input name="email" type="text">
+                                    <input type="email" name="email" placeholder="email" class="form-control @error('email') is-invalid @else is-valid @enderror" id="email" aria-describedby="emailHelp" value="{{ old('email') }}">
+                                    @error('email')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="checkout__input">
                                     <p>Пароль</p>
-                                    <input name="password" type="password">
+                                    <input type="password" name="password" class="form-control @error('password') is-invalid @else is-valid @enderror" id="password" placeholder="Минимум 6 символов">
+                                    @error('password')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             @endif
                         </div>

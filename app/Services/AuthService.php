@@ -49,7 +49,7 @@ class AuthService
         return Auth::check();
     }
 
-    public function loginOrRegister(RegistrationNewUserDTO $userData, ?string $fingerprint = null, ?bool $api = null): string|bool
+    public function loginOrRegister(RegistrationNewUserDTO $userData, string $fingerprint, ?bool $api = null): string|bool
     {
         $email = $userData->getEmail();
         $user = User::query()->where('email', $email)->first();
