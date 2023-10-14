@@ -17,7 +17,7 @@ $recentArticles = !empty($recentArticles) ? $recentArticles : [];
                 <div class="blog__sidebar">
                     <div class="blog__sidebar__search">
                         <form action="{{ route('blog-search') }}" method="GET">
-                            <input type="text" placeholder="Поиск..." name="value">
+                            <input type="text" placeholder="Поиск..." name="q">
                             <button type="submit"><span class="icon_search"></span></button>
                         </form>
                     </div>

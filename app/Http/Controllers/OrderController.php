@@ -17,7 +17,7 @@ class OrderController extends Controller
     {
         $cart = Auth::check() ? $service->getUserCart(Auth::id()) : $service->getSessionCart(AuthHelper::fingerprint());
 
-        if ($cart->getId() == 0) {
+        if (empty($cart)) {
             return redirect('cart');
         } else {
             return view('checkout')->with('cart', $service->composeCartDto($cart));

@@ -16,7 +16,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property string|null $order_notes
  * @property string|null $email
  * @property string|null $password
- * @property bool $createAcc
+ * @property bool|null $createAcc
  */
 class OrderRequest extends FormRequest
 {
@@ -44,7 +44,7 @@ class OrderRequest extends FormRequest
             'email' => 'email|nullable|required_if:createAcc,1',
             'password' => 'string|nullable|required_if:createAcc,1|min:6',
             'orderNotes' => 'string|nullable',
-            'createAcc' => 'bool',
+            'createAcc' => 'bool|nullable',
         ];
     }
 
@@ -134,11 +134,11 @@ class OrderRequest extends FormRequest
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function isCreateAcc(): bool
+    public function isCreateAcc(): ?bool
     {
-        return $this->createAcc;
+        return $this->input('create_acc');
     }
 
     public function composeOrderDTO(): GetOrderDTO
