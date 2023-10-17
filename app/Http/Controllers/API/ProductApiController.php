@@ -12,6 +12,7 @@ use App\Http\Resources\RecommendedProductResource;
 use App\Services\DTO\FilterForCatalogueDTO;
 use App\Services\ProductService;
 use App\Services\UserFavoriteProductService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class ProductApiController extends Controller
@@ -50,19 +51,23 @@ class ProductApiController extends Controller
         return ProductShortResource::collection($service->getFavoriteProducts($userId));
     }
 
-    public function addToUserFavoriteProducts(UserFavoriteProductService $service, FavoriteProductRequest $request): AnonymousResourceCollection
+    public function addToUserFavoriteProducts(UserFavoriteProductService $service, FavoriteProductRequest $request): JsonResponse
     {
         $userId = auth('sanctum')->id();
         $productAlias = $request->getProductAlias();
+        $service->addProductToFavorite($userId, $productAlias);
+        $countFavoriteProducts = $service->getCountFavoriteProducts($userId);
 
-        return ProductShortResource::collection($service->addProductToFavorite($userId, $productAlias));
+        return new JsonResponse(['countFavorite' => $countFavoriteProducts]);
     }
 
-    public function removeProductFromFavorite(UserFavoriteProductService $service, FavoriteProductRequest $request): AnonymousResourceCollection
+    public function removeProductFromFavorite(UserFavoriteProductService $service, FavoriteProductRequest $request): JsonResponse
     {
         $userId = auth('sanctum')->id();
         $productAlias = $request->getProductAlias();
+        $service->removeProductFromFavorite($userId, $productAlias);
+        $countFavoriteProducts = $service->getCountFavoriteProducts($userId);
 
-        return ProductShortResource::collection($service->removeProductFromFavorite($userId, $productAlias));
+        return new JsonResponse(['countFavorite' => $countFavoriteProducts]);
     }
 }
