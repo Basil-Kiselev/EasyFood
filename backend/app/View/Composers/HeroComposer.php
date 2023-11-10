@@ -4,6 +4,7 @@ namespace App\View\Composers;
 
 use App\Models\Setting;
 use App\Services\CategoryService;
+use App\Services\DTO\SettingDTO;
 use App\Services\SettingService;
 use Illuminate\View\View;
 
@@ -13,8 +14,20 @@ class HeroComposer
     {
         $categoryService = new CategoryService();
         $settingService = new SettingService();
+
+        /** @var SettingDTO[] $settingsDto */
+        $settingsDto = $settingService->getSettingsByCodes([
+            Setting::CODE_PHONE,
+        ]);
+
+        $settingsCollectionDto = collect($settingsDto);
+
+        $settings = $settingsCollectionDto->mapWithKeys(function (SettingDTO $settingDto) {
+            return [$settingDto->getCode() => $settingDto->getValue()];
+        });
+
         $view
-            ->with('phone', $settingService->getSettingByCode(Setting::CODE_PHONE))
+            ->with('phone', $settings['phone'] ?? null)
             ->with('categories', $categoryService->getCategories());
     }
 }

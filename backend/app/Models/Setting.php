@@ -16,6 +16,7 @@ class Setting extends Model
 {
     use HasFactory;
 
+    public const CACHE_SETTINGS_TAG = 'settings';
     public const CODE_PHONE = 'phone';
     public const CODE_ADDRESS = 'address';
     public const CODE_EMAIL = 'email';

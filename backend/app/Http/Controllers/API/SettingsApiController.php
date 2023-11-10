@@ -12,9 +12,6 @@ class SettingsApiController extends Controller
 {
     public function getSettings(SettingService $service, SettingsRequest $request): AnonymousResourceCollection
     {
-        $settingType = $request->getType();
-        $settingCode = $request->getCodes();
-
-        return SettingsResource::collection($service->getSettingByParam($settingType, $settingCode));
+        return SettingsResource::collection($service->getSettingsByCodes($request->getCodes()));
     }
 }

@@ -15,8 +15,5 @@ use Illuminate\Support\Facades\Artisan;
 */
 
 Artisan::command('inspire', function () {
-    $oldFile = 'storage/img/article_img/how_right_eat.jpg';
-    $newFile = 'public/img/2.jpg';
-    copy($oldFile, $newFile);
-
+    $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
