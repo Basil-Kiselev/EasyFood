@@ -5,19 +5,35 @@ namespace App\Services;
 use App\Models\FeedbackMessage;
 use App\Models\Setting;
 use App\Services\DTO\GetContactsDTO;
+use App\Services\DTO\SettingDTO;
 
 class ContactsService
 {
     public function getContactsData(): GetContactsDTO
     {
-        $service = new SettingService();
+        $settingService = new SettingService();
+
+        /** @var SettingDTO[] $settingsDto */
+        $settingsDto = $settingService->getSettingsByCodes([
+            Setting::CODE_PHONE,
+            Setting::CODE_ADDRESS,
+            Setting::CODE_EMAIL,
+            Setting::CODE_WORKDAY_START,
+            Setting::CODE_WORKDAY_END
+        ]);
+
+        $settingsCollectionDto = collect($settingsDto);
+
+        $settings = $settingsCollectionDto->mapWithKeys(function (SettingDTO $settingDto) {
+            return [$settingDto->getCode() => $settingDto->getValue()];
+        });
 
         return new GetContactsDTO(
-            phone: $service->getSettingByCode(Setting::CODE_PHONE),
-            address: $service->getSettingByCode(Setting::CODE_ADDRESS),
-            email: $service->getSettingByCode(Setting::CODE_EMAIL),
-            timeOpen: $service->getSettingByCode(Setting::CODE_WORKDAY_START),
-            timeClose: $service->getSettingByCode(Setting::CODE_WORKDAY_END),
+            phone: $settings['phone'],
+            address: $settings['address'],
+            email: $settings['email'],
+            timeOpen: $settings['workday_start'],
+            timeClose: $settings['workday_end'],
         );
     }
 

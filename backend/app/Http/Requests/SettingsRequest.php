@@ -5,7 +5,6 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * @property string|null $type
  * @property array|null $codes
  */
 
@@ -27,25 +26,16 @@ class SettingsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type' => 'string|nullable',
-            'codes' => 'array|nullable',
+            'codes' => 'array|required',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'type.string' => 'Тип должен быть строкой',
-            'codes.array' => 'Коды должны быть массивом',
+            'codes.array' => 'Коды настроек должны быть массивом',
+            'codes.required' => 'Коды настроек обязательны'
         ];
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getType(): ?string
-    {
-        return $this->type;
     }
 
     /**

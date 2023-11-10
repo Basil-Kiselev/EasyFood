@@ -2,12 +2,12 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Setting;
+use App\Services\DTO\SettingDTO;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * @property Setting $resource
+ * @property SettingDTO $resource
  */
 class SettingsResource extends JsonResource
 {

@@ -3,29 +3,27 @@
 namespace App\Services;
 
 use App\Models\Setting;
-use Illuminate\Database\Eloquent\Collection;
+use App\Services\DTO\SettingDTO;
+use Illuminate\Support\Facades\Cache;
 
 class SettingService
 {
-    public function getSettingByCode(string $code): string|null
+    public function getSettingsByCodes(array $settingCodes): array
     {
-        return Setting::query()->where('code', $code)->value('value');
-    }
+        $settings = Cache::tags(Setting::CACHE_SETTINGS_TAG)->many($settingCodes);
+        $settingsByCodesDto = [];
 
-    public function getSettingByParam(?string $settingType = null, ?array $settingCode = null ): Collection|array
-    {
-        $result = [];
-        $query = Setting::query();
+        foreach ($settings as $settingCode => $settingValue) {
 
-        if (!empty($settingType)) {
-            $result = $query->where('type', $settingType);
+            if ($settingValue === null) {
+                $settingValue = Setting::query()->where('code', $settingCode)->value('value');
+                Cache::tags(Setting::CACHE_SETTINGS_TAG)->put($settingCode, $settingValue);
+            }
+
+            $settingsByCodesDto[] = new SettingDTO($settingCode, $settingValue);
         }
 
-        if (!empty($settingCode)) {
-            $result = $query->whereIn('code', $settingCode);
-        }
-
-        return $result->get();
+        return $settingsByCodesDto;
     }
 }
 
