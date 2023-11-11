@@ -64,7 +64,7 @@
                             </div>
                             <div class="checkout__input">
                                 <p>Комментарий к заказу</p>
-                                <input name="order_notes" type="text"
+                                <input name="orderNotes" type="text"
                                        placeholder="Уточните детали заказа или напишите ваши пожелания.">
                             </div>
                             @if(!\Illuminate\Support\Facades\Auth::check())
